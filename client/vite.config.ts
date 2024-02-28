@@ -27,15 +27,15 @@ export default defineConfig({
       cert: fs.readFileSync(path.resolve(__dirname, `${SSL_CERT}`))
     }
   },
-  build: {
-    rollupOptions: {
-      input: {
-        index: path.resolve(__dirname, "index.html"),
-        home: path.resolve(__dirname, "home.html"),
-        about: path.resolve(__dirname, "about.html"),
-        // about: path.resolve(__dirname, 'src/about/index.html'),
-      },
-    }
-  }
+  // build: {
+  //   rollupOptions: {
+  //     input: {
+  //       index: path.resolve(__dirname, "index.html"),
+  //       home: path.resolve(__dirname, "home.html"),
+  //       about: path.resolve(__dirname, "about.html"),
+  //       // about: path.resolve(__dirname, 'src/about/index.html'),
+  //     },
+  //   }
+  // }
 
 })
