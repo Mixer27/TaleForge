@@ -7,8 +7,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'; 
-import Home from './home/Home.tsx';
-import About from './about/About.tsx';
+import Home from './routes/home/Home.tsx';
+import About from './routes/about/About.tsx';
+import { CssBaseline } from '@mui/material';
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
+        <CssBaseline enableColorScheme/>
         <RouterProvider router={router} />
+
     </React.StrictMode>,
 )
