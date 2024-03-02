@@ -53,21 +53,32 @@ const SkillLvlSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Skill',
     },
-    lvl: SkillLvl,
+    lvl: {
+        type: String,
+        enum: Object.values(SkillLvl),
+    },
 })
 
 const TalentSchema = new Schema({
-    type: [Schema.Types.ObjectId],
-    ref: 'Talent'
+    talent: {
+        type: Schema.Types.ObjectId,
+        ref: 'Talent',
+    }
 })
 
 const PlayerCharacterSchema = new Schema({
     name: String,
-    race: Race,
+    race: {
+        type: String,
+        enum: Object.values(Race),
+    },
     currentCareer: String,
     PreviousCareers: [String],
     age: Number,
-    gender: Gender,
+    gender: {
+        type: String,
+        enum: Object.values(Gender),
+    },
     eyeColor: String,
     hairColor: String,
     starSign: String,
@@ -82,6 +93,6 @@ const PlayerCharacterSchema = new Schema({
     talents: [TalentSchema],
 })
 
-const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema); 
+const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
 
 export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet };
