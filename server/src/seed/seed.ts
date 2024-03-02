@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PlayerCharacterSheet } from "./models/playerCharacterSheet";
+import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 
 const example = {
     'name': 'John Doe',
@@ -34,7 +34,12 @@ const example = {
         'fatePoints': 2
     },
     'skills': [],
-    'talents': []
+    'talents': [],
+    'wealth': {
+        'gc': 5,
+        'sh': 2,
+        'pn': 10,
+    }
 }
 
 // Database connection
@@ -47,6 +52,7 @@ db.once("open", () => {
 });
 
 const seedDB = async () => {
+    await PlayerCharacterSheet.deleteMany({});
     const character = new PlayerCharacterSheet({ ...example });
     await character.save();
 }

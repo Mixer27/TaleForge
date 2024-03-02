@@ -92,6 +92,11 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     stats: PlayerStatsSchema,
     skills: [SkillLvlSchema],
     talents: [TalentSchema],
+    wealth: {
+        gc: Number,
+        sh: Number,
+        pn: Number,
+    }
 });
 var PlayerCharacterSheet = mongoose_1.default.model("PlayerCharacterSheet", PlayerCharacterSchema);
 exports.PlayerCharacterSheet = PlayerCharacterSheet;

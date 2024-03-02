@@ -1,9 +1,10 @@
 import 'dotenv/config'
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response, Router } from "express";
 import https from "https";
 import fs from "fs";
 import cors from "cors";
 import mongoose from 'mongoose';
+import { pcsheetRoutes } from './routes/playerCharacterSheet';
 
 const app: Express = express();
 
@@ -21,6 +22,10 @@ db.once("open", () => {
 
 app.use(express.json());
 app.use(cors());
+
+
+//  routes
+app.use("/pcsheet", pcsheetRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("HELLO WORLD!!!");

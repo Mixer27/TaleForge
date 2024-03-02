@@ -48,7 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
-var playerCharacterSheet_1 = require("./models/playerCharacterSheet");
+var playerCharacterSheet_1 = require("../models/playerCharacterSheet");
 var example = {
     'name': 'John Doe',
     'race': 'Elf',
@@ -82,7 +82,12 @@ var example = {
         'fatePoints': 2
     },
     'skills': [],
-    'talents': []
+    'talents': [],
+    'wealth': {
+        'gc': 5,
+        'sh': 2,
+        'pn': 10,
+    }
 };
 // Database connection
 var dbUrl = "mongodb://localhost:27017/taleForge";
@@ -96,10 +101,12 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
     var character;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
+            case 0: return [4 /*yield*/, playerCharacterSheet_1.PlayerCharacterSheet.deleteMany({})];
+            case 1:
+                _a.sent();
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, example));
                 return [4 /*yield*/, character.save()];
-            case 1:
+            case 2:
                 _a.sent();
                 return [2 /*return*/];
         }

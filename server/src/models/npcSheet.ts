@@ -30,6 +30,11 @@ const NpcSheetSchema = new Schema({
     armor: ArmorSchema,
     weapons: [String],
     equipment: [String],
+    wealth: {
+        gc: Number,
+        sh: Number,
+        pn: Number,
+    }
 })
 
 const NpcSheet = mongoose.model("NpcSheet", NpcSheetSchema)
