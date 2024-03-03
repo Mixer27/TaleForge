@@ -1,8 +1,14 @@
 import { NextFunction, Response, Request } from "express";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 
+interface reqParams {
+    id: string,
+}
+
 const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
-    const data = await PlayerCharacterSheet.findById("65e34fb6736db72bf5f9abbe")
+    const { id } = req.params;
+    console.log(id);
+    const data = await PlayerCharacterSheet.findById(id)
         .populate("skills")
         .populate("talents");
     res.json(data);

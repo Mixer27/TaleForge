@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <Test />
     },
     {
-        path: "/pcsheet",
+        path: "/pcsheet/:id",
         element: <Sheet />
     }
 ])

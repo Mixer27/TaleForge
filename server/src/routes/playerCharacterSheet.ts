@@ -9,4 +9,7 @@ const router = Router()
 router.route("/")
     .get(catchAsync(getPlayerCharacterSheet));
 
+router.route("/:id")
+    .get(catchAsync(getPlayerCharacterSheet))
+
 export { router as pcsheetRoutes }

@@ -1,12 +1,14 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
 import { PlayerCharacterSheet } from "../../types";
+import { useParams } from "react-router-dom";
 
 const Sheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
 
+    const { id } = useParams<{ id: string }>();
     useEffect(() => {
-        fetch("https://uwu.sex.pl:9000/pcsheet")
+        fetch(`https://uwu.sex.pl:9000/pcsheet/${id}`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -14,8 +16,11 @@ const Sheet: React.FC = () => {
                 console.log(data);
                 setSheet(data);
             })
+            .catch((error) => {
+                console.error("Error fetching data!", error);
+            })
 
-    }, []);
+    }, [id]);
 
     return (
         <Box>
