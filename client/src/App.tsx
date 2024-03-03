@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './routes/home/Home.tsx';
 import About from './routes/about/About.tsx';
 import Test from './routes/test/Test.tsx';
+import { Sheet } from './routes/pcsheet/Sheet.tsx';
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: "/test",
         element: <Test />
+    },
+    {
+        path: "/pcsheet",
+        element: <Sheet />
     }
 ])
 

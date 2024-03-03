@@ -88,6 +88,7 @@ const PlayerCharacterSchema = new Schema({
     birthplace: String,
     distinguishMarks: String,
     backstory: String,
+    armor: ArmorSchema,
     stats: PlayerStatsSchema,
     skills: [SkillLvlSchema],
     talents: [TalentSchema],
