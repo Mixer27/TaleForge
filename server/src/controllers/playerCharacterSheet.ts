@@ -7,7 +7,6 @@ interface reqParams {
 
 const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    console.log(id);
     const data = await PlayerCharacterSheet.findById(id)
         .populate("skills")
         .populate("talents");

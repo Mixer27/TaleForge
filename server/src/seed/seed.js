@@ -65,6 +65,12 @@ var example = {
     'birthplace': 'Small Village',
     'distinguishMarks': 'Scar on the left cheek',
     'backstory': 'Lost in the woods and raised by wolves.',
+    'armor': {
+        'head': 0,
+        'arms': 0,
+        'body': 0,
+        'legs': 0,
+    },
     'stats': {
         'weaponSkills': { 'starting': 30, 'advance': 5, 'current': 35 },
         'ballisticSkills': { 'starting': 25, 'advance': 5, 'current': 30 },

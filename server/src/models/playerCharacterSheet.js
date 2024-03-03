@@ -26,13 +26,13 @@ var ArmorSchema = new mongoose_2.Schema({
     arms: Number,
     body: Number,
     legs: Number,
-});
+}, { _id: false });
 exports.ArmorSchema = ArmorSchema;
 var PlayerStatSchema = new mongoose_2.Schema({
     starting: Number,
     advance: Number,
     current: Number,
-});
+}, { _id: false });
 var PlayerStatsSchema = new mongoose_2.Schema({
     weaponSkills: PlayerStatSchema,
     ballisticSkills: PlayerStatSchema,
@@ -48,7 +48,7 @@ var PlayerStatsSchema = new mongoose_2.Schema({
     movement: PlayerStatSchema,
     insanityPoints: Number,
     fatePoints: Number,
-});
+}, { _id: false });
 var SkillLvlSchema = new mongoose_2.Schema({
     skill: {
         type: mongoose_2.Schema.Types.ObjectId,
@@ -58,14 +58,14 @@ var SkillLvlSchema = new mongoose_2.Schema({
         type: String,
         enum: Object.values(SkillLvl),
     },
-});
+}, { _id: false });
 exports.SkillLvlSchema = SkillLvlSchema;
 var TalentSchema = new mongoose_2.Schema({
     talent: {
         type: mongoose_2.Schema.Types.ObjectId,
         ref: 'Talent',
     }
-});
+}, { _id: false });
 exports.TalentSchema = TalentSchema;
 var PlayerCharacterSchema = new mongoose_2.Schema({
     name: String,
@@ -89,6 +89,7 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     birthplace: String,
     distinguishMarks: String,
     backstory: String,
+    armor: ArmorSchema,
     stats: PlayerStatsSchema,
     skills: [SkillLvlSchema],
     talents: [TalentSchema],

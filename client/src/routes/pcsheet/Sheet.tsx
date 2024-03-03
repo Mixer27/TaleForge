@@ -26,6 +26,7 @@ const Sheet: React.FC = () => {
         <Box>
             <h1>{sheet.name}</h1>
             <h2>{sheet.race}</h2>
+            <h3>{sheet.currentCareer}</h3>
         </Box>
     )
 }

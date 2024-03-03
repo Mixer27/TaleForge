@@ -23,13 +23,13 @@ const ArmorSchema = new Schema({
     arms: Number,
     body: Number,
     legs: Number,
-});
+}, { _id: false });
 
 const PlayerStatSchema = new Schema({
     starting: Number,
     advance: Number,
     current: Number,
-});
+}, { _id: false });
 
 const PlayerStatsSchema: Schema = new Schema({
     weaponSkills: PlayerStatSchema,
@@ -46,7 +46,7 @@ const PlayerStatsSchema: Schema = new Schema({
     movement: PlayerStatSchema,
     insanityPoints: Number,
     fatePoints: Number,
-})
+}, { _id: false })
 
 const SkillLvlSchema = new Schema({
     skill: {
@@ -57,14 +57,14 @@ const SkillLvlSchema = new Schema({
         type: String,
         enum: Object.values(SkillLvl),
     },
-})
+}, { _id: false })
 
 const TalentSchema = new Schema({
     talent: {
         type: Schema.Types.ObjectId,
         ref: 'Talent',
     }
-})
+}, { _id: false })
 
 const PlayerCharacterSchema = new Schema({
     name: String,
