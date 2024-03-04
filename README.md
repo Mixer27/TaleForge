@@ -36,3 +36,24 @@ npm run dev-server # run server app in watch mode
 
 npm run start # run compiled javascript server app 
 ```
+
+# Plan pracy
+
+1. Teoria
+    1. MVC
+    1. REST API
+    1. Ewentualnie wzorce projektowe, których użyję
+1. Projekt aplikacji
+    1. Opis aplikacji i Przypadki użycia
+    1. Baza Danych
+        1. Użyte technologie - opis i dlaczego
+        2. Schemat Bazy danych
+    1. Klient
+        1. Użyte technologie - opis i dlaczego
+        2. Projekt GUI
+    1. Serwer
+        1. Użyte technologie - opis i dlaczego
+        2. Endpointy API
+1. Implementacja
+    1. Opis funkcjonalności + listingi
+    1. ...
