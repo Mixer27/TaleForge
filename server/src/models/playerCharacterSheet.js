@@ -68,6 +68,8 @@ var TalentSchema = new mongoose_2.Schema({
 }, { _id: false });
 exports.TalentSchema = TalentSchema;
 var PlayerCharacterSchema = new mongoose_2.Schema({
+    owner_id: mongoose_2.Schema.Types.ObjectId,
+    session_id: mongoose_2.Schema.Types.ObjectId,
     name: String,
     race: {
         type: String,

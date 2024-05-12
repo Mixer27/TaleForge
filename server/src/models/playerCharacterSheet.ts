@@ -67,6 +67,8 @@ const TalentSchema = new Schema({
 }, { _id: false })
 
 const PlayerCharacterSchema = new Schema({
+    owner_id: Schema.Types.ObjectId,
+    session_id: Schema.Types.ObjectId,
     name: String,
     race: {
         type: String,

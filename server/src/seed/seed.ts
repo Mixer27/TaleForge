@@ -1,7 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 
 const example = {
+    'owner_id': new mongoose.Types.ObjectId(),
+    'session_id': new mongoose.Types.ObjectId(),
     'name': 'John Doe',
     'race': 'Elf',
     'currentCareer': 'Adventurer',

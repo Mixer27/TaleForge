@@ -50,6 +50,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
 var playerCharacterSheet_1 = require("../models/playerCharacterSheet");
 var example = {
+    'owner_id': new mongoose_1.default.Types.ObjectId(),
+    'session_id': new mongoose_1.default.Types.ObjectId(),
     'name': 'John Doe',
     'race': 'Elf',
     'currentCareer': 'Adventurer',
