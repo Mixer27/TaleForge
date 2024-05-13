@@ -1,0 +1,8 @@
+.InfoCell {
+    background-color: #e0ded8;
+    color: #222;
+    /* border: #222 2px solid; */
+    border-top: none;
+    /* border-right: none; */
+    padding: 0;
+}

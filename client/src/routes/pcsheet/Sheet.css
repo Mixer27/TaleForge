@@ -1,0 +1,10 @@
+.Sheet {
+    padding: 2em;
+    background-color: #dbc797;
+    width: 70% !important;
+}
+
+.Empty > div{
+    background-color: #dbc797;
+    /* color: red; */
+}
