@@ -14,7 +14,7 @@ const CharacterStack: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Stack spacing={0}>
+            <Stack spacing={0} className="InfoGrid">
                 <CharacterSheetInfoHeader value="Character"></CharacterSheetInfoHeader>
                 <InfoCell cellName="Name" value={props.name}></InfoCell>
                 <InfoCell cellName="Race" value={props.race}></InfoCell>

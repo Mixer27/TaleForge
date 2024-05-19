@@ -22,7 +22,7 @@ const CharacterList: React.FC = () => {
         <>
             <ul>
                 {characterList.map(item => (
-                    <CharacterElement id={item._id} name={item.name} key={item._id}/>
+                    <CharacterElement id={item._id} name={item.name} key={item._id} />
                 ))}
             </ul>
         </>

@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { InfoCell } from "./InfoCell";
 import { CharacterSheetInfoHeader } from "./CharacterSheetInfoHeader";
+import './InfoGrid.css';
 
 interface Props {
     age: number,
@@ -20,7 +21,7 @@ const PersonalDetailsGrid: React.FC<Partial<Props>> = (props) => {
 
 
     return (
-        <Grid container>
+        <Grid container className="InfoGrid">
             <Grid item xs={12}>
                 <CharacterSheetInfoHeader value="Personal Details"/>
             </Grid>
