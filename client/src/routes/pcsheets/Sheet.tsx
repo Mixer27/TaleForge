@@ -12,7 +12,7 @@ const Sheet: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/pcsheet/${id}`)
+        fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`)
             .then((res: Response) => {
                 return res.json();
             })

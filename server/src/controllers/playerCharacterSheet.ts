@@ -14,4 +14,10 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
     // res.send("aaa");
 }
 
-export { getPlayerCharacterSheet }
+const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
+    const data = await PlayerCharacterSheet.find({})
+    console.log(data)
+    res.json(data)
+}
+
+export { getPlayerCharacterSheet, getPlayerCharacters }

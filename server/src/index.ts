@@ -25,7 +25,7 @@ app.use(cors());
 
 
 //  routes
-app.use("/pcsheet", pcsheetRoutes);
+app.use("/pcsheets", pcsheetRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("HELLO WORLD!!!");

@@ -65,6 +65,7 @@ interface Wealth {
 
 // Główny interfejs dla PlayerCharacterSheet
 interface PlayerCharacterSheet {
+    _id: string,
     name: string;
     race: Race;
     currentCareer: string;
