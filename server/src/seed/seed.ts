@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
+import { NpcSheet } from "../models/npcSheet";
 
 const example = {
     'owner_id': new mongoose.Types.ObjectId(),
@@ -21,9 +22,11 @@ const example = {
     'backstory': 'Lost in the woods and raised by wolves.',
     'armor': {
         'head': 0,
-        'arms': 0,
+        'l_arm': 0,
+        'r_arm': 0,
         'body': 0,
-        'legs': 0,
+        'l_leg': 0,
+        'r_leg': 0,
     },
     'stats': {
         'weaponSkills': { 'starting': 30, 'advance': 5, 'current': 35 },
@@ -36,8 +39,10 @@ const example = {
         'fellowship': { 'starting': 20, 'advance': 10, 'current': 30 },
         'attacks': { 'starting': 1, 'advance': 0, 'current': 1 },
         'wounds': { 'starting': 12, 'advance': 3, 'current': 15 },
-        'magic': { 'starting': 0, 'advance': 1, 'current': 1 },
+        'strengthBonus': 4,
+        'toughnessBonus': 4,
         'movement': { 'starting': 4, 'advance': 0, 'current': 4 },
+        'magic': { 'starting': 0, 'advance': 1, 'current': 1 },
         'insanityPoints': 4,
         'fatePoints': 2
     },

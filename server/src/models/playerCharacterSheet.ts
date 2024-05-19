@@ -1,34 +1,36 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-enum Race {
-    HALFLING = "Halfing",
-    HUMAN = "Human",
-    ELF = "Elf",
-    DWARF = "Dwarf",
-}
-enum Gender {
-    MALE = "Male",
-    FEMALE = "Female",
-}
+const Race = Object.freeze({
+    HALFLING: "Halfling",
+    HUMAN: "Human",
+    ELF: "Elf",
+    DWARF: "Dwarf",
+});
+const Gender = Object.freeze({
+    MALE: "Male",
+    FEMALE: "Female",
+});
 
-enum SkillLvl {
-    NORMAL = "Normal",
-    ADVANCED = "Advanced",
-    EXPERT = "Expert",
-}
+const SkillLvl = Object.freeze({
+    NORMAL: "Normal",
+    ADVANCED: "Advanced",
+    EXPERT: "Expert",
+});
 
 const ArmorSchema = new Schema({
-    head: Number,
-    arms: Number,
-    body: Number,
-    legs: Number,
+    head: { type: Number, required: true, default: 0 },
+    l_arm: { type: Number, required: true, default: 0 },
+    r_arm: { type: Number, required: true, default: 0 },
+    body: { type: Number, required: true, default: 0 },
+    l_leg: { type: Number, required: true, default: 0 },
+    r_leg: { type: Number, required: true, default: 0 },
 }, { _id: false });
 
 const PlayerStatSchema = new Schema({
-    starting: Number,
-    advance: Number,
-    current: Number,
+    starting: { type: Number, required: true, default: 0 },
+    advance: { type: Number, required: true, default: 0 },
+    current: { type: Number, required: true, default: 0 },
 }, { _id: false });
 
 const PlayerStatsSchema: Schema = new Schema({
@@ -42,20 +44,24 @@ const PlayerStatsSchema: Schema = new Schema({
     fellowship: PlayerStatSchema,
     attacks: PlayerStatSchema,
     wounds: PlayerStatSchema,
+    strengthBonus: { type: Number, required: true, default: 0 },
+    toughnessBonus: { type: Number, required: true, default: 0 },
     magic: PlayerStatSchema,
     movement: PlayerStatSchema,
-    insanityPoints: Number,
-    fatePoints: Number,
+    insanityPoints: { type: Number, required: true, default: 0 },
+    fatePoints: { type: Number, required: true, default: 0 },
 }, { _id: false })
 
 const SkillLvlSchema = new Schema({
     skill: {
         type: Schema.Types.ObjectId,
         ref: 'Skill',
+        required: true,
     },
     lvl: {
         type: String,
         enum: Object.values(SkillLvl),
+        required: true,
     },
 }, { _id: false })
 
@@ -63,13 +69,14 @@ const TalentSchema = new Schema({
     talent: {
         type: Schema.Types.ObjectId,
         ref: 'Talent',
+        required: true,
     }
 }, { _id: false })
 
 const PlayerCharacterSchema = new Schema({
-    owner_id: Schema.Types.ObjectId,
-    session_id: Schema.Types.ObjectId,
-    name: String,
+    owner_id: { type: Schema.Types.ObjectId, required: true, index: true },
+    session_id: { type: Schema.Types.ObjectId, required: true, index: true },
+    name: { type: String, required: true },
     race: {
         type: String,
         enum: Object.values(Race),
@@ -81,23 +88,23 @@ const PlayerCharacterSchema = new Schema({
         type: String,
         enum: Object.values(Gender),
     },
-    eyeColor: String,
-    hairColor: String,
-    starSign: String,
-    weight: Number,
-    height: Number,
-    numOfSiblings: Number,
-    birthplace: String,
-    distinguishMarks: String,
-    backstory: String,
-    armor: ArmorSchema,
-    stats: PlayerStatsSchema,
-    skills: [SkillLvlSchema],
-    talents: [TalentSchema],
+    eyeColor: { type: String, default: "" },
+    hairColor: { type: String, default: "" },
+    starSign: { type: String, default: "" },
+    weight: { type: Number, default: 0 },
+    height: { type: Number, default: 0 },
+    numOfSiblings: { type: Number, default: 0 },
+    birthplace: { type: String, default: "" },
+    distinguishMarks: { type: String, default: "" },
+    backstory: { type: String, default: "" },
+    armor: { type: ArmorSchema, required: true },
+    stats: { type: PlayerStatsSchema, required: true },
+    skills: { type: [SkillLvlSchema], default: [] },
+    talents: { type: [TalentSchema], default: [] },
     wealth: {
-        gc: Number,
-        sh: Number,
-        pn: Number,
+        gc: { type: Number, default: 0 },
+        sh: { type: Number, default: 0 },
+        pn: { type: Number, default: 0 },
     }
 })
 
