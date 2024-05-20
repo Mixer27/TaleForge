@@ -20,4 +20,12 @@ const getPlayerCharacters = async (req: Request, res: Response, next: NextFuncti
     res.json(data)
 }
 
-export { getPlayerCharacterSheet, getPlayerCharacters }
+const updatePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const updatedSheet = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true });
+    res.send(updatedSheet);
+}
+
+export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet }

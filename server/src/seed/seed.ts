@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 import { NpcSheet } from "../models/npcSheet";
 
-const example = {
+const examples = [{
     'owner_id': new mongoose.Types.ObjectId(),
     'session_id': new mongoose.Types.ObjectId(),
     'name': 'John Doe',
@@ -53,7 +53,60 @@ const example = {
         'sh': 2,
         'pn': 10,
     }
+},
+{
+    owner_id: new mongoose.Types.ObjectId(),
+    session_id: new mongoose.Types.ObjectId(),
+    name: "Reinhardt Falken",
+    race: "Human",
+    currentCareer: "Warrior",
+    PreviousCareers: ["Farmer"],
+    age: 30,
+    gender: "Male",
+    eyeColor: "Blue",
+    hairColor: "Black",
+    starSign: "Leo",
+    weight: 180,
+    height: 6,
+    numOfSiblings: 2,
+    birthplace: "Unknown",
+    distinguishMarks: "Scar on left cheek",
+    backstory: "A seasoned warrior with a mysterious past.",
+    armor: {
+        head: 2,
+        l_arm: 1,
+        r_arm: 1,
+        body: 3,
+        l_leg: 1,
+        r_leg: 1,
+    },
+    stats: {
+        weaponSkills: { starting: 30, advance: 5, current: 35 },
+        ballisticSkills: { starting: 25, advance: 5, current: 30 },
+        strength: { starting: 40, advance: 10, current: 50 },
+        toughness: { starting: 30, advance: 5, current: 35 },
+        agility: { starting: 20, advance: 0, current: 20 },
+        intelligence: { starting: 25, advance: 5, current: 30 },
+        willPower: { starting: 30, advance: 10, current: 40 },
+        fellowship: { starting: 20, advance: 5, current: 25 },
+        attacks: { starting: 1, advance: 1, current: 2 },
+        wounds: { starting: 10, advance: 5, current: 15 },
+        strengthBonus: 5,
+        toughnessBonus: 3,
+        magic: { starting: 0, advance: 0, current: 0 },
+        movement: { starting: 4, advance: 0, current: 4 },
+        insanityPoints: 0,
+        fatePoints: 2,
+    },
+    skills: [],
+    talents: [],
+    wealth: {
+        gc: 10,
+        sh: 20,
+        pn: 30,
+    }
 }
+]
 
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
@@ -66,8 +119,10 @@ db.once("open", () => {
 
 const seedDB = async () => {
     await PlayerCharacterSheet.deleteMany({});
-    const character = new PlayerCharacterSheet({ ...example });
-    await character.save();
+    for (const e of examples) {
+        const character = new PlayerCharacterSheet({ ...e });
+        await character.save();
+    }
 }
 
 seedDB().then(() => {

@@ -1,7 +1,7 @@
 import { Container, Grid } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import { PlayerCharacterSheet } from "../../types";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CharacterStack } from "../../components/characterSheet/CharacterStack";
 import { PersonalDetailsGrid } from "../../components/characterSheet/PersonalDetailsGrid";
 import "./Sheet.css";
@@ -10,10 +10,10 @@ import Button from "@mui/material/Button";
 
 const Sheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
-
+    const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`)
+        fetch(`https://194.59.140.170:9000/pcsheets/${id}`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -26,9 +26,29 @@ const Sheet: React.FC = () => {
 
     }, [id]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         console.log(sheet);
+        try {
+            const response = await fetch(`https://194.59.140.170:9000/pcsheets/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(sheet),
+            });
+            
+            if (!response.ok) {
+                throw new Error("Failed to update character sheet");
+            }
+
+            const updatedSheet = await response.json();
+            console.log("Character sheet updated succesfully.", updatedSheet);
+            navigate(`/pcsheets/${id}`);
+
+        } catch (error) {
+            console.error("Error with patch request", error);
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
