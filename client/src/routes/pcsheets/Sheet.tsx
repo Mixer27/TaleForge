@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PlayerCharacterSheet } from "../../types";
 import { useParams } from "react-router-dom";
 import { CharacterStack } from "../../components/characterSheet/CharacterStack";
@@ -26,16 +26,32 @@ const Sheet: React.FC = () => {
 
     }, [id]);
 
-    // const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //     })
-    // }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log(sheet);
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        // console.log("zmieniam sheet", name, value)
+        if (name == "previousCareers") {
+            setSheet({
+                ...sheet,
+                PreviousCareers: value.split(",").map((c) => c.trim())
+            })
+        }
+        else {
+            setSheet({
+                ...sheet,
+                [name]: value,
+            });
+        }
+        // console.log(sheet)
+    }
 
     return (
-        <Container className="Sheet">
-            <Button variant="contained" color="success" sx={{mb:3}}>Edit</Button>
+        <Container component="form" onSubmit={handleSubmit} className="Sheet">
+            <Button variant="contained" color="success" type="submit" sx={{ mb: 3 }}>Edit</Button>
             <Grid container className="Empty" spacing={2}>
                 <Grid item xs={6} className="Empt">
                     <Grid container rowSpacing={5} spacing={2}>
@@ -44,7 +60,8 @@ const Sheet: React.FC = () => {
                                 name={String(sheet.name)}
                                 race={String(sheet.race)}
                                 currentCareer={String(sheet.currentCareer)}
-                                previousCareer={sheet.PreviousCareers?.join(", ")}
+                                previousCareers={sheet.PreviousCareers?.join(", ")}
+                                onChange={handleChange}
                             />
                         </Grid>
                         <Grid item className="Empt" xs={12}>
@@ -58,7 +75,8 @@ const Sheet: React.FC = () => {
                                 numOfSiblings={sheet.numOfSiblings}
                                 starSign={sheet.starSign}
                                 birthplace={sheet.birthplace}
-                                distinguishMark={sheet.distinguishMarks}
+                                distinguishMarks={sheet.distinguishMarks}
+                                onChange={handleChange}
                             />
                         </Grid>
                     </Grid>
