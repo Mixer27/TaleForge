@@ -10,7 +10,7 @@ interface Props {
 }
 
 const InfoCell: React.FC<Props> = (props) => {
-    const [value, setValue] = useState(props.value);
+    const [value, setValue] = useState("");
     useEffect(() => {
         setValue(props.value ? props.value.toString() : "");
     }, [props.value])
