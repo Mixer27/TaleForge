@@ -7,14 +7,16 @@ import ListItemText from "@mui/material/ListItemText";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Drawer from "@mui/material/Drawer";
 import { DRAWER_WIDTH } from "../../constatns";
-import { useTheme } from "@emotion/react";
-import { Theme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, useTheme, Theme } from "@mui/material";
 import React from "react";
 
 interface Props {
     isOpen: boolean,
     toggleDrawer: (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+}
+
+declare module '@mui/material/styles' {
+    interface CustomTheme extends Theme { }
 }
 
 const MainDrawer: React.FC<Props> = (props) => {
