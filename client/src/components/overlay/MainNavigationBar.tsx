@@ -27,12 +27,6 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 }));
 
 const MainNavigationBar: React.FC<Props> = (props) => {
-    // const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-
-    // const toggleDrawer = (newValue: boolean) => () => {
-    //     setIsDrawerOpen(newValue);
-    //     console.log(isDrawerOpen)
-    // }
 
     return (
         <>

@@ -32,7 +32,9 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: `${DRAWER_WIDTH}px`,
+        [theme.breakpoints.up('md')]: {
+            marginLeft: `${DRAWER_WIDTH}px`,
+        }
     }),
 }));
 
@@ -69,7 +71,6 @@ function App() {
 
     const toggleDrawer = (newValue: boolean) => () => {
         setIsDrawerOpen(newValue);
-        console.log(isDrawerOpen);
     }
 
     return (
@@ -78,9 +79,7 @@ function App() {
                 <Box sx={{ display: 'flex' }}>
                     <MainDrawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
                     <Box sx={{ flexGrow: 1 }}>
-                        {/* <NavigationBarShift open={isDrawerOpen}> */}
-                            <MainNavigationBar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-                        {/* </NavigationBarShift> */}
+                        <MainNavigationBar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
                         <Main open={isDrawerOpen} onClick={toggleDrawer(false)}>
                             <RouterProvider router={router} />
                         </Main>
