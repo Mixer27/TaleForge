@@ -1,15 +1,17 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PlayerCharacterSheet } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
 import { CharacterSheetTab } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
+import { DrawerContext } from "../../context/drawerContext";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
     const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
+    const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
@@ -79,15 +81,14 @@ const WHPcSheet: React.FC = () => {
 
     return (
         <>
-            <MainNavigationBar headerText={sheet?.name} />
             <TabContext value={currentTab}>
-                <CharacterSheetNavBar currentTab={currentTab} handleChange={handleChangeTab} />
-                <TabPanel value={CharacterSheetTab.Stats}>
-                    <StatsDisplay stats={sheet.stats} />
-                </TabPanel>
-                <TabPanel value={CharacterSheetTab.Skills}>
-                    AAA
-                </TabPanel>
+                <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
+                    <TabPanel value={CharacterSheetTab.Stats}>
+                        <StatsDisplay stats={sheet.stats} />
+                    </TabPanel>
+                    <TabPanel value={CharacterSheetTab.Skills}>
+                        AAA
+                    </TabPanel>
             </TabContext>
         </>
     )

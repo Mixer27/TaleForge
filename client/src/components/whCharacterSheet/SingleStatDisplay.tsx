@@ -1,3 +1,4 @@
+import { GridItem } from "./GridItem"
 
 interface Props {
     statName: string,
@@ -8,6 +9,9 @@ const SingleStatDisplay: React.FC<Props> = (props) => {
 
     return (
         <>
+            <GridItem>
+                {props.statName} {props.stat}
+            </GridItem>
         </>
     )
 }

@@ -12,7 +12,8 @@ import { MainDrawer } from './MainDrawer';
 interface Props {
     // isDrawerOpen: boolean,
     // toggleDrawer: (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
-    headerText?: string, 
+    headerText?: string,
+    options?: React.ReactNode
 }
 
 const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -24,9 +25,12 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
         duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: 0,
+    width: "100%",
     ...(open && {
-        width: `calc(100% - ${DRAWER_WIDTH}px)`,
-        marginLeft: `${DRAWER_WIDTH}px`,
+        [theme.breakpoints.up('md')]: {
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
+            marginLeft: `${DRAWER_WIDTH}px`,
+        },
     }),
 }));
 
@@ -34,13 +38,13 @@ const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
 
     return (
-        <>  
+        <>
             <MainDrawer isOpen={drawerContext.isDrawerOpen} toggleDrawer={drawerContext.toggleDrawer} />
             <NavigationBarShift open={drawerContext.isDrawerOpen}>
-                <Box sx={{flexGrow: 1}}>
-                    <AppBar position="static" sx={{backgroundColor: "#222"}} elevation={0}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={0}>
                         <Toolbar>
-                            <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{marginRight: 1}}>
+                            <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{ marginRight: 1 }}>
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6">{props?.headerText}</Typography>
@@ -48,6 +52,9 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                         </Toolbar>
                     </AppBar>
                 </Box>
+                {props.options && (
+                    props.options
+                )}
             </NavigationBarShift>
             {/* <MainDrawer isOpen={props.isDrawerOpen} toggleDrawer={props.toggleDrawer}/> */}
         </>
