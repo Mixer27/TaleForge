@@ -5,7 +5,7 @@ import Test from './routes/test/Test.tsx';
 import { Sheet } from './routes/pcsheets/Sheet.tsx';
 import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
-import { Box, CssBaseline } from '@mui/material';
+import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
 import { DRAWER_WIDTH } from './constatns.tsx';
 import { useState } from 'react';
 import { MainDrawer } from './components/overlay/MainDrawer.tsx';
@@ -26,6 +26,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
+    marginTop: "2em",
     marginLeft: 0,
     ...(open && {
         transition: theme.transitions.create('margin', {
@@ -68,10 +69,17 @@ const router = createBrowserRouter([
 
 function App() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const theme: Theme = useTheme();
+    const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
 
     const toggleDrawer = (newValue: boolean) => () => {
         setIsDrawerOpen(newValue);
     }
+    const handleMainToggleDrawer = () => {
+        if (isBelowMd && isDrawerOpen) {
+            setIsDrawerOpen(false);
+        }
+    } 
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -80,7 +88,7 @@ function App() {
                     <MainDrawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
                     <Box sx={{ flexGrow: 1 }}>
                         <MainNavigationBar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-                        <Main open={isDrawerOpen} onClick={toggleDrawer(false)}>
+                        <Main open={isDrawerOpen} onClick={handleMainToggleDrawer}>
                             <RouterProvider router={router} />
                         </Main>
                     </Box>
