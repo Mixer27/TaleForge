@@ -90,4 +90,15 @@ interface PlayerCharacterSheet {
     wealth: Wealth;
 }
 
+const CharacterSheetTab = {
+    Stats: "Stats",
+    Skills: "Skills",
+    Talents: "Talents",
+    Spells: "Spells",
+    Inventory: "Inventory",
+    Details: "Details",
+
+} as const;
+
 export type { PlayerCharacterSheet, PlayerStats, PlayerStat };
+export { CharacterSheetTab }

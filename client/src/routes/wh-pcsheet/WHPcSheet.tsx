@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PlayerCharacterSheet } from "../../types";
-import { Box } from "@mui/material";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
+import { CharacterSheetTab } from "../../types";
+import { TabContext, TabPanel } from "@mui/lab";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
+    const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
@@ -67,6 +69,10 @@ const WHPcSheet: React.FC = () => {
         // console.log(sheet)
     }
 
+    const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {
+        setCurrentTab(newValue);
+    }
+
     useEffect(() => {
         console.log(sheet);
     }, [sheet]);
@@ -74,10 +80,15 @@ const WHPcSheet: React.FC = () => {
     return (
         <>
             <MainNavigationBar headerText={sheet?.name} />
-            <CharacterSheetNavBar />
-            <Box m={2}>
-                <StatsDisplay stats={sheet.stats} />
-            </Box>
+            <TabContext value={currentTab}>
+                <CharacterSheetNavBar currentTab={currentTab} handleChange={handleChangeTab} />
+                <TabPanel value={CharacterSheetTab.Stats}>
+                    <StatsDisplay stats={sheet.stats} />
+                </TabPanel>
+                <TabPanel value={CharacterSheetTab.Skills}>
+                    AAA
+                </TabPanel>
+            </TabContext>
         </>
     )
 }
