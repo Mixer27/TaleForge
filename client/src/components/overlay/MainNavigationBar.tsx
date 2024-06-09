@@ -2,7 +2,7 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 // import { useState } from 'react'
-import { IconButton, styled } from '@mui/material'
+import { Box, IconButton, Link, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { DRAWER_WIDTH } from '../../constatns';
 
@@ -31,16 +31,17 @@ const MainNavigationBar: React.FC<Props> = (props) => {
     return (
         <>
             <NavigationBarShift open={props.isDrawerOpen}>
-                <AppBar position="static" color="primary">
-                    <Toolbar>
-                        <IconButton onClick={props.toggleDrawer(!props.isDrawerOpen)}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6">
-                            TaleForge
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <Box sx={{flexGrow: 1}}>
+                    <AppBar position="static" sx={{backgroundColor: "#222"}} elevation={0}>
+                        <Toolbar>
+                            <IconButton onClick={props.toggleDrawer(!props.isDrawerOpen)} sx={{marginRight: 1}}>
+                                <MenuIcon />
+                            </IconButton>
+                            <Link href="/home" variant='h6' underline='none' color="inherit" >TaleForge</Link>
+                            <Typography variant="h6" sx={{ marginLeft: "auto" }}>User</Typography>
+                        </Toolbar>
+                    </AppBar>
+                </Box>
             </NavigationBarShift>
             {/* <MainDrawer isOpen={props.isDrawerOpen} toggleDrawer={props.toggleDrawer}/> */}
         </>

@@ -2,7 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './routes/home/Home.tsx';
 import About from './routes/about/About.tsx';
 import Test from './routes/test/Test.tsx';
-import { Sheet } from './routes/pcsheets/Sheet.tsx';
+// import { Sheet } from './routes/pcsheets/Sheet.tsx';
+import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
 import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
@@ -21,12 +22,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
 }>(({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginTop: "2em",
+    marginTop: "4em",
     marginLeft: 0,
     ...(open && {
         transition: theme.transitions.create('margin', {
@@ -59,11 +60,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/pcsheets",
-        element: <Sheet />
+        element: <WHPcSheet />
     },
     {
         path: "/pcsheets/:id",
-        element: <Sheet />
+        element: <WHPcSheet />
     }
 ])
 

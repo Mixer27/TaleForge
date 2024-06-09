@@ -1,10 +1,10 @@
+import { Typography } from "@mui/material";
 import { CharacterList } from "../../components/characterSheets/CharacterList";
 
 const Home: React.FC = () => {
     return (
         <>
-            <h1>Home</h1>
-            {/* <a href="/about">about</a> */}
+            <Typography variant="h4">Home</Typography>
             <CharacterList />
         </>
     )

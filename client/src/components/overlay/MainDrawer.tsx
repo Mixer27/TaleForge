@@ -32,7 +32,7 @@ const MainDrawer: React.FC<Props> = (props) => {
     const DrawerList = (
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
+                {['Home', 'Campaigns', 'Characters', 'Beastiary', 'Rule Book', 'About'].map((text) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -48,7 +48,7 @@ const MainDrawer: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Drawer open={props.isOpen} onClose={props.toggleDrawer(false)} variant="persistent">
+            <Drawer open={props.isOpen} onClose={props.toggleDrawer(false)} variant="persistent" color="secondary">
                 {DrawerList}
             </Drawer>
         </>
