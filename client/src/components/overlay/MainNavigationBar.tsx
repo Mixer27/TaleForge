@@ -2,13 +2,17 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 // import { useState } from 'react'
-import { Box, IconButton, Link, styled } from '@mui/material'
+import { Box, IconButton, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import { DRAWER_WIDTH } from '../../constatns';
+import { DRAWER_WIDTH } from '../../constants';
+import { DrawerContext } from '../../context/drawerContext';
+import { useContext } from 'react';
+import { MainDrawer } from './MainDrawer';
 
 interface Props {
-    isDrawerOpen: boolean,
-    toggleDrawer: (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+    // isDrawerOpen: boolean,
+    // toggleDrawer: (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+    headerText?: string, 
 }
 
 const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -27,17 +31,19 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 }));
 
 const MainNavigationBar: React.FC<Props> = (props) => {
+    const drawerContext = useContext(DrawerContext);
 
     return (
-        <>
-            <NavigationBarShift open={props.isDrawerOpen}>
+        <>  
+            <MainDrawer isOpen={drawerContext.isDrawerOpen} toggleDrawer={drawerContext.toggleDrawer} />
+            <NavigationBarShift open={drawerContext.isDrawerOpen}>
                 <Box sx={{flexGrow: 1}}>
                     <AppBar position="static" sx={{backgroundColor: "#222"}} elevation={0}>
                         <Toolbar>
-                            <IconButton onClick={props.toggleDrawer(!props.isDrawerOpen)} sx={{marginRight: 1}}>
+                            <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{marginRight: 1}}>
                                 <MenuIcon />
                             </IconButton>
-                            <Link href="/home" variant='h6' underline='none' color="inherit" >TaleForge</Link>
+                            <Typography variant="h6">{props?.headerText}</Typography>
                             <Typography variant="h6" sx={{ marginLeft: "auto" }}>User</Typography>
                         </Toolbar>
                     </AppBar>

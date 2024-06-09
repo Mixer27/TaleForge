@@ -44,6 +44,8 @@ interface PlayerStats {
     wounds: PlayerStat;
     magic: PlayerStat;
     movement: PlayerStat;
+    strengthBonus: number;
+    toughnessBonus: number;
     insanityPoints: number;
     fatePoints: number;
 }
@@ -88,4 +90,4 @@ interface PlayerCharacterSheet {
     wealth: Wealth;
 }
 
-export type { PlayerCharacterSheet };
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat };

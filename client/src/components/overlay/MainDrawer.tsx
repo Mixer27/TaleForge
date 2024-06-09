@@ -5,10 +5,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import HomeIcon from '@mui/icons-material/Home';
 import Drawer from "@mui/material/Drawer";
-import { DRAWER_WIDTH } from "../../constatns";
+import { DRAWER_WIDTH } from "../../constants";
 import { useMediaQuery, useTheme, Theme } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { DrawerListItem } from "./DrawerListItem";
 
 interface Props {
     isOpen: boolean,
@@ -22,6 +25,10 @@ declare module '@mui/material/styles' {
 const MainDrawer: React.FC<Props> = (props) => {
     const theme: Theme = useTheme()
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
+    const navigate = useNavigate();
+    const routeChange = (path: string) => {
+        navigate(path);
+    }
 
     const toggleDrawer = () => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (isBelowMd) {
@@ -32,7 +39,8 @@ const MainDrawer: React.FC<Props> = (props) => {
     const DrawerList = (
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
             <List>
-                {['Home', 'Campaigns', 'Characters', 'Beastiary', 'Rule Book', 'About'].map((text) => (
+                <DrawerListItem value="Home" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon}/>
+                {['Campaigns', 'Characters', 'Beastiary', 'Rule Book', 'About'].map((text) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

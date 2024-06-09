@@ -1,8 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PlayerCharacterSheet } from "../../types";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
+import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
+import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
@@ -64,15 +66,17 @@ const WHPcSheet: React.FC = () => {
         }
         // console.log(sheet)
     }
+
+    useEffect(() => {
+        console.log(sheet);
+    }, [sheet]);
+
     return (
         <>
+            <MainNavigationBar headerText={sheet?.name} />
             <CharacterSheetNavBar />
             <Box m={2}>
-                <Grid container spacing={2}>
-                    <Grid item xs={8}>sda</Grid>
-                    <Grid item xs={8}>sda</Grid>
-                    <Grid item xs={4}>sda</Grid>
-                </Grid>
+                <StatsDisplay stats={sheet.stats} />
             </Box>
         </>
     )

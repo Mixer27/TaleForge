@@ -4,12 +4,12 @@ import About from './routes/about/About.tsx';
 import Test from './routes/test/Test.tsx';
 // import { Sheet } from './routes/pcsheets/Sheet.tsx';
 import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
-import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
+// import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
-import { DRAWER_WIDTH } from './constatns.tsx';
+import { DRAWER_WIDTH } from './constants.tsx';
 import { useState } from 'react';
-import { MainDrawer } from './components/overlay/MainDrawer.tsx';
+import { DrawerContext } from './context/drawerContext.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -80,22 +80,21 @@ function App() {
         if (isBelowMd && isDrawerOpen) {
             setIsDrawerOpen(false);
         }
-    } 
+    }
 
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
-                    <MainDrawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-                    <Box sx={{ flexGrow: 1 }}>
-                        <MainNavigationBar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-                        <Main open={isDrawerOpen} onClick={handleMainToggleDrawer}>
+                    {/* <Box sx={{ flexGrow: 1 }}> */}
+                    <Main open={isDrawerOpen} onClick={handleMainToggleDrawer}>
+                        <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
                             <RouterProvider router={router} />
-                        </Main>
-                    </Box>
+                        </DrawerContext.Provider>
+                    </Main>
+                    {/* </Box> */}
                 </Box>
             </CssBaseline>
-
         </ThemeProvider >
     )
 }

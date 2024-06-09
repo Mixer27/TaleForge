@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Toolbar, Typography, styled } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, styled } from "@mui/material";
 import React from "react";
 
 const NavBarButton = styled(Button)(() => ({
@@ -18,9 +18,9 @@ const CharacterSheetNavBar: React.FC = () => {
                         <NavBarButton>Stats</NavBarButton>
                         <NavBarButton>Skills</NavBarButton>
                         <NavBarButton>Talents</NavBarButton>
+                        <NavBarButton>Spells</NavBarButton>
                         <NavBarButton>Inventory</NavBarButton>
                         <NavBarButton>Details</NavBarButton>
-
                     </Toolbar>
                 </AppBar>
             </Box >

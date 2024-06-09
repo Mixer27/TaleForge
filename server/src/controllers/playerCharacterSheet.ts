@@ -16,7 +16,7 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
     const data = await PlayerCharacterSheet.find({})
-    console.log(data)
+    // console.log(data)
     res.json(data)
 }
 
