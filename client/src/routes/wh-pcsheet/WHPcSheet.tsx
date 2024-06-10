@@ -7,6 +7,7 @@ import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
 import { CharacterSheetTab } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
+import { Box } from "@mui/material";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
@@ -83,12 +84,14 @@ const WHPcSheet: React.FC = () => {
         <>
             <TabContext value={currentTab}>
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
+                <Box mt="2em">
                     <TabPanel value={CharacterSheetTab.Stats}>
                         <StatsDisplay stats={sheet.stats} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
-                        AAA
+                        Skills
                     </TabPanel>
+                </Box>
             </TabContext>
         </>
     )

@@ -44,7 +44,7 @@ const Sheet: React.FC = () => {
 
             const updatedSheet = await response.json();
             console.log("Character sheet updated succesfully.", updatedSheet);
-            navigate(`/pcsheets/${id}`);
+            navigate(`/old-pcsheets/${id}`);
 
         } catch (error) {
             console.error("Error with patch request", error);

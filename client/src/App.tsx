@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './routes/home/Home.tsx';
 import About from './routes/about/About.tsx';
 import Test from './routes/test/Test.tsx';
-// import { Sheet } from './routes/pcsheets/Sheet.tsx';
+import { Sheet } from './routes/pcsheets/Sheet.tsx';
 import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
 // import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
@@ -10,6 +10,7 @@ import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material'
 import { DRAWER_WIDTH } from './constants.tsx';
 import { useState } from 'react';
 import { DrawerContext } from './context/drawerContext.tsx';
+import { SheetsList } from './routes/wh-pcsheet/SheetList.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -27,7 +28,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginTop: "6em",
+    marginTop: "4em",
     marginLeft: 0,
     ...(open && {
         transition: theme.transitions.create('margin', {
@@ -60,11 +61,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/pcsheets",
-        element: <WHPcSheet />
+        element: <SheetsList />
     },
     {
         path: "/pcsheets/:id",
         element: <WHPcSheet />
+    },
+    {
+        path: "/old-pcsheets/:id",
+        element: <Sheet/>
     }
 ])
 

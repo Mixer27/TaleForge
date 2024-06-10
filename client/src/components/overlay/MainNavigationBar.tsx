@@ -40,8 +40,8 @@ const MainNavigationBar: React.FC<Props> = (props) => {
     return (
         <>
             <MainDrawer isOpen={drawerContext.isDrawerOpen} toggleDrawer={drawerContext.toggleDrawer} />
-            <NavigationBarShift open={drawerContext.isDrawerOpen}>
-                <Box sx={{ flexGrow: 1 }}>
+            <NavigationBarShift open={drawerContext.isDrawerOpen} sx={{marginBottom: props.options ? "2em" : 0 }}>
+                <Box sx={{ flexGrow: 1}}>
                     <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={0}>
                         <Toolbar>
                             <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{ marginRight: 1 }}>

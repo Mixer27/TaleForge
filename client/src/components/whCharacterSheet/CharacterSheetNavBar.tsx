@@ -18,16 +18,16 @@ const CharacterSheetNavBar: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Box sx={{flexGrow: 1}}>
-                <AppBar position="static" sx={{ backgroundColor: "#222"}} elevation={2}>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={2}>
                     <Toolbar variant="dense">
                         <Tabs sx={{ flexGrow: 1 }} value={props.currentTab} onChange={props.handleChange}>
-                            <NavBarButton value={CharacterSheetTab.Stats} label="Stats"/>
-                            <NavBarButton value={CharacterSheetTab.Skills} label="Skills"/>
-                            <NavBarButton label="Talents"/>
-                            <NavBarButton label="Spells"/>
-                            <NavBarButton label="Inventory"/>
-                            <NavBarButton label="Details"/>
+                            <NavBarButton value={CharacterSheetTab.Stats} label="Stats" />
+                            <NavBarButton value={CharacterSheetTab.Skills} label="Skills" />
+                            <NavBarButton label="Talents" />
+                            <NavBarButton label="Spells" />
+                            <NavBarButton label="Inventory" />
+                            <NavBarButton label="Details" />
                         </Tabs>
                     </Toolbar>
                 </AppBar>

@@ -6,6 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import HomeIcon from '@mui/icons-material/Home';
+import GroupsIcon from '@mui/icons-material/Groups';
 import Drawer from "@mui/material/Drawer";
 import { DRAWER_WIDTH } from "../../constants";
 import { useMediaQuery, useTheme, Theme } from "@mui/material";
@@ -39,8 +40,9 @@ const MainDrawer: React.FC<Props> = (props) => {
     const DrawerList = (
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
             <List>
-                <DrawerListItem value="Home" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon}/>
-                {['Campaigns', 'Characters', 'Beastiary', 'Rule Book', 'About'].map((text) => (
+                <DrawerListItem value="Home" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
+                <DrawerListItem value="Characters" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon}/>
+                {['Campaigns', 'Bestiary', 'Rule Book', 'About'].map((text) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

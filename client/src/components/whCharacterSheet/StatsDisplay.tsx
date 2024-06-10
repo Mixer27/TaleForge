@@ -14,7 +14,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
     return (
         <Grid container spacing={1} direction={"column"} wrap={'wrap'} style={{ height: "80vh" }} xs={8}>
             <Grid item xs={"auto"}>
-                <StatList stats={[
+                <StatList header="Primary tats" stats={[
                     { statName: "Weapon Skills", extendedStat: props.stats?.weaponSkills },
                     { statName: "Ballistic Skills", extendedStat: props.stats?.ballisticSkills },
                     { statName: "Strength", extendedStat: props.stats?.strength },
@@ -26,7 +26,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 ]}></StatList>
             </Grid>
             <Grid item xs={"auto"}>
-                <StatList stats={[
+                <StatList header="Secondary stats" stats={[
                     { statName: "Attacks", extendedStat: props.stats?.attacks },
                     { statName: "Wounds", extendedStat: props.stats?.wounds },
                     { statName: "Magic", extendedStat: props.stats?.magic },
@@ -34,7 +34,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 ]}></StatList>
             </Grid>
             <Grid item xs={"auto"}>
-                <StatList stats={[
+                <StatList header="Special stats" stats={[
                     { statName: "Strength Bonus", singleStat: props.stats?.strengthBonus },
                     { statName: "Toughness Bonus", singleStat: props.stats?.toughnessBonus },
                     { statName: "Magic", singleStat: props.stats?.fatePoints },
