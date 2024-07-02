@@ -24,7 +24,7 @@ const StatList: React.FC<Props> = (props) => {
             <List>
                 <CustomListSubheader>{props.header}</CustomListSubheader>
                 {props.stats?.map((stat: Stat) => (
-                    <ListItem disablePadding>
+                    <ListItem disablePadding key={stat.statName}>
                         <ListItemButton>{stat.statName} {stat?.singleStat} {stat.extendedStat?.starting} {stat.extendedStat?.advance} {stat.extendedStat?.current}</ListItemButton>
                     </ListItem>
                 ))}

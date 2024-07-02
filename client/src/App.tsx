@@ -74,7 +74,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
     const theme: Theme = useTheme();
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
 
