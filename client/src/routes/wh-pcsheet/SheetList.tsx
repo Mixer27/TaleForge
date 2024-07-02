@@ -21,7 +21,7 @@ const SheetsList: React.FC = () => {
                 return res.json();
             })
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setCharacterList(data);
             })
             .catch((error) => {

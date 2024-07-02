@@ -44,8 +44,8 @@ const StatTable: React.FC<Props> = (props) => {
                                 onClick={() => handleClick(stat)}>
                                 <TableCell>{nameFormat(stat.statName)}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
-                                <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
-                                <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
+                                <TableCell align="center">{stat.extendedStat?.advance}</TableCell>
+                                <TableCell align="center">{stat.extendedStat?.current}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

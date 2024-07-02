@@ -8,6 +8,7 @@ import { CharacterSheetTab } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
 import { Box } from "@mui/material";
+// import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
@@ -16,7 +17,8 @@ const WHPcSheet: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
-        fetch(`https://194.59.140.170:9000/pcsheets/${id}`)
+        // fetch(`https://194.59.140.170:9000/pcsheets/${id}`)
+        fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -76,16 +78,16 @@ const WHPcSheet: React.FC = () => {
         setCurrentTab(newValue);
     }
 
-    useEffect(() => {
-        console.log(sheet);
-    }, [sheet]);
+    // useEffect(() => {
+    //     console.log(sheet);
+    // }, [sheet]);
 
     return (
         <>
             <TabContext value={currentTab}>
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
                 <Box mt="2em">
-                    <TabPanel value={CharacterSheetTab.Stats}>
+                    <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px"}}>
                         <StatsDisplay stats={sheet.stats} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
