@@ -13,6 +13,12 @@ interface Props {
     stats: Array<Stat>
 }
 
+const nameFormat = (name: string | undefined) => {
+    let result = name ? name.replace(/([A-Z])/g, ' $1') : "";
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    return result;
+}
+
 const StatTable: React.FC<Props> = (props) => {
     const handleClick = (stat: Stat) => {
         console.log(stat.statName);
@@ -36,7 +42,7 @@ const StatTable: React.FC<Props> = (props) => {
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 onClick={() => handleClick(stat)}>
-                                <TableCell>{stat.statName}</TableCell>
+                                <TableCell>{nameFormat(stat.statName)}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.starting}</TableCell>

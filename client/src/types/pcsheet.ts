@@ -25,6 +25,10 @@ interface Armor {
     legs: number;
 }
 
+interface SingleStat {
+    value: number;
+}
+
 interface PlayerStat {
     starting: number;
     advance: number;
@@ -32,22 +36,23 @@ interface PlayerStat {
 }
 
 interface PlayerStats {
-    weaponSkills: PlayerStat;
-    ballisticSkills: PlayerStat;
-    strength: PlayerStat;
-    toughness: PlayerStat;
-    agility: PlayerStat;
-    intelligence: PlayerStat;
-    willPower: PlayerStat;
-    fellowship: PlayerStat;
-    attacks: PlayerStat;
-    wounds: PlayerStat;
-    magic: PlayerStat;
-    movement: PlayerStat;
-    strengthBonus: number;
-    toughnessBonus: number;
-    insanityPoints: number;
-    fatePoints: number;
+    // [key: string]: unknown | undefined,
+    weaponSkills?: PlayerStat;
+    ballisticSkills?: PlayerStat;
+    strength?: PlayerStat;
+    toughness?: PlayerStat;
+    agility?: PlayerStat;
+    intelligence?: PlayerStat;
+    willPower?: PlayerStat;
+    fellowship?: PlayerStat;
+    attacks?: PlayerStat;
+    wounds?: PlayerStat;
+    magic?: PlayerStat;
+    movement?: PlayerStat;
+    strengthBonus?: number;
+    toughnessBonus?: number;
+    insanityPoints?: number;
+    fatePoints?: number;
 }
 
 interface SkillwLvl {
@@ -100,5 +105,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat };
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat };
 export { CharacterSheetTab }

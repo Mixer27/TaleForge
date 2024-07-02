@@ -44,10 +44,10 @@ const PlayerStatsSchema: Schema = new Schema({
     fellowship: PlayerStatSchema,
     attacks: PlayerStatSchema,
     wounds: PlayerStatSchema,
-    strengthBonus: { type: Number, required: true, default: 0 },
-    toughnessBonus: { type: Number, required: true, default: 0 },
     magic: PlayerStatSchema,
     movement: PlayerStatSchema,
+    strengthBonus: { type: Number, required: true, default: 0 },
+    toughnessBonus: { type: Number, required: true, default: 0 },
     insanityPoints: { type: Number, required: true, default: 0 },
     fatePoints: { type: Number, required: true, default: 0 },
 }, { _id: false })
