@@ -5,6 +5,7 @@ import fs from "fs";
 import cors from "cors";
 import mongoose from 'mongoose';
 import { pcsheetRoutes } from './routes/playerCharacterSheet';
+import path from 'path'
 
 const app: Express = express();
 
@@ -33,8 +34,8 @@ app.get("/", (req: Request, res: Response) => {
 
 https.createServer(
     {
-        key: fs.readFileSync(`${SSL_KEY}`),
-        cert: fs.readFileSync(`${SSL_CERT}`),
+        key: fs.readFileSync(path.join(__dirname, `${SSL_KEY}`)),
+        cert: fs.readFileSync(path.join(__dirname ,`${SSL_CERT}`)),
     },
     app
 )

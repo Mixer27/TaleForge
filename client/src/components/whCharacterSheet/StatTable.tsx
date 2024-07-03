@@ -10,7 +10,8 @@ interface Stat {
 
 interface Props {
     header: string,
-    stats: Array<Stat>
+    stats: Array<Stat>,
+    handleClick: (statName: string) => void,
 }
 
 const nameFormat = (name: string | undefined) => {
@@ -20,9 +21,9 @@ const nameFormat = (name: string | undefined) => {
 }
 
 const StatTable: React.FC<Props> = (props) => {
-    const handleClick = (stat: Stat) => {
-        console.log(stat.statName);
-    }
+    // const handleClick = (stat: Stat) => {
+    //     console.log(stat.statName);
+    // }
 
     return (
         <GridItem>
@@ -41,7 +42,7 @@ const StatTable: React.FC<Props> = (props) => {
                             <TableRow key={stat.statName}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => handleClick(stat)}>
+                                onClick={() => props.handleClick(String(stat.statName))}>
                                 <TableCell>{nameFormat(stat.statName)}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
                                 <TableCell align="center">{stat.extendedStat?.advance}</TableCell>
