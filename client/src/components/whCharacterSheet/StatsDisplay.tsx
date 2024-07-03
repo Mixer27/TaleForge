@@ -7,12 +7,16 @@ import { FormDialog } from "./FormDialog"
 import { nameFormat } from "../../utils/format"
 
 interface Props {
-    stats?: PlayerStats
+    stats?: PlayerStats,
+    handleSubmit: () => void,
+    handleChange: (key: string, value: string | PlayerStats) => void,
 }
 
 const defaultStat: PlayerStat = { starting: 0, current: 0, advance: 0 };
 
 const StatsDisplay: React.FC<Props> = (props) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_stats, setStats] = useState<PlayerStats>(props.stats ? {...props.stats} : {})
     const theme: Theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
     const statsNames = props.stats ? Object.getOwnPropertyNames(props.stats) : []
@@ -21,14 +25,14 @@ const StatsDisplay: React.FC<Props> = (props) => {
     const [selectedStat, setSelectedStat] = useState<PlayerStat | null>(null);
     const [selectedSingleStat, setSelectedSingleStat] = useState<number | null>(null);
     const handleStatClick = (statName: string) => {
-        setSelectedStatName(nameFormat(statName));
+        setSelectedStatName(statName);
         setSelectedStat(props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : null)
         setSelectedSingleStat(null);
 
         setIsDialogOpen(true);
     }
     const handleSingleStatClick = (statName: string) => {
-        setSelectedStatName(nameFormat(statName));
+        setSelectedStatName(statName);
         setSelectedSingleStat(props.stats ? props.stats[statName as keyof PlayerStats] as number : null);
         setSelectedStat(null);
 
@@ -36,22 +40,34 @@ const StatsDisplay: React.FC<Props> = (props) => {
     }
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
+        setSelectedStat(null);
+        setSelectedSingleStat(null);
     }
     const handleSave = () => {
         // Save the updated statistics here (e.g., update the state or make an API call)
-        console.log("save to DB")
-        setIsDialogOpen(false);
+        props.handleSubmit()
+        console.log("saved to DB")
+        handleCloseDialog()
     }
-    const handleChange = (field: string, value: string) => {
+    const handleStatChange = (field: string, value: string) => {
         if (selectedStat) {
             const updatedStat = {
                 ...selectedStat,
-                extendedStat: {
-                    ...selectedStat,
-                    [field]: Number(value)
-                }
+                [field]: Number(value),
             };
             setSelectedStat(updatedStat);
+            // console.log("StatsDisplay", props.stats, updatedStat)
+            const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
+            setStats(updatedStats);
+            props.handleChange("stats", updatedStats)
+        }
+    }
+    const handleSingleStatChange = (value: string) => {
+        if (typeof selectedSingleStat === "number") {
+            setSelectedSingleStat(Number(value));
+            const updatedStats = { ...props.stats, [String(selectedStatName)]: Number(value) }
+            setStats(updatedStats);
+            props.handleChange("stats", updatedStats)
         }
     }
 
@@ -93,20 +109,22 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 </Grid>
             </Grid>
             {selectedStat && <FormDialog
-                headerName={selectedStatName ? selectedStatName : ""}
-                extendedStat={selectedStat}
+                headerName={selectedStatName ? nameFormat(selectedStatName) : ""}
+                stat={selectedStat}
                 isOpen={isDialogOpen}
-                handleChange={handleChange}
+                handleChange={handleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
+                handleSubmit={props.handleSubmit}
             />}
             {(typeof selectedSingleStat === "number") && <FormDialog
-                headerName={selectedStatName ? selectedStatName : ""}
+                headerName={selectedStatName ? nameFormat(selectedStatName) : ""}
                 singleStat={selectedSingleStat}
                 isOpen={isDialogOpen}
-                handleChange={handleChange}
+                handleSingleChange={handleSingleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
+                handleSubmit={props.handleSubmit}
             />}
         </>
     )

@@ -9,6 +9,7 @@ enum Race {
 enum Gender {
     MALE = "Male",
     FEMALE = "Female",
+    OTHER = "Other"
 }
 
 enum SkillLvl {
@@ -105,5 +106,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat };
-export { CharacterSheetTab }
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor };
+export { CharacterSheetTab, Gender, Race }

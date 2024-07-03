@@ -21,9 +21,6 @@ const nameFormat = (name: string | undefined) => {
 }
 
 const StatTable: React.FC<Props> = (props) => {
-    // const handleClick = (stat: Stat) => {
-    //     console.log(stat.statName);
-    // }
 
     return (
         <GridItem>

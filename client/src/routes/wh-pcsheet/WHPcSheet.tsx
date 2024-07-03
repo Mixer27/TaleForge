@@ -4,14 +4,15 @@ import { PlayerCharacterSheet } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
-import { CharacterSheetTab } from "../../types";
+import { CharacterSheetTab, PlayerStats } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
 import { Box } from "@mui/material";
+import { defaultPlayerCharacterSheet } from "../../utils/defaults";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
-    const [sheet, setSheet] = useState<Partial<PlayerCharacterSheet>>({});
+    const [sheet, setSheet] = useState<PlayerCharacterSheet>(defaultPlayerCharacterSheet);
     const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
     const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
@@ -31,9 +32,9 @@ const WHPcSheet: React.FC = () => {
 
     }, [id]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log(sheet);
+    const handleSubmit = async () => {
+        // e.preventDefault()
+        // console.log(sheet);
         try {
             const response = await fetch(`https://194.59.140.170:9000/pcsheets/${id}`, {
                 method: 'PATCH',
@@ -47,48 +48,53 @@ const WHPcSheet: React.FC = () => {
                 throw new Error("Failed to update character sheet");
             }
 
-            const updatedSheet = await response.json();
-            console.log("Character sheet updated succesfully.", updatedSheet);
+            // await response.json()
+            // const updatedSheet = await response.json();
+            // console.log("Character sheet updated succesfully.", updatedSheet);
             navigate(`/pcsheets/${id}`);
 
         } catch (error) {
-            console.error("Error with patch request", error);
+            // console.error("Error with patch request", error);
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+    const handleChange = (key: string, value: string | PlayerStats) => {
         // console.log("zmieniam sheet", name, value)
-        if (name == "previousCareers") {
+        if (key == "previousCareers" && typeof value === "string") {
             setSheet({
                 ...sheet,
-                PreviousCareers: value.split(",").map((c) => c.trim())
+                PreviousCareers: value.split(",").map((c: string) => c.trim())
             })
+        }
+        else if (key == "stats" && typeof value === "object") {
+            const update: PlayerCharacterSheet = {
+                ...sheet,
+                stats: {...value}
+                
+            }
+            setSheet(update)
+            // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
         else {
             setSheet({
                 ...sheet,
-                [name]: value,
+                [key]: value,
             });
         }
-        // console.log(sheet)
+        // console.log("SHEET", sheet.stats)
     }
 
     const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {
         setCurrentTab(newValue);
     }
 
-    // useEffect(() => {
-    //     console.log(sheet);
-    // }, [sheet]);
-
     return (
         <>
             <TabContext value={currentTab}>
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
                 <Box mt="2em">
-                    <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px"}}>
-                        <StatsDisplay stats={sheet.stats} />
+                    <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px" }}>
+                        <StatsDisplay stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
                         Skills
