@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { PlayerCharacterSheet } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
@@ -13,6 +13,7 @@ import { defaultPlayerCharacterSheet } from "../../utils/defaults";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<PlayerCharacterSheet>(defaultPlayerCharacterSheet);
+    const isInitialLoad = useRef(true);
     const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
     const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ const WHPcSheet: React.FC = () => {
             })
             .then((data) => {
                 setSheet(data);
+                // console.log("INITIAL FETCH");
             })
             .catch((error) => {
                 console.error("Error fetching data!", error);
@@ -32,11 +34,9 @@ const WHPcSheet: React.FC = () => {
 
     }, [id]);
 
-    const handleSubmit = async () => {
-        // e.preventDefault()
-        // console.log(sheet);
+    const updateCharacterSheet = useCallback(async (sheet: PlayerCharacterSheet) => {
         try {
-            const response = await fetch(`https://194.59.140.170:9000/pcsheets/${id}`, {
+            const response = await fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json',
@@ -49,14 +49,31 @@ const WHPcSheet: React.FC = () => {
             }
 
             // await response.json()
-            // const updatedSheet = await response.json();
-            // console.log("Character sheet updated succesfully.", updatedSheet);
+            const updatedSheet = await response.json();
+            console.log("Character sheet updated succesfully.", updatedSheet);
             navigate(`/pcsheets/${id}`);
 
         } catch (error) {
             // console.error("Error with patch request", error);
         }
     }
+        , [id, navigate]);
+
+    const handleSubmit = async () => {
+        // e.preventDefault()
+        // console.log(sheet);
+        console.log("a");
+
+    }
+
+    useEffect(() => {
+        console.log(isInitialLoad.current)
+        if (isInitialLoad.current) {
+            return;
+        }
+        console.log("DEBUG")
+        updateCharacterSheet(sheet);
+    }, [sheet, updateCharacterSheet])
 
     const handleChange = (key: string, value: string | PlayerStats) => {
         // console.log("zmieniam sheet", name, value)
@@ -69,11 +86,11 @@ const WHPcSheet: React.FC = () => {
         else if (key == "stats" && typeof value === "object") {
             const update: PlayerCharacterSheet = {
                 ...sheet,
-                stats: {...value}
-                
+                stats: { ...value }
+
             }
             setSheet(update)
-            // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
+            console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
         else {
             setSheet({
@@ -81,6 +98,8 @@ const WHPcSheet: React.FC = () => {
                 [key]: value,
             });
         }
+        // przy zmianie zamyka initail load
+        isInitialLoad.current = false;
         // console.log("SHEET", sheet.stats)
     }
 

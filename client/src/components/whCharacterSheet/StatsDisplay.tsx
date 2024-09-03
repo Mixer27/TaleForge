@@ -24,6 +24,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
     const [selectedStatName, setSelectedStatName] = useState<string | null>(null)
     const [selectedStat, setSelectedStat] = useState<PlayerStat | null>(null);
     const [selectedSingleStat, setSelectedSingleStat] = useState<number | null>(null);
+    
     const handleStatClick = (statName: string) => {
         setSelectedStatName(statName);
         setSelectedStat(props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : null)
@@ -49,14 +50,27 @@ const StatsDisplay: React.FC<Props> = (props) => {
         console.log("saved to DB")
         handleCloseDialog()
     }
-    const handleStatChange = (field: string, value: string) => {
+    // const handleStatChange = (field: string, value: string) => {
+    //     if (selectedStat) {
+    //         const updatedStat = {
+    //             ...selectedStat,
+    //             [field]: Number(value),
+    //         };
+    //         setSelectedStat(updatedStat);
+    //         console.log("StatsDisplay", props.stats, updatedStat)
+    //         const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
+    //         setStats(updatedStats);
+    //         props.handleChange("stats", updatedStats)
+    //     }
+    // }
+    const handleStatChange = (updatedStat: PlayerStat) => {
         if (selectedStat) {
-            const updatedStat = {
-                ...selectedStat,
-                [field]: Number(value),
-            };
+            // const updatedStat = {
+            //     ...selectedStat,
+            //     [field]: Number(value),
+            // };
             setSelectedStat(updatedStat);
-            // console.log("StatsDisplay", props.stats, updatedStat)
+            console.log("StatsDisplay", props.stats, updatedStat)
             const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
             setStats(updatedStats);
             props.handleChange("stats", updatedStats)

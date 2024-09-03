@@ -7,7 +7,8 @@ interface Props {
     stat?: PlayerStat,
     singleStat?: number,
     isOpen: boolean,
-    handleChange?: (field: string, value: string) => void,
+    // handleChange?: (field: string, value: string) => void,
+    handleChange?: (stat: PlayerStat) => void,
     handleSingleChange?: (value: string) => void
     handleClose: () => void,
     handleSave: () => void,
@@ -24,19 +25,26 @@ const FormDialog: React.FC<Props> = (props) => {
         const updatedValue = e.currentTarget.value;
         // console.log("Form dialog", updatedValue)
         setSingleStat(updatedValue)
-        props.handleSingleChange ? props.handleSingleChange(updatedValue) : () => console.log("")
+        // props.handleSingleChange ? props.handleSingleChange(updatedValue) : () => console.log("")
     }
     const onStatChange = (field: string, value: string) => {
         const update = { ...stat, [field]: Number(value) }
         // console.log("Form dialog", update)
         setStat({ ...update })
-        props.handleChange ? props.handleChange(field, value) : () => console.log("")
+        // props.handleChange ? props.handleChange(field, value) : () => console.log("")
     }
     const onClose = () => {
         props.handleClose()
     }
 
     const onSave = () => {
+        if (props.stat) {
+            console.log("update stat");
+            props.handleChange ? props.handleChange(stat) : () => console.log("");
+        }
+        else if (typeof props.singleStat === "number") {
+            props.handleSingleChange ? props.handleSingleChange(singleStat) : () => console.log("")
+        }
         props.handleSave()
     }
 
@@ -52,7 +60,8 @@ const FormDialog: React.FC<Props> = (props) => {
                                 label="Starting"
                                 type="number"
                                 fullWidth
-                                value={props.stat?.starting}
+                                // value={props.stat?.starting}
+                                value={stat.starting}
                                 onChange={(e) => onStatChange('starting', e.target.value)}
                             />
                             <TextField
@@ -60,7 +69,8 @@ const FormDialog: React.FC<Props> = (props) => {
                                 label="Advance"
                                 type="number"
                                 fullWidth
-                                value={props.stat?.advance}
+                                // value={props.stat?.advance}
+                                value={stat?.advance}
                                 onChange={(e) => onStatChange('advance', e.target.value)}
                             />
                             <TextField
@@ -68,7 +78,8 @@ const FormDialog: React.FC<Props> = (props) => {
                                 label="Current"
                                 type="number"
                                 fullWidth
-                                value={props.stat?.current}
+                                // value={props.stat?.current}
+                                value={stat?.current}
                                 onChange={(e) => onStatChange('current', e.target.value)}
                             />
                         </>
