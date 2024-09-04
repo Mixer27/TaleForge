@@ -20,6 +20,10 @@ const SkillSchema = new Schema({
         ],
         required: true,
     },
+    advanced: {
+        type: Boolean,
+        required: true,
+    },
     description: String,
 })
 

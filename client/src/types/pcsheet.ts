@@ -59,6 +59,7 @@ interface PlayerStats {
 interface Skill {
     _id: string,
     name: string,
+    advanced: boolean,
     relatedStatName: string,
     description: string,
 }
@@ -114,5 +115,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor };
-export { CharacterSheetTab, Gender, Race }
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl};
+export { CharacterSheetTab, Gender, Race, SkillLvl}

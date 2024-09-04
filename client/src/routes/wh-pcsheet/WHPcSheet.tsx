@@ -9,6 +9,7 @@ import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
 import { Box } from "@mui/material";
 import { defaultPlayerCharacterSheet } from "../../utils/defaults";
+import { SkillTable } from "../../components/whCharacterSheet/skills/SkillTable";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -117,6 +118,7 @@ const WHPcSheet: React.FC = () => {
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
                         Skills
+                        <SkillTable stats={sheet.stats} skills={sheet.skills} handleClick={() => console.log("click")}></SkillTable>
                     </TabPanel>
                 </Box>
             </TabContext>
