@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
+import { Skill } from "./skill";
 
 const Race = Object.freeze({
     HALFLING: "Halfling",
@@ -110,4 +111,4 @@ const PlayerCharacterSchema = new Schema({
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
 
-export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet };
+export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill};

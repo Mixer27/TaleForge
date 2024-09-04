@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
+import { Skill } from "../models/skill";
 import { NpcSheet } from "../models/npcSheet";
 
 const examples = [{
@@ -98,7 +99,28 @@ const examples = [{
         insanityPoints: 0,
         fatePoints: 2,
     },
-    skills: [],
+    skills: [
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f5'), // Replace with actual ObjectId for Animal Care
+            lvl: 'Normal',
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f6'), // Replace with actual ObjectId for Dodge Blow
+            lvl: 'Advanced',
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f7'), // Replace with actual ObjectId for Heal
+            lvl: 'Normal',
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f8'), // Replace with actual ObjectId for Perception
+            lvl: 'Normal',
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f9'), // Replace with actual ObjectId for Intimidate
+            lvl: 'Advanced',
+        },
+    ],
     talents: [],
     wealth: {
         gc: 10,
@@ -107,6 +129,51 @@ const examples = [{
     }
 }
 ]
+
+// Skills
+const skills = [
+    {
+        name: "Animal Care",
+        relatedStatName: "intelligence", // In WFRP, Animal Care is based on Intelligence
+        description: "Allows you to take care of and treat common domestic animals."
+    },
+    {
+        name: "Charm Animal",
+        relatedStatName: "fellowship", // Charm Animal is typically based on Fellowship
+        description: "Helps you calm or charm animals through gentle interaction."
+    },
+    {
+        name: "Dodge Blow",
+        relatedStatName: "agility", // Dodge Blow is based on Agility
+        description: "Allows you to dodge incoming blows in combat."
+    },
+    {
+        name: "Heal",
+        relatedStatName: "intelligence", // Heal is based on Intelligence
+        description: "Allows you to treat wounds and prevent bleeding, as well as aiding recovery from injuries."
+    },
+    {
+        name: "Perception",
+        relatedStatName: "intelligence", // Perception is based on Intelligence
+        description: "Allows you to spot hidden objects or detect dangers around you."
+    },
+    {
+        name: "Ride",
+        relatedStatName: "agility", // Ride is based on Agility
+        description: "Helps you ride and control a mount, such as a horse or similar creatures."
+    },
+    {
+        name: "Intimidate",
+        relatedStatName: "strength", // Intimidate is based on Strength
+        description: "Allows you to force others into submission through sheer physical presence or verbal threats."
+    },
+    {
+        name: "Swim",
+        relatedStatName: "strength", // Swim is based on Strength
+        description: "Allows you to swim in water, avoiding drowning or getting swept away by currents."
+    }
+];
+
 
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
@@ -119,6 +186,14 @@ db.once("open", () => {
 
 const seedDB = async () => {
     await PlayerCharacterSheet.deleteMany({});
+    // await Skill.deleteMany({});
+    // Skill.insertMany(skills)
+    //     .then(() => {
+    //         console.log("Skills added successfully!");
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error adding skills:", error);
+    //     });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });
         await character.save();

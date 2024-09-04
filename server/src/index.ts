@@ -1,10 +1,10 @@
 import 'dotenv/config'
+import mongoose from 'mongoose';
 import express, { Express, Request, Response, Router } from "express";
+import { pcsheetRoutes } from './routes/playerCharacterSheet';
 import https from "https";
 import fs from "fs";
 import cors from "cors";
-import mongoose from 'mongoose';
-import { pcsheetRoutes } from './routes/playerCharacterSheet';
 import path from 'path'
 
 const app: Express = express();
@@ -41,4 +41,5 @@ https.createServer(
 )
     .listen(PORT, () => {
         console.log(`listen on port ${PORT}`);
+        // console.log(mongoose.modelNames());
     });

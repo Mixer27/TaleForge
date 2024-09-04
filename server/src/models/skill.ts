@@ -2,7 +2,24 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const SkillSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+    },
+    relatedStatName: {
+        type: String,
+        enum: [
+            'weaponSkills',
+            'ballisticSkills',
+            'strength',
+            'toughness',
+            'agility',
+            'intelligence',
+            'willPower',
+            'fellowship',
+        ],
+        required: true,
+    },
     description: String,
 })
 

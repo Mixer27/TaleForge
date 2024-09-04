@@ -65,10 +65,6 @@ const StatsDisplay: React.FC<Props> = (props) => {
     // }
     const handleStatChange = (updatedStat: PlayerStat) => {
         if (selectedStat) {
-            // const updatedStat = {
-            //     ...selectedStat,
-            //     [field]: Number(value),
-            // };
             setSelectedStat(updatedStat);
             console.log("StatsDisplay", props.stats, updatedStat)
             const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };

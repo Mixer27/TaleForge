@@ -1,5 +1,7 @@
-import { NextFunction, Response, Request } from "express";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
+import { Skill } from "../models/skill";
+import { NextFunction, Response, Request } from "express";
+import mongoose from "mongoose";
 
 interface reqParams {
     id: string,
@@ -7,11 +9,19 @@ interface reqParams {
 
 const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
+    console.log(mongoose.modelNames());
     const data = await PlayerCharacterSheet.findById(id)
-        .populate("skills")
-        .populate("talents");
-    res.json(data);
-    // res.send("aaa");
+    // .populate("skills skill")
+        .populate({
+        path: "skills",
+        populate: {
+            path: 'skill',
+            model: 'Skill',
+        }
+    })
+    .populate("talents");
+res.json(data);
+// console.log(data?.skills);
 }
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {

@@ -56,8 +56,16 @@ interface PlayerStats {
     fatePoints?: number;
 }
 
+interface Skill {
+    _id: string,
+    name: string,
+    relatedStatName: string,
+    description: string,
+}
+
 interface SkillwLvl {
-    skill: string; // ObjectId w MongoDB, ale w TypeScript używamy string
+    // skill_id: string; // ObjectId w MongoDB, ale w TypeScript używamy string
+    skill: Skill,
     lvl: SkillLvl; // Może być 'Normal', 'Advanced', 'Expert'
 }
 

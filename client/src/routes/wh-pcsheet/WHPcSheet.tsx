@@ -26,7 +26,7 @@ const WHPcSheet: React.FC = () => {
             })
             .then((data) => {
                 setSheet(data);
-                // console.log("INITIAL FETCH");
+                console.log(data);
             })
             .catch((error) => {
                 console.error("Error fetching data!", error);
@@ -90,7 +90,7 @@ const WHPcSheet: React.FC = () => {
 
             }
             setSheet(update)
-            console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
+            // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
         else {
             setSheet({
