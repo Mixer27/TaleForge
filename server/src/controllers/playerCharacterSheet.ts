@@ -11,7 +11,6 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
     const { id } = req.params;
     console.log(mongoose.modelNames());
     const data = await PlayerCharacterSheet.findById(id)
-    // .populate("skills skill")
         .populate({
         path: "skills",
         populate: {

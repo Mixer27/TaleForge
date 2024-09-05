@@ -86,7 +86,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "" }}>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Primary stats"
+                        header="Main stats"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(0, 8).map((statName: string) => ({
                             statName: statName,
@@ -97,7 +97,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Primary stats"
+                        header="Secondary stats"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(8, 12).map((statName: string) => ({
                             statName: statName,
@@ -108,7 +108,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <SingleStatTable
-                        header="Primary stats"
+                        header="Secondary stats"
                         handleClick={handleSingleStatClick}
                         stats={statsNames ? statsNames.slice(12, 16).map((statName: string) => ({
                             statName: statName,

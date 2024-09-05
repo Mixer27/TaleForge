@@ -28,7 +28,7 @@ const StatTable: React.FC<Props> = (props) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Stat name</TableCell>
+                            <TableCell>{props.header}</TableCell>
                             <TableCell align="center">Starting</TableCell>
                             <TableCell align="center">Advance</TableCell>
                             <TableCell align="center">Current</TableCell>

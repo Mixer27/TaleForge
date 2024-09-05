@@ -30,7 +30,7 @@ const SingleStatTable: React.FC<Props> = (props) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Stat name</TableCell>
+                            <TableCell>{props.header}</TableCell>
                             <TableCell align="center">Current</TableCell>
                         </TableRow>
                     </TableHead>

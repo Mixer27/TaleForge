@@ -7,9 +7,10 @@ import { PlayerStats, PlayerStat, SkillLvl } from "../../../types"
 
 
 interface Props {
+    header: string,
     skills?: Array<SkillwLvl>,
     stats?: PlayerStats,
-    handleClick: (statName: string) => void,
+    handleClick: (skillName: string, skill: SkillwLvl) => void,
 }
 
 const calculateSkillValue = (current_value: number, skill_level: SkillLvl) => {
@@ -33,7 +34,7 @@ const SkillTable: React.FC<Props> = (props) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Skill name</TableCell>
+                            <TableCell>{props.header}</TableCell>
                             <TableCell align="center">Profficiency</TableCell>
                             <TableCell align="center">Advanced</TableCell>
                             <TableCell align="center">Value</TableCell>
@@ -45,7 +46,7 @@ const SkillTable: React.FC<Props> = (props) => {
                             <TableRow key={skill.skill.name}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => props.handleClick(String(skill.skill.name))}>
+                                onClick={() => props.handleClick(String(skill.skill.name), skill)}>
                                 <TableCell>{nameFormat(skill.skill.name)}</TableCell>
                                 <TableCell align="center">{nameFormat(skill.lvl)}</TableCell>
                                 <TableCell align="center">{skill.skill.advanced ? "X" : "o"}</TableCell>
