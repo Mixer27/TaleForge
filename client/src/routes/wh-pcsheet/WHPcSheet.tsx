@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { PlayerCharacterSheet } from "../../types";
+import { PlayerCharacterSheet, SkillwLvl } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
@@ -77,22 +77,28 @@ const WHPcSheet: React.FC = () => {
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: string, value: string | PlayerStats) => {
+    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>) => {
         // console.log("zmieniam sheet", name, value)
-        if (key == "previousCareers" && typeof value === "string") {
+        if (key === "PreviousCareers" && typeof value === 'string') {
             setSheet({
                 ...sheet,
                 PreviousCareers: value.split(",").map((c: string) => c.trim())
             })
         }
-        else if (key == "stats" && typeof value === "object") {
+        else if (key === 'stats' && typeof value === 'object') {
             const update: PlayerCharacterSheet = {
                 ...sheet,
-                stats: { ...value }
+                [key]: { ...value } as PlayerStats
 
             }
             setSheet(update)
             // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
+        }
+        else if (key === 'skills' && Array.isArray(value)) {
+            setSheet({
+                ...sheet,
+                [key]: value,
+            })
         }
         else {
             setSheet({
@@ -102,7 +108,7 @@ const WHPcSheet: React.FC = () => {
         }
         // przy zmianie zamyka initail load
         isInitialLoad.current = false;
-        // console.log("SHEET", sheet.stats)
+        console.log("SHEET", sheet.stats)
     }
 
     const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {

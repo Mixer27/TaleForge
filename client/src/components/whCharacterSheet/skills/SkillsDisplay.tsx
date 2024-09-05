@@ -1,5 +1,5 @@
 import { Grid, Theme, useMediaQuery, useTheme } from "@mui/material"
-import { PlayerStats } from "../../../types"
+import { PlayerCharacterSheet, PlayerStats } from "../../../types"
 import { SkillTable } from "./SkillTable"
 import { useState } from "react"
 import { SkillDialog } from "./SkillDialog"
@@ -10,17 +10,16 @@ interface Props {
     stats?: PlayerStats,
     skills?: Array<SkillwLvl>,
     handleSubmit: () => void,
-    handleChange: (key: string, value: string | PlayerStats) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>) => void,
 }
 
 // const defaultStat: PlayerStat = { starting: 0, current: 0, advance: 0 };
 
 const SkillsDisplay: React.FC<Props> = (props) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // const [_stats, setStats] = useState<PlayerStats>(props.stats ? { ...props.stats } : {})
+    // const [_skills, setSkills] = useState<PlayerStats>(props.stats ? { ...props.stats } : {})
     const theme: Theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
-    const statsNames = props.stats ? Object.getOwnPropertyNames(props.stats) : []
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedSkillName, setSelectedSkillName] = useState<string | null>(null)
     const [selectedSkill, setSelectedSkill] = useState<SkillwLvl | null>(null);
@@ -56,15 +55,21 @@ const SkillsDisplay: React.FC<Props> = (props) => {
     //         props.handleChange("stats", updatedStats)
     //     }
     // }
-    // const handleSkillsChange = (updatedStat: PlayerStat) => {
-    //     if (selectedSkill) {
-    //         setSelectedStat(updatedStat);
-    //         console.log("StatsDisplay", props.stats, updatedStat)
-    //         const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
-    //         setStats(updatedStats);
-    //         props.handleChange("stats", updatedStats)
-    //     }
-    // }
+    const handleSkillsChange = (updatedSkill: SkillwLvl) => {
+        if (selectedSkill) {
+            setSelectedSkill(updatedSkill);
+            console.log("SkillDisplay", props.skills, updatedSkill)
+            // const updatedSkills = { ...props.skills, [String(selectedSkillName)]: updatedSkill };
+            const updatedSkills = props.skills?.map((skill) => {
+                if (skill.skill._id === updatedSkill.skill._id) {
+                    return updatedSkill;
+                }
+                else return skill;
+            }) ?? [];
+            console.log('updatedSkills', updatedSkills);
+            props.handleChange("skills", updatedSkills);
+        }
+    }
     // const handleSingleStatChange = (value: string) => {
     //     if (typeof selectedSingleStat === "number") {
     //         setSelectedSingleStat(Number(value));
@@ -100,7 +105,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                 headerName={selectedSkillName ? nameFormat(selectedSkillName) : ""}
                 skill={selectedSkill}
                 isOpen={isDialogOpen}
-                handleChange={() => console.log("")}
+                handleChange={handleSkillsChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
                 handleSubmit={props.handleSubmit}

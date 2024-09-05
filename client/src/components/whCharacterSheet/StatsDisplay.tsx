@@ -1,5 +1,5 @@
 import { Grid, Theme, useMediaQuery, useTheme } from "@mui/material"
-import { PlayerStat, PlayerStats } from "../../types"
+import { PlayerCharacterSheet, PlayerStat, PlayerStats } from "../../types"
 import { StatTable } from "./StatTable"
 import { SingleStatTable } from "./SingleStatTable"
 import { useState } from "react"
@@ -9,7 +9,7 @@ import { nameFormat } from "../../utils/format"
 interface Props {
     stats?: PlayerStats,
     handleSubmit: () => void,
-    handleChange: (key: string, value: string | PlayerStats) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats) => void,
 }
 
 const defaultStat: PlayerStat = { starting: 0, current: 0, advance: 0 };

@@ -4,6 +4,7 @@ import { GridItem } from "../GridItem"
 import { Paper } from "@mui/material"
 import { nameFormat } from "../../../utils/format"
 import { PlayerStats, PlayerStat, SkillLvl } from "../../../types"
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface Props {
@@ -36,7 +37,6 @@ const SkillTable: React.FC<Props> = (props) => {
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
                             <TableCell align="center">Profficiency</TableCell>
-                            <TableCell align="center">Advanced</TableCell>
                             <TableCell align="center">Value</TableCell>
                             <TableCell align="center">Stat</TableCell>
                         </TableRow>
@@ -49,7 +49,6 @@ const SkillTable: React.FC<Props> = (props) => {
                                 onClick={() => props.handleClick(String(skill.skill.name), skill)}>
                                 <TableCell>{nameFormat(skill.skill.name)}</TableCell>
                                 <TableCell align="center">{nameFormat(skill.lvl)}</TableCell>
-                                <TableCell align="center">{skill.skill.advanced ? "X" : "o"}</TableCell>
                                 <TableCell align="center">
                                     {props.stats && skill.skill.relatedStatName in props.stats
                                         && typeof props.stats[skill.skill.relatedStatName as keyof PlayerStats] === 'object'
@@ -58,6 +57,9 @@ const SkillTable: React.FC<Props> = (props) => {
                                 <TableCell align="center">{skill.skill.relatedStatName}</TableCell>
                             </TableRow>
                         ))}
+                        <TableRow hover>
+                            <TableCell align="center" colSpan={4}>Add {props.header} <AddIcon fontSize="inherit"/></TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>

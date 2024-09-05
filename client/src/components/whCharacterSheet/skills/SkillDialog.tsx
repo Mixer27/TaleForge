@@ -1,5 +1,5 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
-import { PlayerStat, SkillwLvl, SkillLvl } from '../../../types'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import { SkillwLvl, SkillLvl } from '../../../types'
 import { useState } from 'react';
 
 interface Props {
@@ -8,8 +8,7 @@ interface Props {
     singleStat?: number,
     isOpen: boolean,
     // handleChange?: (field: string, value: string) => void,
-    handleChange?: (skill: SkillwLvl) => void,
-    handleSingleChange?: (value: string) => void
+    handleChange: (skill: SkillwLvl) => void,
     handleClose: () => void,
     handleSave: () => void,
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
@@ -27,11 +26,12 @@ const defaultSkill: SkillwLvl = {
 }
 
 const SkillDialog: React.FC<Props> = (props) => {
-    const [skill, setSkill] = useState<SkillwLvl>(props.skill ? props.skill : defaultSkill);
-    const onSkillChange = (field: string, value: string) => {
-        const update = { ...skill, [field]: Number(value) }
+    // const [skill, setSkill] = useState<SkillwLvl>(props.skill ? props.skill : defaultSkill);
+    const [skillLvl, setSkillLvl] = useState<SkillLvl>(props.skill ? props.skill.lvl : SkillLvl.NORMAL);
+    const onSkillChange = (value: SkillLvl) => {
+        // const update = { ...skill, [field]: Number(value) }
         // console.log("Form dialog", update)
-        setSkill({ ...update })
+        setSkillLvl(value);
         // props.handleChange ? props.handleChange(field, value) : () => console.log("")
     }
     const onClose = () => {
@@ -39,10 +39,11 @@ const SkillDialog: React.FC<Props> = (props) => {
     }
 
     const onSave = () => {
-        if (props.skill) {
-            console.log("update stat");
-            props.handleChange ? props.handleChange(skill) : () => console.log("");
-        }
+        // if (props.skill) {
+        //     console.log("update stat");
+        //     props.handleChange ? props.handleChange(skillLvl) : () => console.log("");
+        // }
+        props.handleChange(props.skill ? {...props.skill, lvl: skillLvl} : defaultSkill);
         props.handleSave()
     }
 
@@ -53,7 +54,17 @@ const SkillDialog: React.FC<Props> = (props) => {
                 <DialogContent>
                     {props.skill && (
                         <>
-                            <TextField
+                            <Typography variant='caption'>Description</Typography>
+                            <Typography variant='body1'>{props.skill.skill.description}</Typography>
+                            <FormControl>
+                                <FormLabel><Typography variant='caption'>Skill profficiency</Typography></FormLabel>
+                                <RadioGroup row name='skill-profficiency'>
+                                    {(Object.keys(SkillLvl) as (keyof typeof SkillLvl)[]).map((key) => {
+                                        return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])}/>
+                                    })}
+                                </RadioGroup>
+                            </FormControl>
+                            {/* <TextField
                                 margin="dense"
                                 label="Starting"
                                 type="number"
@@ -70,7 +81,7 @@ const SkillDialog: React.FC<Props> = (props) => {
                                 // value={props.stat?.advance}
                                 value={"a"}
                                 onChange={(e) => onSkillChange('advance', e.target.value)}
-                            />
+                            /> */}
                             {/* <TextField
                                 margin="dense"
                                 label="Current"
