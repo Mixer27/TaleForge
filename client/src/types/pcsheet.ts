@@ -13,9 +13,9 @@ enum Gender {
 }
 
 enum SkillLvl {
-    NORMAL = "Normal",
-    ADVANCED = "Advanced",
-    EXPERT = "Expert",
+    NORMAL = "Taken",
+    ADVANCED = "+10%",
+    EXPERT = "+20%",
 }
 
 // Interfejsy pomocnicze

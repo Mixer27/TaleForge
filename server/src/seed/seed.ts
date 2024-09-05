@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
+import { PlayerCharacterSheet, SkillLvl } from "../models/playerCharacterSheet";
 import { Skill } from "../models/skill";
 import { NpcSheet } from "../models/npcSheet";
 
@@ -100,25 +100,45 @@ const examples = [{
         fatePoints: 2,
     },
     skills: [
-        {
+        {   
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f5'), // Replace with actual ObjectId for Animal Care
-            lvl: 'Normal',
+            lvl: SkillLvl.NORMAL,
         },
         {
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f6'), // Replace with actual ObjectId for Dodge Blow
-            lvl: 'Advanced',
+            lvl: SkillLvl.ADVANCED,
         },
         {
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f7'), // Replace with actual ObjectId for Heal
-            lvl: 'Normal',
+            lvl: SkillLvl.NORMAL,
         },
         {
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f8'), // Replace with actual ObjectId for Perception
-            lvl: 'Normal',
+            lvl: SkillLvl.EXPERT,
         },
         {
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f9'), // Replace with actual ObjectId for Intimidate
-            lvl: 'Advanced',
+            lvl: SkillLvl.ADVANCED,
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fd'), // Replace with actual ObjectId for Intimidate
+            lvl: SkillLvl.ADVANCED,
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fe'), // Replace with actual ObjectId for Heal
+            lvl: SkillLvl.NORMAL,
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67ff'), // Replace with actual ObjectId for Heal
+            lvl: SkillLvl.NORMAL,
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d6800'), // Replace with actual ObjectId for Heal
+            lvl: SkillLvl.NORMAL,
+        },
+        {
+            skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d6801'), // Replace with actual ObjectId for Perception
+            lvl: SkillLvl.EXPERT,
         },
     ],
     talents: [],
@@ -132,46 +152,99 @@ const examples = [{
 
 // Skills
 const skills = [
-    {
+    {   
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f5'),
         name: "Animal Care",
         relatedStatName: "intelligence", // In WFRP, Animal Care is based on Intelligence
+        advanced: false,
         description: "Allows you to take care of and treat common domestic animals."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f6'),
         name: "Charm Animal",
         relatedStatName: "fellowship", // Charm Animal is typically based on Fellowship
+        advanced: false,
         description: "Helps you calm or charm animals through gentle interaction."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f7'),
         name: "Dodge Blow",
         relatedStatName: "agility", // Dodge Blow is based on Agility
+        advanced: false,
         description: "Allows you to dodge incoming blows in combat."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f8'),
         name: "Heal",
         relatedStatName: "intelligence", // Heal is based on Intelligence
+        advanced: false,
         description: "Allows you to treat wounds and prevent bleeding, as well as aiding recovery from injuries."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f9'),
         name: "Perception",
         relatedStatName: "intelligence", // Perception is based on Intelligence
+        advanced: false,
         description: "Allows you to spot hidden objects or detect dangers around you."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fa'),
         name: "Ride",
         relatedStatName: "agility", // Ride is based on Agility
+        advanced: false,
         description: "Helps you ride and control a mount, such as a horse or similar creatures."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fb'),
         name: "Intimidate",
         relatedStatName: "strength", // Intimidate is based on Strength
+        advanced: false,
         description: "Allows you to force others into submission through sheer physical presence or verbal threats."
     },
     {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fc'),
         name: "Swim",
         relatedStatName: "strength", // Swim is based on Strength
+        advanced: false,
         description: "Allows you to swim in water, avoiding drowning or getting swept away by currents."
+    },
+    // ADVANCED
+    {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fd'),
+        name: "Alchemy",
+        relatedStatName: "intelligence", // Alchemy is based on Intelligence
+        advanced: true,
+        description: "Allows you to create potions, poisons, and other alchemical substances."
+    },
+    {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67fe'),
+        name: "Arcane Language",
+        relatedStatName: "intelligence", // Arcane Language is based on Intelligence
+        advanced: true,
+        description: "Allows you to read and understand magical tomes and communicate in mystical languages."
+    },
+    {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67ff'),
+        name: "Disguise",
+        relatedStatName: "fellowship", // Disguise is based on Fellowship
+        advanced: true,
+        description: "Allows you to disguise yourself or others to blend into different social or cultural groups."
+    },
+    {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d6800'),
+        name: "Navigation",
+        relatedStatName: "intelligence", // Navigation is based on Intelligence
+        advanced: true,
+        description: "Allows you to find your way through wilderness, seas, or unknown cities using maps and landmarks."
+    },
+    {
+        _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d6801'),
+        name: "Tactics",
+        relatedStatName: "intelligence", // Tactics is based on Intelligence
+        advanced: true,
+        description: "Gives you the ability to plan and execute complex battle strategies during warfare or smaller skirmishes."
     }
+    
 ];
 
 
@@ -186,14 +259,14 @@ db.once("open", () => {
 
 const seedDB = async () => {
     await PlayerCharacterSheet.deleteMany({});
-    // await Skill.deleteMany({});
-    // Skill.insertMany(skills)
-    //     .then(() => {
-    //         console.log("Skills added successfully!");
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error adding skills:", error);
-    //     });
+    await Skill.deleteMany({});
+    Skill.insertMany(skills)
+        .then(() => {
+            console.log("Skills added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding skills:", error);
+        });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });
         await character.save();

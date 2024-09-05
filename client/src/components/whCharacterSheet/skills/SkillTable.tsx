@@ -34,6 +34,7 @@ const SkillTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Skill name</TableCell>
+                            <TableCell align="center">Profficiency</TableCell>
                             <TableCell align="center">Advanced</TableCell>
                             <TableCell align="center">Value</TableCell>
                             <TableCell align="center">Stat</TableCell>
@@ -46,7 +47,8 @@ const SkillTable: React.FC<Props> = (props) => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 onClick={() => props.handleClick(String(skill.skill.name))}>
                                 <TableCell>{nameFormat(skill.skill.name)}</TableCell>
-                                <TableCell align="center">{skill.skill.advanced ? "X" : " "}</TableCell>
+                                <TableCell align="center">{nameFormat(skill.lvl)}</TableCell>
+                                <TableCell align="center">{skill.skill.advanced ? "X" : "o"}</TableCell>
                                 <TableCell align="center">
                                     {props.stats && skill.skill.relatedStatName in props.stats
                                         && typeof props.stats[skill.skill.relatedStatName as keyof PlayerStats] === 'object'
