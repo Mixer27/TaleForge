@@ -11,6 +11,7 @@ const SheetsList: React.FC = () => {
     const navigate = useNavigate();
 
     const handleClick = (path: string) => {
+        localStorage.setItem('currentTab', 'Stats');
         navigate(path);
     }
 

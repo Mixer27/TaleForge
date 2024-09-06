@@ -113,7 +113,16 @@ const WHPcSheet: React.FC = () => {
 
     const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {
         setCurrentTab(newValue);
+        localStorage.setItem('currentTab', newValue); // Zapisanie wybranej karty
     }
+
+// ustawianie otwartej karty przy ładowaniu strony
+    useEffect(() => {
+        const savedTab = localStorage.getItem('currentTab');
+        if (savedTab) {
+            setCurrentTab(savedTab);
+        }
+    }, []);
 
     return (
         <>
@@ -125,7 +134,7 @@ const WHPcSheet: React.FC = () => {
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
                         Skills
-                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange}/>
+                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
                         {/* <SkillTable stats={sheet.stats} skills={sheet.skills} handleClick={() => console.log("click")}></SkillTable> */}
                     </TabPanel>
                 </Box>
