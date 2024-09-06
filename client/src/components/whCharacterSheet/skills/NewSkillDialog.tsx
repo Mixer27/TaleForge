@@ -74,11 +74,12 @@ const NewSkillDialog: React.FC<Props> = (props) => {
                 <DialogTitle>{props.headerName}</DialogTitle>
                 <DialogContent>
                     <Autocomplete
+                        autoHighlight
                         options={skills}
                         onChange={onSkillChange}
                         getOptionLabel={(option: Skill) => option.name} // Wyświetlanie pola `name` dla każdego obiektu
                         sx={{ mt: 2, width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="skill" />}
+                        renderInput={(params) => <TextField autoFocus {...params} label="skill" />}
                     />
                 </DialogContent>
                 <DialogActions>

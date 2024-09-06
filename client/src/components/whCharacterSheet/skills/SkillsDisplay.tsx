@@ -49,6 +49,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
             return s.skill._id !== removedSkill.skill._id
         }) ?? [];
         props.handleChange("skills", updatedSkills);
+        handleCloseDialog();
     }
     const handleAddSkillClick = () => {
         setNewSkillDialogOpen(true);
@@ -81,8 +82,8 @@ const SkillsDisplay: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "" }}>
-                <Grid item xs={12} md={6} lg={2}>
+            <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "auto" }}>
+                <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
                     <SkillTable
                         header="Basic Skills"
                         handleClick={handleSkillClick}
@@ -92,7 +93,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                     >
                     </SkillTable>
                 </Grid>
-                <Grid item xs={12} md={6} lg={2}>
+                <Grid item xs={12} md={6} lg={6}>
                 <SkillTable
                         header="Advanced Skills"
                         handleClick={handleSkillClick}
