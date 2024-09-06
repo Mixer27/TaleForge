@@ -2,6 +2,7 @@ import 'dotenv/config'
 import mongoose from 'mongoose';
 import express, { Express, Request, Response, Router } from "express";
 import { pcsheetRoutes } from './routes/playerCharacterSheet';
+import { skillRoutes } from './routes/skills';
 import https from "https";
 import fs from "fs";
 import cors from "cors";
@@ -27,6 +28,7 @@ app.use(cors());
 
 //  routes
 app.use("/pcsheets", pcsheetRoutes);
+app.use("/skills", skillRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("HELLO WORLD!!!");

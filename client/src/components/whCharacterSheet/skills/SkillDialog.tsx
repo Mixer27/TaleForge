@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import { SkillwLvl, SkillLvl } from '../../../types'
 import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
     headerName: string,
@@ -11,6 +12,7 @@ interface Props {
     handleChange: (skill: SkillwLvl) => void,
     handleClose: () => void,
     handleSave: () => void,
+    handleRemoveSkill: (removedSkill: SkillwLvl) => void,
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
 }
 
@@ -43,8 +45,14 @@ const SkillDialog: React.FC<Props> = (props) => {
         //     console.log("update stat");
         //     props.handleChange ? props.handleChange(skillLvl) : () => console.log("");
         // }
-        props.handleChange(props.skill ? {...props.skill, lvl: skillLvl} : defaultSkill);
+        props.handleChange(props.skill ? { ...props.skill, lvl: skillLvl } : defaultSkill);
         props.handleSave()
+    }
+    const onRemoveButtonClick = (removedSkill: SkillwLvl | undefined) => {
+        if (removedSkill) {
+            console.log("delete skill", removedSkill.skill.name);
+            props.handleRemoveSkill(removedSkill);
+        }
     }
 
     return (
@@ -60,10 +68,14 @@ const SkillDialog: React.FC<Props> = (props) => {
                                 <FormLabel><Typography variant='caption'>Skill profficiency</Typography></FormLabel>
                                 <RadioGroup row name='skill-profficiency'>
                                     {(Object.keys(SkillLvl) as (keyof typeof SkillLvl)[]).map((key) => {
-                                        return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])}/>
+                                        return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])} />
                                     })}
                                 </RadioGroup>
+                                <Button sx={{ mt: 1, mr: 1, width: 2/3}} variant="outlined" startIcon={<DeleteIcon />} onClick={() => onRemoveButtonClick(props.skill)}>
+                                    Remove Skill
+                                </Button>
                             </FormControl>
+
                             {/* <TextField
                                 margin="dense"
                                 label="Starting"

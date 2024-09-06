@@ -12,6 +12,7 @@ interface Props {
     skills?: Array<SkillwLvl>,
     stats?: PlayerStats,
     handleClick: (skillName: string, skill: SkillwLvl) => void,
+    handleAddSkillClick: () => void,
 }
 
 const calculateSkillValue = (current_value: number, skill_level: SkillLvl) => {
@@ -57,7 +58,7 @@ const SkillTable: React.FC<Props> = (props) => {
                                 <TableCell align="center">{skill.skill.relatedStatName}</TableCell>
                             </TableRow>
                         ))}
-                        <TableRow hover>
+                        <TableRow hover onClick={props.handleAddSkillClick}>
                             <TableCell align="center" colSpan={4}>Add {props.header} <AddIcon fontSize="inherit"/></TableCell>
                         </TableRow>
                     </TableBody>

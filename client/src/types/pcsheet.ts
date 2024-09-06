@@ -115,5 +115,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl};
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill};
 export { CharacterSheetTab, Gender, Race, SkillLvl}
