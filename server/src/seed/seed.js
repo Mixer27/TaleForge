@@ -50,6 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
 var playerCharacterSheet_1 = require("../models/playerCharacterSheet");
 var skill_1 = require("../models/skill");
+var talent_1 = require("../models/talent");
 var examples = [{
         'owner_id': new mongoose_1.default.Types.ObjectId(),
         'session_id': new mongoose_1.default.Types.ObjectId(),
@@ -291,6 +292,56 @@ var skills = [
         description: "Gives you the ability to plan and execute complex battle strategies during warfare or smaller skirmishes."
     }
 ];
+var talents = [
+    {
+        name: "Acute Hearing",
+        description: "Your hearing is exceptionally keen. You gain a +20% bonus on all Perception Skill Tests involving hearing."
+    },
+    {
+        name: "Ambidextrous",
+        description: "You can use both hands equally well. You do not suffer the normal -20% penalty for using your off hand in combat or other tests."
+    },
+    {
+        name: "Coolheaded",
+        description: "Your mind is cool under pressure. You gain a permanent +5% bonus to your Willpower characteristic."
+    },
+    {
+        name: "Fleet Footed",
+        description: "You are quicker than most. Your Movement increases by 1."
+    },
+    {
+        name: "Hardy",
+        description: "You are in excellent physical condition. You gain a permanent +1 Wound."
+    },
+    {
+        name: "Lightning Reflexes",
+        description: "Your reflexes are extraordinarily fast. You gain a permanent +5% bonus to your Agility characteristic."
+    },
+    {
+        name: "Night Vision",
+        description: "You can see well in darkness. You can see in low light up to 30 yards (15 squares) without penalty."
+    },
+    {
+        name: "Quick Draw",
+        description: "You have trained to be lightning quick when drawing a weapon. You may ready a weapon as a Free Action instead of a Half Action."
+    },
+    {
+        name: "Resistance to Poison",
+        description: "You are resistant to poisons and toxins. You gain a +10% bonus on all Toughness Tests to resist the effects of poison."
+    },
+    {
+        name: "Strike Mighty Blow",
+        description: "Your melee attacks hit with increased force. You gain a +1 bonus to damage on all melee attacks."
+    },
+    {
+        name: "Very Resilient",
+        description: "Your body is tougher than most. You gain a permanent +5% bonus to your Toughness characteristic."
+    },
+    {
+        name: "Warrior Born",
+        description: "You have an innate talent for combat. You gain a permanent +5% bonus to your Weapon Skill characteristic."
+    }
+];
 // Database connection
 var dbUrl = "mongodb://localhost:27017/taleForge";
 mongoose_1.default.connect(dbUrl, {});
@@ -309,6 +360,9 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                 return [4 /*yield*/, skill_1.Skill.deleteMany({})];
             case 2:
                 _a.sent();
+                return [4 /*yield*/, talent_1.Talent.deleteMany({})];
+            case 3:
+                _a.sent();
                 skill_1.Skill.insertMany(skills)
                     .then(function () {
                     console.log("Skills added successfully!");
@@ -316,20 +370,27 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                     .catch(function (error) {
                     console.error("Error adding skills:", error);
                 });
+                talent_1.Talent.insertMany(talents)
+                    .then(function () {
+                    console.log("Talents added successfully!");
+                })
+                    .catch(function (error) {
+                    console.error("Error adding talents:", error);
+                });
                 _i = 0, examples_1 = examples;
-                _a.label = 3;
-            case 3:
-                if (!(_i < examples_1.length)) return [3 /*break*/, 6];
+                _a.label = 4;
+            case 4:
+                if (!(_i < examples_1.length)) return [3 /*break*/, 7];
                 e = examples_1[_i];
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, e));
                 return [4 /*yield*/, character.save()];
-            case 4:
-                _a.sent();
-                _a.label = 5;
             case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6:
                 _i++;
-                return [3 /*break*/, 3];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 7: return [2 /*return*/];
         }
     });
 }); };

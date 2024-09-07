@@ -65,13 +65,14 @@ interface Skill {
 }
 
 interface SkillwLvl {
-    // skill_id: string; // ObjectId w MongoDB, ale w TypeScript używamy string
     skill: Skill,
-    lvl: SkillLvl; // Może być 'Normal', 'Advanced', 'Expert'
+    lvl: SkillLvl; // 'Normal', 'Advanced', 'Expert'
 }
 
 interface Talent {
-    talent: string; // ObjectId w MongoDB, ale w TypeScript używamy string
+    _id: string,
+    name: string; 
+    description: string;
 }
 
 interface Wealth {
@@ -115,5 +116,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill};
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent};
 export { CharacterSheetTab, Gender, Race, SkillLvl}

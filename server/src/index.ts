@@ -7,6 +7,7 @@ import https from "https";
 import fs from "fs";
 import cors from "cors";
 import path from 'path'
+import { talentRoutes } from './routes/talents';
 
 const app: Express = express();
 
@@ -29,6 +30,7 @@ app.use(cors());
 //  routes
 app.use("/pcsheets", pcsheetRoutes);
 app.use("/skills", skillRoutes);
+app.use("/talents", talentRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("HELLO WORLD!!!");

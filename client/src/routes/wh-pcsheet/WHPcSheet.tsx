@@ -4,12 +4,13 @@ import { PlayerCharacterSheet, SkillwLvl } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
-import { CharacterSheetTab, PlayerStats } from "../../types";
+import { CharacterSheetTab, PlayerStats, Talent } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
 import { Box } from "@mui/material";
 import { defaultPlayerCharacterSheet } from "../../utils/defaults";
 import { SkillsDisplay } from "../../components/whCharacterSheet/skills/SkillsDisplay";
+import { TalentsDisplay } from "../../components/whCharacterSheet/talents/TalentsDisplay";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -76,7 +77,7 @@ const WHPcSheet: React.FC = () => {
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>) => {
+    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>  | Array<Talent>) => {
         // console.log("zmieniam sheet", name, value)
         if (key === "PreviousCareers" && typeof value === 'string') {
             setSheet({
@@ -93,13 +94,22 @@ const WHPcSheet: React.FC = () => {
             setSheet(update)
             // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
-        else if (key === 'skills' && Array.isArray(value)) {
+        else if (key === 'skills' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
+            console.log("change skills")
+            setSheet({
+                ...sheet,
+                [key]: value,
+            })
+        }
+        else if (key === 'talents' && Array.isArray(value) && value.every((v) => 'name' in v && 'description' in v)) {
+            console.log("change talents")
             setSheet({
                 ...sheet,
                 [key]: value,
             })
         }
         else {
+            console.log("change other")
             setSheet({
                 ...sheet,
                 [key]: value,
@@ -133,6 +143,14 @@ const WHPcSheet: React.FC = () => {
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Skills}>
                         <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
+                    </TabPanel>
+                    <TabPanel value={CharacterSheetTab.Talents}>
+                        {/* aaa */}
+                        <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} />
+                    </TabPanel>
+                    <TabPanel value={CharacterSheetTab.Spells}>
+                        aaa
+                        {/* <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} /> */}
                     </TabPanel>
                 </Box>
             </TabContext>

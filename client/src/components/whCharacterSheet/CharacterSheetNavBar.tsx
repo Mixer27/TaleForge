@@ -24,10 +24,10 @@ const CharacterSheetNavBar: React.FC<Props> = (props) => {
                         <Tabs sx={{ flexGrow: 1 }} variant="scrollable" value={props.currentTab} onChange={props.handleChange}>
                             <NavBarButton value={CharacterSheetTab.Stats} label="Stats" />
                             <NavBarButton value={CharacterSheetTab.Skills} label="Skills" />
-                            <NavBarButton label="Talents" />
-                            <NavBarButton label="Spells" />
-                            <NavBarButton label="Inventory" />
-                            <NavBarButton label="Details" />
+                            <NavBarButton value={CharacterSheetTab.Talents} label="Talents" />
+                            <NavBarButton value={CharacterSheetTab.Spells} label="Spells" />
+                            <NavBarButton value={CharacterSheetTab.Inventory} label="Inventory" />
+                            <NavBarButton value={CharacterSheetTab.Details} label="Details" />
                         </Tabs>
                     </Toolbar>
                 </AppBar>

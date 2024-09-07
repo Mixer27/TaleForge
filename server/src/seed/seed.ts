@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet, SkillLvl } from "../models/playerCharacterSheet";
 import { Skill } from "../models/skill";
+import { Talent } from "../models/talent"
 import { NpcSheet } from "../models/npcSheet";
 
 const examples = [{
@@ -100,7 +101,7 @@ const examples = [{
         fatePoints: 2,
     },
     skills: [
-        {   
+        {
             skill: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f5'), // Replace with actual ObjectId for Animal Care
             lvl: SkillLvl.NORMAL,
         },
@@ -152,7 +153,7 @@ const examples = [{
 
 // Skills
 const skills = [
-    {   
+    {
         _id: new mongoose.Types.ObjectId('66d82a3046f4cd59924d67f5'),
         name: "Animal Care",
         relatedStatName: "intelligence", // In WFRP, Animal Care is based on Intelligence
@@ -244,9 +245,59 @@ const skills = [
         advanced: true,
         description: "Gives you the ability to plan and execute complex battle strategies during warfare or smaller skirmishes."
     }
-    
+
 ];
 
+const talents = [
+    {
+      name: "Acute Hearing",
+      description: "Your hearing is exceptionally keen. You gain a +20% bonus on all Perception Skill Tests involving hearing."
+    },
+    {
+      name: "Ambidextrous",
+      description: "You can use both hands equally well. You do not suffer the normal -20% penalty for using your off hand in combat or other tests."
+    },
+    {
+      name: "Coolheaded",
+      description: "Your mind is cool under pressure. You gain a permanent +5% bonus to your Willpower characteristic."
+    },
+    {
+      name: "Fleet Footed",
+      description: "You are quicker than most. Your Movement increases by 1."
+    },
+    {
+      name: "Hardy",
+      description: "You are in excellent physical condition. You gain a permanent +1 Wound."
+    },
+    {
+      name: "Lightning Reflexes",
+      description: "Your reflexes are extraordinarily fast. You gain a permanent +5% bonus to your Agility characteristic."
+    },
+    {
+      name: "Night Vision",
+      description: "You can see well in darkness. You can see in low light up to 30 yards (15 squares) without penalty."
+    },
+    {
+      name: "Quick Draw",
+      description: "You have trained to be lightning quick when drawing a weapon. You may ready a weapon as a Free Action instead of a Half Action."
+    },
+    {
+      name: "Resistance to Poison",
+      description: "You are resistant to poisons and toxins. You gain a +10% bonus on all Toughness Tests to resist the effects of poison."
+    },
+    {
+      name: "Strike Mighty Blow",
+      description: "Your melee attacks hit with increased force. You gain a +1 bonus to damage on all melee attacks."
+    },
+    {
+      name: "Very Resilient",
+      description: "Your body is tougher than most. You gain a permanent +5% bonus to your Toughness characteristic."
+    },
+    {
+      name: "Warrior Born",
+      description: "You have an innate talent for combat. You gain a permanent +5% bonus to your Weapon Skill characteristic."
+    }
+  ];  
 
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
@@ -260,12 +311,20 @@ db.once("open", () => {
 const seedDB = async () => {
     await PlayerCharacterSheet.deleteMany({});
     await Skill.deleteMany({});
+    await Talent.deleteMany({});
     Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");
         })
         .catch((error) => {
             console.error("Error adding skills:", error);
+        });
+    Talent.insertMany(talents)
+        .then(() => {
+            console.log("Talents added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding talents:", error);
         });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });
