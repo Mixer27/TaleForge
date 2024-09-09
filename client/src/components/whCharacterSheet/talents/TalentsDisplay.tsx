@@ -76,7 +76,8 @@ const TalentsDisplay: React.FC<Props> = (props) => {
                 <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
                     <TalentTable
                         header="Talent"
-                        handleAddSkillClick={handleAddTalentClick}
+                        handleAddTalentClick={handleAddTalentClick}
+                        handleRemoveTalentClick={handleRemoveTalent}
                         talents={props.talents}
                     >
                     </TalentTable>
