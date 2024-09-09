@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 interface Props {
     header: string,
-    skills?: Array<SkillwLvl>,
+    skills: Array<SkillwLvl>,
     stats?: PlayerStats,
     handleClick: (skillName: string, skill: SkillwLvl) => void,
     handleAddSkillClick: () => void,
@@ -28,6 +28,21 @@ const calculateSkillValue = (current_value: number, skill_level: SkillLvl) => {
     }
 }
 
+const alphabeticalSort = (array: Array<SkillwLvl>) => {
+    if (array.every((v) => 'skill' in v)) {
+        return array.sort((a: SkillwLvl, b: SkillwLvl) => {
+            if (a.skill.name < b.skill.name) {
+                return -1
+            }
+            if (a.skill.name > b.skill.name) {
+                return 1
+            }
+            return 0
+        })
+    }
+    else return []
+}
+
 const SkillTable: React.FC<Props> = (props) => {
 
     return (
@@ -43,7 +58,7 @@ const SkillTable: React.FC<Props> = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.skills?.map((skill: SkillwLvl) => (
+                        {alphabeticalSort(props.skills).map((skill: SkillwLvl) => (
                             <TableRow key={skill.skill.name}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -88,7 +88,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                         header="Basic Skills"
                         handleClick={handleSkillClick}
                         handleAddSkillClick={handleAddSkillClick}
-                        skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === false)}
+                        skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === false) ?? []}
                         stats={props.stats}
                     >
                     </SkillTable>
@@ -98,7 +98,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                         header="Advanced Skills"
                         handleClick={handleSkillClick}
                         handleAddSkillClick={handleAddSkillClick}
-                        skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === true)}
+                        skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === true) ?? []}
                         stats={props.stats}
                     >
                     </SkillTable>

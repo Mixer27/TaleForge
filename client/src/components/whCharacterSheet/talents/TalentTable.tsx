@@ -15,6 +15,22 @@ interface Props {
     handleRemoveTalentClick: (removedTalent: TalentObject) => void
 }
 
+const alphabeticalSort = (array: Array<TalentObject>) => {
+    if (array.every((v) => 'talent' in v)) {
+        return array.sort((a: TalentObject, b: TalentObject) => {
+            if (a.talent.name < b.talent.name) {
+                return -1
+            }
+            if (a.talent.name > b.talent.name) {
+                return 1
+            }
+            return 0
+        })
+    }
+    else return []
+}
+
+
 const TalentTable: React.FC<Props> = (props) => {
 
     return (
@@ -29,7 +45,7 @@ const TalentTable: React.FC<Props> = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.talents.map((talent: TalentObject) => (
+                        {alphabeticalSort(props.talents).map((talent: TalentObject) => (
                             <TableRow key={talent.talent.name}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
