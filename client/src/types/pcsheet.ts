@@ -79,6 +79,20 @@ interface TalentObject {
     talent: Talent
 }
 
+interface Spell {
+    _id: string,
+    name: string,
+    domain: string,
+    castingNumber: number,
+    castingTime: string,
+    ingredient: string,
+    description: string,
+}
+
+interface SpellObject {
+    spell: Spell
+}
+
 interface Wealth {
     gc: number;
     sh: number;
@@ -105,8 +119,9 @@ interface PlayerCharacterSheet {
     backstory: string;
     stats: PlayerStats;
     armor: Armor,
-    skills: SkillwLvl[];
-    talents: TalentObject[];
+    skills: SkillwLvl[],
+    talents: TalentObject[],
+    spells: SpellObject[],
     wealth: Wealth;
 }
 
@@ -120,5 +135,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent, TalentObject };
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent, TalentObject, Spell, SpellObject };
 export { CharacterSheetTab, Gender, Race, SkillLvl }

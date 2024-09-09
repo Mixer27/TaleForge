@@ -1,16 +1,17 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { PlayerCharacterSheet, SkillwLvl, TalentObject } from "../../types";
+import { PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
-import { CharacterSheetTab, PlayerStats, Talent } from "../../types";
+import { CharacterSheetTab, PlayerStats } from "../../types";
 import { TabContext, TabPanel } from "@mui/lab";
 import { DrawerContext } from "../../context/drawerContext";
 import { Box } from "@mui/material";
 import { defaultPlayerCharacterSheet } from "../../utils/defaults";
 import { SkillsDisplay } from "../../components/whCharacterSheet/skills/SkillsDisplay";
 import { TalentsDisplay } from "../../components/whCharacterSheet/talents/TalentsDisplay";
+import { SpellsDisplay } from "../../components/whCharacterSheet/spells/SpellsDisplay";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -27,8 +28,13 @@ const WHPcSheet: React.FC = () => {
                 return res.json();
             })
             .then((data) => {
-                setSheet(data);
-                console.log(data);
+                if (data) {
+                    setSheet(data);
+                    console.log(data);
+                }
+                else {
+                    navigate('/pcsheets');
+                }
             })
             .catch((error) => {
                 console.error("Error fetching data!", error);
@@ -77,7 +83,7 @@ const WHPcSheet: React.FC = () => {
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>  | Array<TalentObject>) => {
+    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[]) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
         if (key === "PreviousCareers" && typeof value === 'string') {
@@ -110,6 +116,14 @@ const WHPcSheet: React.FC = () => {
             console.log("change talents", value, update)
             setSheet(update)
         }
+        else if (key === 'spells' && Array.isArray(value) && value.every((v) => "spell" in v)) {
+            const update: PlayerCharacterSheet = {
+                ...sheet,
+                [key]: value as Array<SpellObject>,
+            }
+            console.log("change spells", value, update)
+            setSheet(update)
+        }
         else {
             const update: PlayerCharacterSheet = {
                 ...sheet,
@@ -129,7 +143,7 @@ const WHPcSheet: React.FC = () => {
         localStorage.setItem('currentTab', newValue); // Zapisanie wybranej karty
     }
 
-// ustawianie otwartej karty przy ładowaniu strony
+    // ustawianie otwartej karty przy ładowaniu strony
     useEffect(() => {
         const savedTab = localStorage.getItem('currentTab');
         if (savedTab) {
@@ -153,8 +167,7 @@ const WHPcSheet: React.FC = () => {
                         <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Spells}>
-                        aaa
-                        {/* <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} /> */}
+                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                 </Box>
             </TabContext>

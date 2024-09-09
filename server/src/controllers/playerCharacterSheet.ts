@@ -19,16 +19,20 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
             }
         })
         .populate({
-
             path: "talents",
             populate: {
                 path: 'talent',
                 model: 'Talent'
             }
-        }
-        );
+        })
+        .populate({
+            path: "spells",
+            populate: {
+                path: "spell",
+                model: "Spell",
+            }
+        });
     res.json(data);
-    // console.log(data?.skills);
 }
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
