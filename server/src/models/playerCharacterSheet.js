@@ -5,6 +5,7 @@ var mongoose_1 = require("mongoose");
 var mongoose_2 = require("mongoose");
 var skill_1 = require("./skill");
 Object.defineProperty(exports, "Skill", { enumerable: true, get: function () { return skill_1.Skill; } });
+// import { Talent } from "./talent";
 var Race = Object.freeze({
     HALFLING: "Halfling",
     HUMAN: "Human",
@@ -74,6 +75,13 @@ var TalentSchema = new mongoose_2.Schema({
     }
 }, { _id: false });
 exports.TalentSchema = TalentSchema;
+var SpellSchema = new mongoose_2.Schema({
+    spell: {
+        type: mongoose_2.Schema.Types.ObjectId,
+        ref: 'Spell',
+        required: true,
+    }
+}, { _id: false });
 var PlayerCharacterSchema = new mongoose_2.Schema({
     owner_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
     session_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
@@ -102,6 +110,7 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     stats: { type: PlayerStatsSchema, required: true },
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
+    spells: { type: [SpellSchema], default: [] },
     wealth: {
         gc: { type: Number, default: 0 },
         sh: { type: Number, default: 0 },

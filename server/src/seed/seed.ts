@@ -3,6 +3,7 @@ import { PlayerCharacterSheet, SkillLvl } from "../models/playerCharacterSheet";
 import { Skill } from "../models/skill";
 import { Talent } from "../models/talent"
 import { NpcSheet } from "../models/npcSheet";
+import { Spell } from "../models/spell";
 
 const examples = [{
     'owner_id': new mongoose.Types.ObjectId(),
@@ -50,6 +51,7 @@ const examples = [{
     },
     'skills': [],
     'talents': [],
+    spells: [],
     'wealth': {
         'gc': 5,
         'sh': 2,
@@ -143,6 +145,7 @@ const examples = [{
         },
     ],
     talents: [],
+    spells: [],
     wealth: {
         gc: 10,
         sh: 20,
@@ -250,54 +253,153 @@ const skills = [
 
 const talents = [
     {
-      name: "Acute Hearing",
-      description: "Your hearing is exceptionally keen. You gain a +20% bonus on all Perception Skill Tests involving hearing."
+        name: "Acute Hearing",
+        description: "Your hearing is exceptionally keen. You gain a +20% bonus on all Perception Skill Tests involving hearing."
     },
     {
-      name: "Ambidextrous",
-      description: "You can use both hands equally well. You do not suffer the normal -20% penalty for using your off hand in combat or other tests."
+        name: "Ambidextrous",
+        description: "You can use both hands equally well. You do not suffer the normal -20% penalty for using your off hand in combat or other tests."
     },
     {
-      name: "Coolheaded",
-      description: "Your mind is cool under pressure. You gain a permanent +5% bonus to your Willpower characteristic."
+        name: "Coolheaded",
+        description: "Your mind is cool under pressure. You gain a permanent +5% bonus to your Willpower characteristic."
     },
     {
-      name: "Fleet Footed",
-      description: "You are quicker than most. Your Movement increases by 1."
+        name: "Fleet Footed",
+        description: "You are quicker than most. Your Movement increases by 1."
     },
     {
-      name: "Hardy",
-      description: "You are in excellent physical condition. You gain a permanent +1 Wound."
+        name: "Hardy",
+        description: "You are in excellent physical condition. You gain a permanent +1 Wound."
     },
     {
-      name: "Lightning Reflexes",
-      description: "Your reflexes are extraordinarily fast. You gain a permanent +5% bonus to your Agility characteristic."
+        name: "Lightning Reflexes",
+        description: "Your reflexes are extraordinarily fast. You gain a permanent +5% bonus to your Agility characteristic."
     },
     {
-      name: "Night Vision",
-      description: "You can see well in darkness. You can see in low light up to 30 yards (15 squares) without penalty."
+        name: "Night Vision",
+        description: "You can see well in darkness. You can see in low light up to 30 yards (15 squares) without penalty."
     },
     {
-      name: "Quick Draw",
-      description: "You have trained to be lightning quick when drawing a weapon. You may ready a weapon as a Free Action instead of a Half Action."
+        name: "Quick Draw",
+        description: "You have trained to be lightning quick when drawing a weapon. You may ready a weapon as a Free Action instead of a Half Action."
     },
     {
-      name: "Resistance to Poison",
-      description: "You are resistant to poisons and toxins. You gain a +10% bonus on all Toughness Tests to resist the effects of poison."
+        name: "Resistance to Poison",
+        description: "You are resistant to poisons and toxins. You gain a +10% bonus on all Toughness Tests to resist the effects of poison."
     },
     {
-      name: "Strike Mighty Blow",
-      description: "Your melee attacks hit with increased force. You gain a +1 bonus to damage on all melee attacks."
+        name: "Strike Mighty Blow",
+        description: "Your melee attacks hit with increased force. You gain a +1 bonus to damage on all melee attacks."
     },
     {
-      name: "Very Resilient",
-      description: "Your body is tougher than most. You gain a permanent +5% bonus to your Toughness characteristic."
+        name: "Very Resilient",
+        description: "Your body is tougher than most. You gain a permanent +5% bonus to your Toughness characteristic."
     },
     {
-      name: "Warrior Born",
-      description: "You have an innate talent for combat. You gain a permanent +5% bonus to your Weapon Skill characteristic."
+        name: "Warrior Born",
+        description: "You have an innate talent for combat. You gain a permanent +5% bonus to your Weapon Skill characteristic."
     }
-  ];  
+];
+
+const spells = [
+    {
+        "name": "Acceptance of Fate",
+        "domain": "Death",
+        "castingNumber": 5,
+        "castingTime": "Full Action",
+        "ingredient": "A broken hourglass",
+        "description": "The caster invokes the inevitability of fate, calming a target's mind and making them more accepting of their eventual death, giving them temporary resistance to fear effects."
+    },
+    {
+        "name": "Death's Door",
+        "domain": "Death",
+        "castingNumber": 6,
+        "castingTime": "Full Action",
+        "ingredient": "A handful of grave dirt",
+        "description": "The caster brings the target to the brink of death, causing debilitating weakness but not killing them outright. The target suffers significant penalties to all actions."
+    },
+    {
+        "name": "Deathsight",
+        "domain": "Death",
+        "castingNumber": 4,
+        "castingTime": "Half Action",
+        "ingredient": "A shard of obsidian",
+        "description": "The caster gains the ability to see the approaching death of a creature, allowing them to predict fatal blows or dangerous situations with eerie accuracy."
+    },
+    {
+        "name": "Reaping Scythe",
+        "domain": "Death",
+        "castingNumber": 7,
+        "castingTime": "Full Action",
+        "ingredient": "A rusted scythe blade",
+        "description": "The caster conjures a spectral scythe that cuts through enemies in a wide arc, dealing severe damage to multiple targets in close proximity."
+    },
+    {
+        "name": "Swift Passing",
+        "domain": "Death",
+        "castingNumber": 6,
+        "castingTime": "Full Action",
+        "ingredient": "A black feather",
+        "description": "This spell hastens the death of a creature that is on the brink of passing, allowing the caster to grant a merciful and quick death to the mortally wounded."
+    },
+    {
+        "name": "Wind of Death",
+        "domain": "Death",
+        "castingNumber": 9,
+        "castingTime": "Full Action",
+        "ingredient": "A bone from a long-dead corpse",
+        "description": "The caster summons a chilling wind that sweeps across the battlefield, draining life from all living creatures it touches and leaving a trail of death in its wake."
+    },
+    {
+        "name": "The Icy Grip of Death",
+        "domain": "Death",
+        "castingNumber": 8,
+        "castingTime": "Full Action",
+        "ingredient": "A shard of frozen bone",
+        "description": "The caster's touch causes the target's blood to freeze in their veins, immobilizing them and dealing significant damage as the cold of death takes hold."
+    },
+    {
+        "name": "Knocks of the Departed",
+        "domain": "Death",
+        "castingNumber": 6,
+        "castingTime": "Half Action",
+        "ingredient": "A bell from a funeral",
+        "description": "The caster calls upon the spirits of the recently departed, causing an eerie knocking sound that unnerves enemies and disrupts their concentration."
+    },
+    {
+        "name": "Grief's End",
+        "domain": "Death",
+        "castingNumber": 5,
+        "castingTime": "Full Action",
+        "ingredient": "A tear collected from a grieving mourner",
+        "description": "The caster soothes the sorrow of a target, allowing them to overcome debilitating grief or emotional trauma, giving them clarity of mind and resolve."
+    },
+    {
+        "name": "Tide of Years",
+        "domain": "Death",
+        "castingNumber": 10,
+        "castingTime": "Full Action",
+        "ingredient": "A drop of ancient ink",
+        "description": "The caster invokes the slow passage of time, aging their enemies rapidly. Those affected feel the weight of years upon them, suffering penalties to speed and strength."
+    },
+    {
+        "name": "Youth's Bane",
+        "domain": "Death",
+        "castingNumber": 8,
+        "castingTime": "Full Action",
+        "ingredient": "A lock of hair from a child",
+        "description": "The caster curses a young target, stripping them of their vitality and youth, leaving them weak and frail as though they had aged a hundred years."
+    },
+    {
+        "name": "Ward Against Abomination",
+        "domain": "Death",
+        "castingNumber": 7,
+        "castingTime": "Full Action",
+        "ingredient": "A blessed amulet",
+        "description": "The caster creates a protective ward that repels unnatural creatures and undead, preventing them from approaching or entering the protected area."
+    }
+]
 
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
@@ -312,6 +414,7 @@ const seedDB = async () => {
     await PlayerCharacterSheet.deleteMany({});
     await Skill.deleteMany({});
     await Talent.deleteMany({});
+    await Spell.deleteMany({});
     Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");
@@ -325,6 +428,13 @@ const seedDB = async () => {
         })
         .catch((error) => {
             console.error("Error adding talents:", error);
+        });
+    Spell.insertMany(spells)
+        .then(() => {
+            console.log("Spells added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding spells:", error);
         });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });

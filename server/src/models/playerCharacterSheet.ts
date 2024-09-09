@@ -75,6 +75,14 @@ const TalentSchema = new Schema({
     }
 }, { _id: false })
 
+const SpellSchema = new Schema({
+    spell: {
+        type: Schema.Types.ObjectId,
+        ref: 'Spell',
+        required: true,
+    }
+}, { _id: false })
+
 const PlayerCharacterSchema = new Schema({
     owner_id: { type: Schema.Types.ObjectId, required: true, index: true },
     session_id: { type: Schema.Types.ObjectId, required: true, index: true },
@@ -103,6 +111,7 @@ const PlayerCharacterSchema = new Schema({
     stats: { type: PlayerStatsSchema, required: true },
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
+    spells: { type: [SpellSchema], default: [] },
     wealth: {
         gc: { type: Number, default: 0 },
         sh: { type: Number, default: 0 },
@@ -112,4 +121,4 @@ const PlayerCharacterSchema = new Schema({
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
 
-export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, SkillLvl};
+export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, SkillLvl };
