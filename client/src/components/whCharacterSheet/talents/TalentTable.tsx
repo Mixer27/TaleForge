@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
-import { Talent } from "../../../types"
+import { Talent, TalentObject } from "../../../types"
 import { GridItem } from "../GridItem"
 import { Paper } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 interface Props {
     header: string,
-    talents: Talent[]
+    talents: TalentObject[]
     // handleClick: (skillName: string, talent) => void,
     handleAddSkillClick: () => void,
 }
@@ -25,13 +25,13 @@ const TalentTable: React.FC<Props> = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.talents.map((talent: Talent) => (
-                            <TableRow key={talent.name}
+                        {props.talents.map((talent: TalentObject) => (
+                            <TableRow key={talent.talent.name}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell>{talent.name}</TableCell>
-                                <TableCell align="center">{talent.description}</TableCell>
+                                <TableCell>{talent.talent.name}</TableCell>
+                                <TableCell align="center">{talent.talent.description}</TableCell>
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddSkillClick}>

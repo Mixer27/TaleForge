@@ -12,15 +12,23 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
     console.log(mongoose.modelNames());
     const data = await PlayerCharacterSheet.findById(id)
         .populate({
-        path: "skills",
-        populate: {
-            path: 'skill',
-            model: 'Skill',
+            path: "skills",
+            populate: {
+                path: 'skill',
+                model: 'Skill',
+            }
+        })
+        .populate({
+
+            path: "talents",
+            populate: {
+                path: 'talent',
+                model: 'Talent'
+            }
         }
-    })
-    .populate("talents");
-res.json(data);
-// console.log(data?.skills);
+        );
+    res.json(data);
+    // console.log(data?.skills);
 }
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
@@ -34,6 +42,7 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     const updates = req.body;
 
     const updatedSheet = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true });
+    console.log(updates, updatedSheet);
     res.send(updatedSheet);
 }
 

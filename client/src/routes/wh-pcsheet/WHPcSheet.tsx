@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { PlayerCharacterSheet, SkillwLvl } from "../../types";
+import { PlayerCharacterSheet, SkillwLvl, TalentObject } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
@@ -52,7 +52,7 @@ const WHPcSheet: React.FC = () => {
 
             // await response.json()
             const updatedSheet = await response.json();
-            console.log("Character sheet updated succesfully.", updatedSheet);
+            console.log("Character sheet updated succesfully.", sheet, updatedSheet);
             navigate(`/pcsheets/${id}`);
 
         } catch (error) {
@@ -73,12 +73,13 @@ const WHPcSheet: React.FC = () => {
         if (isInitialLoad.current) {
             return;
         }
-        console.log("DEBUG")
+        console.log("DEBUG", sheet)
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>  | Array<Talent>) => {
+    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>  | Array<TalentObject>) => {
         // console.log("zmieniam sheet", name, value)
+        console.log("handle Change", key, value)
         if (key === "PreviousCareers" && typeof value === 'string') {
             setSheet({
                 ...sheet,
@@ -95,25 +96,28 @@ const WHPcSheet: React.FC = () => {
             // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
         else if (key === 'skills' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
-            console.log("change skills")
+            console.log("change skills", value)
             setSheet({
                 ...sheet,
                 [key]: value,
             })
         }
-        else if (key === 'talents' && Array.isArray(value) && value.every((v) => 'name' in v && 'description' in v)) {
-            console.log("change talents")
-            setSheet({
+        else if (key === 'talents' && Array.isArray(value) && value.every((v) => "talent" in v)) {
+            const update: PlayerCharacterSheet = {
                 ...sheet,
-                [key]: value,
-            })
+                [key]: value as Array<TalentObject>,
+            }
+            console.log("change talents", value, update)
+            setSheet(update)
         }
         else {
-            console.log("change other")
-            setSheet({
+            const update: PlayerCharacterSheet = {
                 ...sheet,
                 [key]: value,
-            });
+            }
+            console.log("change other", value, update)
+            setSheet(update)
+
         }
         // przy zmianie zamyka initail load
         isInitialLoad.current = false;

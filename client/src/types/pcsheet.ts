@@ -71,8 +71,12 @@ interface SkillwLvl {
 
 interface Talent {
     _id: string,
-    name: string; 
+    name: string;
     description: string;
+}
+
+interface TalentObject {
+    talent: Talent
 }
 
 interface Wealth {
@@ -102,7 +106,7 @@ interface PlayerCharacterSheet {
     stats: PlayerStats;
     armor: Armor,
     skills: SkillwLvl[];
-    talents: Talent[];
+    talents: TalentObject[];
     wealth: Wealth;
 }
 
@@ -116,5 +120,5 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent};
-export { CharacterSheetTab, Gender, Race, SkillLvl}
+export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent, TalentObject };
+export { CharacterSheetTab, Gender, Race, SkillLvl }

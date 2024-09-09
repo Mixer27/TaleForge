@@ -1,14 +1,13 @@
 import { Grid, Theme, useMediaQuery, useTheme } from "@mui/material"
-import { PlayerCharacterSheet, PlayerStats, Talent } from "../../../types"
+import { PlayerCharacterSheet, Talent, TalentObject } from "../../../types"
 import { useState } from "react"
-import { SkillwLvl } from "../../../types"
 import { TalentTable } from "./TalentTable"
 import { NewTalentDialog } from "./NewTalentDialog"
 
 interface Props {
-    talents: Talent[],
+    talents: TalentObject[],
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl> | Array<Talent>) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: Array<TalentObject>) => void,
 }
 
 // const defaultSkill: SkillwLvl = {  };
@@ -34,9 +33,9 @@ const TalentsDisplay: React.FC<Props> = (props) => {
         console.log("saved to DB")
         handleCloseDialog()
     }
-    const handleRemoveTalent = (removedTalent: Talent) => {
-        const updatedTalents = props.talents?.filter((t: Talent) => {
-            return t._id !== removedTalent._id
+    const handleRemoveTalent = (removedTalent: TalentObject) => {
+        const updatedTalents = props.talents?.filter((t: TalentObject) => {
+            return t.talent._id !== removedTalent.talent._id
         }) ?? [];
         props.handleChange("talents", updatedTalents);
         handleCloseDialog();
@@ -47,7 +46,7 @@ const TalentsDisplay: React.FC<Props> = (props) => {
     const handleAddTalent = (addedTalent: Talent) => {
         handleSave();
         if (props.talents && addedTalent) {
-            const update = [...props.talents, addedTalent];
+            const update: Array<TalentObject> = [...props.talents, {talent: addedTalent}];
             console.log('handleAddTalent', addedTalent, update);
             setNewTalentDialogOpen(false);
             props.handleChange("talents", update);
@@ -86,7 +85,7 @@ const TalentsDisplay: React.FC<Props> = (props) => {
             {newTalentDialogOpen && <NewTalentDialog
                 headerName="Select Skill to add"
                 isOpen={newTalentDialogOpen}
-                talents={props.talents ?? []}
+                talents={props.talents.map((t: TalentObject) => t.talent) ?? []}
                 // handleChange={handleAdd}
                 handleClose={handleCloseDialog}
                 handleSave={handleAddTalent}

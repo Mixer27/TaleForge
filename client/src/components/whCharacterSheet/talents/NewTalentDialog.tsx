@@ -55,7 +55,7 @@ const NewTalentDialog: React.FC<Props> = (props) => {
     }
     const onSave = () => {
         if (addedTalent) {
-            console.log(addedTalent)
+            console.log('onSave', addedTalent)
             props.handleSave(addedTalent)
         } else {
             props.handleClose();

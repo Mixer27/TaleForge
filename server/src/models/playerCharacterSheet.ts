@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { Skill } from "./skill";
+// import { Talent } from "./talent";
 
 const Race = Object.freeze({
     HALFLING: "Halfling",
