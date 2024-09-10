@@ -1,15 +1,15 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material"
 import { GridItem } from "./GridItem"
+import { SingleStat } from "../../types";
 
-
-interface Stat {
-    statName?: string,
-    singleStat?: number,
+interface SingleStatWKey {
+    key: string,
+    stat: SingleStat,
 }
 
 interface Props {
     header: string,
-    stats: Array<Stat>
+    stats: Array<SingleStatWKey>
     handleClick: (statName: string) => void,
 }
 
@@ -35,13 +35,13 @@ const SingleStatTable: React.FC<Props> = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.stats?.map((stat: Stat) => (
-                            <TableRow key={stat.statName}
+                        {props.stats?.map((stat: SingleStatWKey) => (
+                            <TableRow key={stat.key}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => props.handleClick(String(stat.statName))}>
-                                <TableCell>{nameFormat(stat.statName)}</TableCell>
-                                <TableCell align="center">{stat.singleStat}</TableCell>
+                                onClick={() => props.handleClick(String(stat.key))}>
+                                <TableCell>{nameFormat(stat.stat.name)}</TableCell>
+                                <TableCell align="center">{stat.stat.current}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

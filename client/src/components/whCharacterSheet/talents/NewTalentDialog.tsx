@@ -84,8 +84,8 @@ const NewTalentDialog: React.FC<Props> = (props) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onSave} type='submit'>Add</Button>
+                    <Button onClick={onClose}>Anuluj</Button>
+                    <Button onClick={onSave} type='submit'>Dodaj</Button>
                 </DialogActions>
             </Dialog>
         </form>

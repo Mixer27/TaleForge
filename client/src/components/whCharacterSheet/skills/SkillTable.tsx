@@ -52,9 +52,9 @@ const SkillTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
-                            <TableCell align="center">Profficiency</TableCell>
-                            <TableCell align="center">Value</TableCell>
-                            <TableCell align="center">Stat</TableCell>
+                            <TableCell align="center">Wyszkolenie</TableCell>
+                            <TableCell align="center">Wartość</TableCell>
+                            <TableCell align="center">Statystyka</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -70,11 +70,11 @@ const SkillTable: React.FC<Props> = (props) => {
                                         && typeof props.stats[skill.skill.relatedStatName as keyof PlayerStats] === 'object'
                                         ? calculateSkillValue((props.stats[skill.skill.relatedStatName as keyof PlayerStats] as PlayerStat)?.current ?? "0", skill.lvl) : "0"}
                                 </TableCell>
-                                <TableCell align="center">{skill.skill.relatedStatName}</TableCell>
+                                <TableCell align="center">{props.stats?.[skill.skill.relatedStatName as keyof PlayerStats]?.name ?? ""}</TableCell>
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddSkillClick}>
-                            <TableCell align="center" colSpan={4}>Add {props.header} <AddIcon fontSize="inherit"/></TableCell>
+                            <TableCell align="center" colSpan={4}>dodaj <AddIcon fontSize="inherit"/></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

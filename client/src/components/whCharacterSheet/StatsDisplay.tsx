@@ -1,10 +1,9 @@
 import { Grid, Theme, useMediaQuery, useTheme } from "@mui/material"
-import { PlayerCharacterSheet, PlayerStat, PlayerStats } from "../../types"
+import { PlayerCharacterSheet, PlayerStat, PlayerStats, SingleStat } from "../../types"
 import { StatTable } from "./StatTable"
 import { SingleStatTable } from "./SingleStatTable"
 import { useState } from "react"
 import { FormDialog } from "./FormDialog"
-import { nameFormat } from "../../utils/format"
 
 interface Props {
     stats?: PlayerStats,
@@ -12,19 +11,20 @@ interface Props {
     handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats) => void,
 }
 
-const defaultStat: PlayerStat = { starting: 0, current: 0, advance: 0 };
+const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
+const defaultSingleStat: SingleStat = { name: "", current: 0 };
 
 const StatsDisplay: React.FC<Props> = (props) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_stats, setStats] = useState<PlayerStats>(props.stats ? {...props.stats} : {})
+    const [_stats, setStats] = useState<PlayerStats>(props.stats ? { ...props.stats } : {})
     const theme: Theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
     const statsNames = props.stats ? Object.getOwnPropertyNames(props.stats) : []
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedStatName, setSelectedStatName] = useState<string | null>(null)
     const [selectedStat, setSelectedStat] = useState<PlayerStat | null>(null);
-    const [selectedSingleStat, setSelectedSingleStat] = useState<number | null>(null);
-    
+    const [selectedSingleStat, setSelectedSingleStat] = useState<SingleStat | null>(null);
+
     const handleStatClick = (statName: string) => {
         setSelectedStatName(statName);
         setSelectedStat(props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : null)
@@ -33,8 +33,9 @@ const StatsDisplay: React.FC<Props> = (props) => {
         setIsDialogOpen(true);
     }
     const handleSingleStatClick = (statName: string) => {
+        console.log("single click", statName);
         setSelectedStatName(statName);
-        setSelectedSingleStat(props.stats ? props.stats[statName as keyof PlayerStats] as number : null);
+        setSelectedSingleStat(props.stats ? props.stats[statName as keyof PlayerStats] as SingleStat : null);
         setSelectedStat(null);
 
         setIsDialogOpen(true);
@@ -72,10 +73,10 @@ const StatsDisplay: React.FC<Props> = (props) => {
             props.handleChange("stats", updatedStats)
         }
     }
-    const handleSingleStatChange = (value: string) => {
-        if (typeof selectedSingleStat === "number") {
-            setSelectedSingleStat(Number(value));
-            const updatedStats = { ...props.stats, [String(selectedStatName)]: Number(value) }
+    const handleSingleStatChange = (value: SingleStat) => {
+        if (selectedSingleStat) {
+            setSelectedSingleStat(value);
+            const updatedStats = { ...props.stats, [String(selectedStatName)]: value }
             setStats(updatedStats);
             props.handleChange("stats", updatedStats)
         }
@@ -86,56 +87,60 @@ const StatsDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "" }}>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Main stats"
+                        header="Statystyki główne"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(0, 8).map((statName: string) => ({
-                            statName: statName,
-                            extendedStat: props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : defaultStat
-                        })) : [{ statName: "", extendedStat: defaultStat }]}
+                            key: statName,
+                            stat: props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : defaultStat
+                        })) : []}
                     >
                     </StatTable>
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Secondary stats"
+                        header="Statystyki drugorzędne"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(8, 12).map((statName: string) => ({
-                            statName: statName,
-                            extendedStat: props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : defaultStat
-                        })) : [{ statName: "", extendedStat: defaultStat }]}
+                            key: statName,
+                            stat: props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : defaultStat
+                        })) : []}
                     >
                     </StatTable>
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <SingleStatTable
-                        header="Secondary stats"
+                        header="Pozostałe statystyki"
                         handleClick={handleSingleStatClick}
+                        // stats={[props.stats?.strengthBonus ?? defaultSingleStat, props.stats?.toughnessBonus ?? defaultSingleStat, props.stats?.insanityPoints ?? defaultSingleStat, props.stats?.fatePoints ?? defaultSingleStat] ?? []}
                         stats={statsNames ? statsNames.slice(12, 16).map((statName: string) => ({
-                            statName: statName,
-                            singleStat: props.stats ? props.stats[statName as keyof PlayerStats] as number : 0
-                        })) : [{ statName: "", singleStat: 0 }]}
+                            key: statName,
+                            stat: props.stats?.[statName as keyof PlayerStats] ?? defaultSingleStat,
+                            // current: props.stats ? props.stats[statName as keyof PlayerStats]?.current as number : 0
+                        })) : []}
                     >
                     </SingleStatTable>
                 </Grid>
-            </Grid>
+            </Grid >
             {selectedStat && <FormDialog
-                headerName={selectedStatName ? nameFormat(selectedStatName) : ""}
+                headerName={props.stats?.[selectedStatName as keyof PlayerStats]?.name ?? ""}
                 stat={selectedStat}
                 isOpen={isDialogOpen}
                 handleChange={handleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
                 handleSubmit={props.handleSubmit}
-            />}
-            {(typeof selectedSingleStat === "number") && <FormDialog
-                headerName={selectedStatName ? nameFormat(selectedStatName) : ""}
+            />
+            }
+            {selectedSingleStat && <FormDialog
+                headerName={props.stats?.[selectedStatName as keyof PlayerStats]?.name ?? ""}
                 singleStat={selectedSingleStat}
                 isOpen={isDialogOpen}
                 handleSingleChange={handleSingleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
                 handleSubmit={props.handleSubmit}
-            />}
+            />
+            }
         </>
     )
 }

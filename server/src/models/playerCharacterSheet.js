@@ -1,27 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SkillLvl = exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
+exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
 var mongoose_1 = require("mongoose");
 var mongoose_2 = require("mongoose");
 var skill_1 = require("./skill");
 Object.defineProperty(exports, "Skill", { enumerable: true, get: function () { return skill_1.Skill; } });
 // import { Talent } from "./talent";
-var Race = Object.freeze({
-    HALFLING: "Halfling",
-    HUMAN: "Human",
-    ELF: "Elf",
-    DWARF: "Dwarf",
-});
-var Gender = Object.freeze({
-    MALE: "Male",
-    FEMALE: "Female",
-});
-var SkillLvl = Object.freeze({
-    NORMAL: "Taken",
-    ADVANCED: "+10%",
-    EXPERT: "+20%",
-});
-exports.SkillLvl = SkillLvl;
+var enums_1 = require("../utils/enums");
 var ArmorSchema = new mongoose_2.Schema({
     head: { type: Number, required: true, default: 0 },
     l_arm: { type: Number, required: true, default: 0 },
@@ -32,10 +17,15 @@ var ArmorSchema = new mongoose_2.Schema({
 }, { _id: false });
 exports.ArmorSchema = ArmorSchema;
 var PlayerStatSchema = new mongoose_2.Schema({
+    name: { type: String, enum: Object.values(enums_1.StatName), required: true },
     starting: { type: Number, required: true, default: 0 },
     advance: { type: Number, required: true, default: 0 },
     current: { type: Number, required: true, default: 0 },
 }, { _id: false });
+var SingleStatSchema = new mongoose_2.Schema({
+    name: { type: String, enum: Object.values(enums_1.StatName), required: true },
+    current: { type: Number, required: true, default: 0 },
+});
 var PlayerStatsSchema = new mongoose_2.Schema({
     weaponSkills: PlayerStatSchema,
     ballisticSkills: PlayerStatSchema,
@@ -49,10 +39,10 @@ var PlayerStatsSchema = new mongoose_2.Schema({
     wounds: PlayerStatSchema,
     magic: PlayerStatSchema,
     movement: PlayerStatSchema,
-    strengthBonus: { type: Number, required: true, default: 0 },
-    toughnessBonus: { type: Number, required: true, default: 0 },
-    insanityPoints: { type: Number, required: true, default: 0 },
-    fatePoints: { type: Number, required: true, default: 0 },
+    strengthBonus: SingleStatSchema,
+    toughnessBonus: SingleStatSchema,
+    insanityPoints: SingleStatSchema,
+    fatePoints: SingleStatSchema,
 }, { _id: false });
 var SkillLvlSchema = new mongoose_2.Schema({
     skill: {
@@ -62,7 +52,7 @@ var SkillLvlSchema = new mongoose_2.Schema({
     },
     lvl: {
         type: String,
-        enum: Object.values(SkillLvl),
+        enum: Object.values(enums_1.SkillLvl),
         required: true,
     },
 }, { _id: false });
@@ -88,14 +78,14 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     name: { type: String, required: true },
     race: {
         type: String,
-        enum: Object.values(Race),
+        enum: Object.values(enums_1.Race),
     },
     currentCareer: String,
     PreviousCareers: [String],
     age: Number,
     gender: {
         type: String,
-        enum: Object.values(Gender),
+        enum: Object.values(enums_1.Gender),
     },
     eyeColor: { type: String, default: "" },
     hairColor: { type: String, default: "" },

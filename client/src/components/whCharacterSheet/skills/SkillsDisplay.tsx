@@ -85,7 +85,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "auto" }}>
                 <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
                     <SkillTable
-                        header="Basic Skills"
+                        header="Umiejętności podstawowe"
                         handleClick={handleSkillClick}
                         handleAddSkillClick={handleAddSkillClick}
                         skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === false) ?? []}
@@ -95,7 +95,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={6}>
                 <SkillTable
-                        header="Advanced Skills"
+                        header="Umiejętności zaawansowane"
                         handleClick={handleSkillClick}
                         handleAddSkillClick={handleAddSkillClick}
                         skills={props.skills?.filter((skill: SkillwLvl) => skill.skill.advanced === true) ?? []}

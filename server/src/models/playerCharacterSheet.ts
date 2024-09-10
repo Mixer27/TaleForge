@@ -2,23 +2,8 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { Skill } from "./skill";
 // import { Talent } from "./talent";
+import {Race, Gender, SkillLvl, StatName} from "../utils/enums"
 
-const Race = Object.freeze({
-    HALFLING: "Halfling",
-    HUMAN: "Human",
-    ELF: "Elf",
-    DWARF: "Dwarf",
-});
-const Gender = Object.freeze({
-    MALE: "Male",
-    FEMALE: "Female",
-});
-
-const SkillLvl = Object.freeze({
-    NORMAL: "Taken",
-    ADVANCED: "+10%",
-    EXPERT: "+20%",
-});
 
 const ArmorSchema = new Schema({
     head: { type: Number, required: true, default: 0 },
@@ -30,10 +15,15 @@ const ArmorSchema = new Schema({
 }, { _id: false });
 
 const PlayerStatSchema = new Schema({
+    name: { type: String, enum: Object.values(StatName), required: true},
     starting: { type: Number, required: true, default: 0 },
     advance: { type: Number, required: true, default: 0 },
     current: { type: Number, required: true, default: 0 },
 }, { _id: false });
+const SingleStatSchema = new Schema({
+    name: { type: String, enum: Object.values(StatName), required: true},
+    current: { type: Number, required: true, default: 0 },
+})
 
 const PlayerStatsSchema: Schema = new Schema({
     weaponSkills: PlayerStatSchema,
@@ -48,10 +38,10 @@ const PlayerStatsSchema: Schema = new Schema({
     wounds: PlayerStatSchema,
     magic: PlayerStatSchema,
     movement: PlayerStatSchema,
-    strengthBonus: { type: Number, required: true, default: 0 },
-    toughnessBonus: { type: Number, required: true, default: 0 },
-    insanityPoints: { type: Number, required: true, default: 0 },
-    fatePoints: { type: Number, required: true, default: 0 },
+    strengthBonus: SingleStatSchema,
+    toughnessBonus: SingleStatSchema,
+    insanityPoints: SingleStatSchema,
+    fatePoints: SingleStatSchema,
 }, { _id: false })
 
 const SkillLvlSchema = new Schema({
@@ -121,4 +111,4 @@ const PlayerCharacterSchema = new Schema({
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
 
-export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, SkillLvl };
+export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill};

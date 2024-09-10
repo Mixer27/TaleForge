@@ -80,12 +80,12 @@ const NewSpellDialog: React.FC<Props> = (props) => {
                         onChange={onSkillChange}
                         getOptionLabel={(option: Spell) => option.name} // Wyświetlanie pola `name` dla każdego obiektu
                         sx={{ mt: 2, width: 300 }}
-                        renderInput={(params) => <TextField autoFocus {...params} label="talent" />}
+                        renderInput={(params) => <TextField autoFocus {...params} label="czar" />}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onSave} type='submit'>Add</Button>
+                    <Button onClick={onClose}>Anuluj</Button>
+                    <Button onClick={onSave} type='submit'>Dodaj</Button>
                 </DialogActions>
             </Dialog>
         </form>

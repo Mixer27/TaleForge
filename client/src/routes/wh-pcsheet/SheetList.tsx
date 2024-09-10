@@ -33,7 +33,7 @@ const SheetsList: React.FC = () => {
 
     return (
         <>
-            <MainNavigationBar headerText="Characters" />
+            <MainNavigationBar headerText="Postacie" />
             <Box mt={"2em"} display={"flex"} justifyContent={"center"} alignItems={"center"} flexGrow={1}>
                 <Box width={"50%"}>
                     <GridItem>

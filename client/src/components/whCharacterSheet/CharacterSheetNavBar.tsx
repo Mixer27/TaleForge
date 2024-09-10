@@ -22,12 +22,12 @@ const CharacterSheetNavBar: React.FC<Props> = (props) => {
                 <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={2}>
                     <Toolbar variant="dense">
                         <Tabs sx={{ flexGrow: 1 }} variant="scrollable" value={props.currentTab} onChange={props.handleChange}>
-                            <NavBarButton value={CharacterSheetTab.Stats} label="Stats" />
-                            <NavBarButton value={CharacterSheetTab.Skills} label="Skills" />
-                            <NavBarButton value={CharacterSheetTab.Talents} label="Talents" />
-                            <NavBarButton value={CharacterSheetTab.Spells} label="Spells" />
-                            <NavBarButton value={CharacterSheetTab.Inventory} label="Inventory" />
-                            <NavBarButton value={CharacterSheetTab.Details} label="Details" />
+                            <NavBarButton value={CharacterSheetTab.Stats} label="Statystyki" />
+                            <NavBarButton value={CharacterSheetTab.Skills} label="Umiejętności" />
+                            <NavBarButton value={CharacterSheetTab.Talents} label="Talenty" />
+                            <NavBarButton value={CharacterSheetTab.Spells} label="Czary" />
+                            <NavBarButton value={CharacterSheetTab.Inventory} label="Ekwipunek" />
+                            <NavBarButton value={CharacterSheetTab.Details} label="Szczegóły" />
                         </Tabs>
                     </Toolbar>
                 </AppBar>

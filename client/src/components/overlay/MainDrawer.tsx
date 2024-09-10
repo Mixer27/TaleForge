@@ -41,8 +41,8 @@ const MainDrawer: React.FC<Props> = (props) => {
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
             <List>
                 <DrawerListItem value="Home" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
-                <DrawerListItem value="Characters" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon}/>
-                {['Campaigns', 'Bestiary', 'Rule Book', 'About'].map((text) => (
+                <DrawerListItem value="Postacie" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon}/>
+                {['Kampanie', 'Bestiariusz', 'Księga zasad', 'O projekcie'].map((text) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

@@ -13,7 +13,7 @@ enum Gender {
 }
 
 enum SkillLvl {
-    NORMAL = "Taken",
+    NORMAL = "Posiadane",
     ADVANCED = "+10%",
     EXPERT = "+20%",
 }
@@ -27,10 +27,12 @@ interface Armor {
 }
 
 interface SingleStat {
-    value: number;
+    name: string;
+    current: number;
 }
 
 interface PlayerStat {
+    name: string,
     starting: number;
     advance: number;
     current: number;
@@ -50,10 +52,10 @@ interface PlayerStats {
     wounds?: PlayerStat;
     magic?: PlayerStat;
     movement?: PlayerStat;
-    strengthBonus?: number;
-    toughnessBonus?: number;
-    insanityPoints?: number;
-    fatePoints?: number;
+    strengthBonus?: SingleStat;
+    toughnessBonus?: SingleStat;
+    insanityPoints?: SingleStat;
+    fatePoints?: SingleStat;
 }
 
 interface Skill {

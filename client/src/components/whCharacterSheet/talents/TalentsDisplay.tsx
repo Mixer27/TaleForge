@@ -84,7 +84,7 @@ const TalentsDisplay: React.FC<Props> = (props) => {
                 </Grid>
             </Grid>
             {newTalentDialogOpen && <NewTalentDialog
-                headerName="Select Skill to add"
+                headerName="Wybierz talent do dodania"
                 isOpen={newTalentDialogOpen}
                 talents={props.talents.map((t: TalentObject) => t.talent) ?? []}
                 // handleChange={handleAdd}

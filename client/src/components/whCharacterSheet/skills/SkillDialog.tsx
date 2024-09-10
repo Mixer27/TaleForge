@@ -62,17 +62,17 @@ const SkillDialog: React.FC<Props> = (props) => {
                 <DialogContent>
                     {props.skill && (
                         <>
-                            <Typography variant='caption'>Description</Typography>
+                            <Typography variant='caption'>Opis umiejętności</Typography>
                             <Typography variant='body1'>{props.skill.skill.description}</Typography>
                             <FormControl>
-                                <FormLabel><Typography variant='caption'>Skill profficiency</Typography></FormLabel>
+                                <FormLabel><Typography variant='caption'>Stopień wyszkolenia</Typography></FormLabel>
                                 <RadioGroup row name='skill-profficiency'>
                                     {(Object.keys(SkillLvl) as (keyof typeof SkillLvl)[]).map((key) => {
                                         return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])} />
                                     })}
                                 </RadioGroup>
                                 <Button sx={{ mt: 1, mr: 1, width: 2/3}} variant="outlined" startIcon={<DeleteIcon />} onClick={() => onRemoveButtonClick(props.skill)}>
-                                    Remove Skill
+                                    Usuń
                                 </Button>
                             </FormControl>
 
@@ -107,8 +107,8 @@ const SkillDialog: React.FC<Props> = (props) => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button onClick={onSave} type='submit'>Save</Button>
+                    <Button onClick={onClose}>Anuluj</Button>
+                    <Button onClick={onSave} type='submit'>Zapisz</Button>
                 </DialogActions>
             </Dialog>
         </form>

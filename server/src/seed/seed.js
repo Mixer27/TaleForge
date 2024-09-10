@@ -52,24 +52,25 @@ var playerCharacterSheet_1 = require("../models/playerCharacterSheet");
 var skill_1 = require("../models/skill");
 var talent_1 = require("../models/talent");
 var spell_1 = require("../models/spell");
+var enums_1 = require("../utils/enums");
 var examples = [{
         'owner_id': new mongoose_1.default.Types.ObjectId(),
         'session_id': new mongoose_1.default.Types.ObjectId(),
-        'name': 'John Doe',
-        'race': 'Elf',
-        'currentCareer': 'Adventurer',
-        'PreviousCareers': ['Novice', 'Apprentice'],
+        'name': 'Jan Kowalski',
+        'race': enums_1.Race.ELF,
+        'currentCareer': 'Poszukiwacz przygód',
+        'PreviousCareers': ['Nowicjusz', 'Uczeń'],
         'age': 48,
-        'gender': 'Male',
-        'eyeColor': 'Blue',
-        'hairColor': 'Dark',
-        'starSign': 'The Big Cross',
+        'gender': enums_1.Gender.MALE,
+        'eyeColor': 'Niebieskie',
+        'hairColor': 'Ciemne',
+        'starSign': 'Wielki Krzyż',
         'weight': 76,
         'height': 165,
         'numOfSiblings': 4,
-        'birthplace': 'Small Village',
-        'distinguishMarks': 'Scar on the left cheek',
-        'backstory': 'Lost in the woods and raised by wolves.',
+        'birthplace': 'Mała wioska',
+        'distinguishMarks': 'Blizna na lewym policzku',
+        'backstory': 'Zgubiony w lesie i wychowany przez wilki.',
         'armor': {
             'head': 0,
             'l_arm': 0,
@@ -78,23 +79,23 @@ var examples = [{
             'l_leg': 0,
             'r_leg': 0,
         },
-        'stats': {
-            'weaponSkills': { 'starting': 30, 'advance': 5, 'current': 35 },
-            'ballisticSkills': { 'starting': 25, 'advance': 5, 'current': 30 },
-            'strength': { 'starting': 35, 'advance': 5, 'current': 40 },
-            'toughness': { 'starting': 40, 'advance': 5, 'current': 45 },
-            'agility': { 'starting': 30, 'advance': 10, 'current': 40 },
-            'intelligence': { 'starting': 25, 'advance': 15, 'current': 40 },
-            'willPower': { 'starting': 30, 'advance': 10, 'current': 40 },
-            'fellowship': { 'starting': 20, 'advance': 10, 'current': 30 },
-            'attacks': { 'starting': 1, 'advance': 0, 'current': 1 },
-            'wounds': { 'starting': 12, 'advance': 3, 'current': 15 },
-            'movement': { 'starting': 4, 'advance': 0, 'current': 4 },
-            'magic': { 'starting': 0, 'advance': 1, 'current': 1 },
-            'strengthBonus': 4,
-            'toughnessBonus': 4,
-            'insanityPoints': 4,
-            'fatePoints': 2
+        stats: {
+            weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
+            ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
+            strength: { name: enums_1.StatName.STRENGTH, starting: 35, advance: 5, current: 40 },
+            toughness: { name: enums_1.StatName.TOUGHNESS, starting: 40, advance: 5, current: 45 },
+            agility: { name: enums_1.StatName.AGILITY, starting: 30, advance: 10, current: 40 },
+            intelligence: { name: enums_1.StatName.INTELLIGENCE, starting: 25, advance: 15, current: 40 },
+            willPower: { name: enums_1.StatName.WILL_POWER, starting: 30, advance: 10, current: 40 },
+            fellowship: { name: enums_1.StatName.FELLOWSHIP, starting: 20, advance: 10, current: 30 },
+            attacks: { name: enums_1.StatName.ATTACKS, starting: 1, advance: 0, current: 1 },
+            wounds: { name: enums_1.StatName.WOUNDS, starting: 12, advance: 3, current: 15 },
+            movement: { name: enums_1.StatName.MOVEMENT, starting: 4, advance: 0, current: 4 },
+            magic: { name: enums_1.StatName.MAGIC, starting: 0, advance: 1, current: 1 },
+            strengthBonus: { name: enums_1.StatName.STRENGTH_BONUS, current: 4 },
+            toughnessBonus: { name: enums_1.StatName.TOUGHNESS_BONUS, current: 4 },
+            insanityPoints: { name: enums_1.StatName.INSANITY_POINTS, current: 4 },
+            fatePoints: { name: enums_1.StatName.FATE_POINTS, current: 2 },
         },
         'skills': [],
         'talents': [],
@@ -109,20 +110,20 @@ var examples = [{
         owner_id: new mongoose_1.default.Types.ObjectId(),
         session_id: new mongoose_1.default.Types.ObjectId(),
         name: "Reinhardt Falken",
-        race: "Human",
-        currentCareer: "Warrior",
-        PreviousCareers: ["Farmer"],
+        race: enums_1.Race.HUMAN,
+        currentCareer: "Wojownik",
+        PreviousCareers: ["Rolnik"],
         age: 30,
-        gender: "Male",
-        eyeColor: "Blue",
-        hairColor: "Black",
-        starSign: "Leo",
-        weight: 180,
-        height: 6,
+        gender: enums_1.Gender.MALE,
+        eyeColor: "Niebieskie",
+        hairColor: "Czarne",
+        starSign: "Lew",
+        weight: 82, // Zmieniłem jednostki na kilogramy
+        height: 183, // Zmieniłem jednostki na centymetry
         numOfSiblings: 2,
-        birthplace: "Unknown",
-        distinguishMarks: "Scar on left cheek",
-        backstory: "A seasoned warrior with a mysterious past.",
+        birthplace: "Nieznane",
+        distinguishMarks: "Blizna na lewym policzku",
+        backstory: "Doświadczony wojownik o tajemniczej przeszłości.",
         armor: {
             head: 2,
             l_arm: 1,
@@ -132,63 +133,43 @@ var examples = [{
             r_leg: 1,
         },
         stats: {
-            weaponSkills: { starting: 30, advance: 5, current: 35 },
-            ballisticSkills: { starting: 25, advance: 5, current: 30 },
-            strength: { starting: 40, advance: 10, current: 50 },
-            toughness: { starting: 30, advance: 5, current: 35 },
-            agility: { starting: 20, advance: 0, current: 20 },
-            intelligence: { starting: 25, advance: 5, current: 30 },
-            willPower: { starting: 30, advance: 10, current: 40 },
-            fellowship: { starting: 20, advance: 5, current: 25 },
-            attacks: { starting: 1, advance: 1, current: 2 },
-            wounds: { starting: 10, advance: 5, current: 15 },
-            magic: { starting: 0, advance: 0, current: 0 },
-            movement: { starting: 4, advance: 0, current: 4 },
-            strengthBonus: 5,
-            toughnessBonus: 3,
-            insanityPoints: 0,
-            fatePoints: 2,
+            weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
+            ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
+            strength: { name: enums_1.StatName.STRENGTH, starting: 40, advance: 10, current: 50 },
+            toughness: { name: enums_1.StatName.TOUGHNESS, starting: 30, advance: 5, current: 35 },
+            agility: { name: enums_1.StatName.AGILITY, starting: 20, advance: 0, current: 20 },
+            intelligence: { name: enums_1.StatName.INTELLIGENCE, starting: 25, advance: 5, current: 30 },
+            willPower: { name: enums_1.StatName.WILL_POWER, starting: 30, advance: 10, current: 40 },
+            fellowship: { name: enums_1.StatName.FELLOWSHIP, starting: 20, advance: 5, current: 25 },
+            attacks: { name: enums_1.StatName.ATTACKS, starting: 1, advance: 1, current: 2 },
+            wounds: { name: enums_1.StatName.WOUNDS, starting: 10, advance: 5, current: 15 },
+            magic: { name: enums_1.StatName.MAGIC, starting: 0, advance: 0, current: 0 },
+            movement: { name: enums_1.StatName.MOVEMENT, starting: 4, advance: 0, current: 4 },
+            strengthBonus: { name: enums_1.StatName.STRENGTH_BONUS, current: 5 },
+            toughnessBonus: { name: enums_1.StatName.TOUGHNESS_BONUS, current: 3 },
+            insanityPoints: { name: enums_1.StatName.INSANITY_POINTS, current: 0 },
+            fatePoints: { name: enums_1.StatName.FATE_POINTS, current: 2 },
         },
         skills: [
             {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f5'), // Replace with actual ObjectId for Animal Care
-                lvl: playerCharacterSheet_1.SkillLvl.NORMAL,
+                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f5'), // Example ObjectId for Umiejętność Opieka nad zwierzętami
+                lvl: enums_1.SkillLvl.NORMAL,
             },
             {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f6'), // Replace with actual ObjectId for Dodge Blow
-                lvl: playerCharacterSheet_1.SkillLvl.ADVANCED,
+                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f6'), // Example ObjectId for Unik
+                lvl: enums_1.SkillLvl.ADVANCED,
             },
             {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f7'), // Replace with actual ObjectId for Heal
-                lvl: playerCharacterSheet_1.SkillLvl.NORMAL,
+                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f7'), // Example ObjectId for Leczenie
+                lvl: enums_1.SkillLvl.NORMAL,
             },
             {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f8'), // Replace with actual ObjectId for Perception
-                lvl: playerCharacterSheet_1.SkillLvl.EXPERT,
+                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f8'), // Example ObjectId for Percepcja
+                lvl: enums_1.SkillLvl.EXPERT,
             },
             {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f9'), // Replace with actual ObjectId for Intimidate
-                lvl: playerCharacterSheet_1.SkillLvl.ADVANCED,
-            },
-            {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fd'), // Replace with actual ObjectId for Intimidate
-                lvl: playerCharacterSheet_1.SkillLvl.ADVANCED,
-            },
-            {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fe'), // Replace with actual ObjectId for Heal
-                lvl: playerCharacterSheet_1.SkillLvl.NORMAL,
-            },
-            {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67ff'), // Replace with actual ObjectId for Heal
-                lvl: playerCharacterSheet_1.SkillLvl.NORMAL,
-            },
-            {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d6800'), // Replace with actual ObjectId for Heal
-                lvl: playerCharacterSheet_1.SkillLvl.NORMAL,
-            },
-            {
-                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d6801'), // Replace with actual ObjectId for Perception
-                lvl: playerCharacterSheet_1.SkillLvl.EXPERT,
+                skill: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f9'), // Example ObjectId for Zastraszanie
+                lvl: enums_1.SkillLvl.ADVANCED,
             },
         ],
         talents: [],
@@ -204,243 +185,179 @@ var examples = [{
 var skills = [
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f5'),
-        name: "Animal Care",
+        name: "Opieka nad zwierzętami",
         relatedStatName: "intelligence", // In WFRP, Animal Care is based on Intelligence
         advanced: false,
-        description: "Allows you to take care of and treat common domestic animals."
+        description: "Pozwala opiekować się i leczyć pospolite zwierzęta domowe."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f6'),
-        name: "Charm Animal",
+        name: "Oswajanie zwierząt",
         relatedStatName: "fellowship", // Charm Animal is typically based on Fellowship
         advanced: false,
-        description: "Helps you calm or charm animals through gentle interaction."
+        description: "Pomaga uspokoić lub oczarować zwierzęta poprzez łagodną interakcję."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f7'),
-        name: "Dodge Blow",
+        name: "Unik",
         relatedStatName: "agility", // Dodge Blow is based on Agility
         advanced: false,
-        description: "Allows you to dodge incoming blows in combat."
+        description: "Pozwala unikać nadchodzących ciosów w walce."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f8'),
-        name: "Heal",
+        name: "Leczenie",
         relatedStatName: "intelligence", // Heal is based on Intelligence
         advanced: false,
-        description: "Allows you to treat wounds and prevent bleeding, as well as aiding recovery from injuries."
+        description: "Pozwala leczyć rany, zapobiegać krwawieniu oraz wspomagać regenerację po obrażeniach."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67f9'),
-        name: "Perception",
+        name: "Spostrzegawczość",
         relatedStatName: "intelligence", // Perception is based on Intelligence
         advanced: false,
-        description: "Allows you to spot hidden objects or detect dangers around you."
+        description: "Pozwala dostrzegać ukryte przedmioty lub wykrywać zagrożenia wokół ciebie."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fa'),
-        name: "Ride",
+        name: "Jazda konna",
         relatedStatName: "agility", // Ride is based on Agility
         advanced: false,
-        description: "Helps you ride and control a mount, such as a horse or similar creatures."
+        description: "Pomaga jeździć i kontrolować wierzchowca, takiego jak koń lub podobne stworzenia."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fb'),
-        name: "Intimidate",
+        name: "Zastraszanie",
         relatedStatName: "strength", // Intimidate is based on Strength
         advanced: false,
-        description: "Allows you to force others into submission through sheer physical presence or verbal threats."
+        description: "Pozwala zmusić innych do uległości poprzez samą obecność fizyczną lub werbalne groźby."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fc'),
-        name: "Swim",
+        name: "Pływanie",
         relatedStatName: "strength", // Swim is based on Strength
         advanced: false,
-        description: "Allows you to swim in water, avoiding drowning or getting swept away by currents."
+        description: "Pozwala pływać w wodzie, unikając utonięcia lub porwania przez prądy."
     },
     // ADVANCED
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fd'),
-        name: "Alchemy",
+        name: "Alchemia",
         relatedStatName: "intelligence", // Alchemy is based on Intelligence
         advanced: true,
-        description: "Allows you to create potions, poisons, and other alchemical substances."
+        description: "Pozwala tworzyć mikstury, trucizny i inne substancje alchemiczne."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67fe'),
-        name: "Arcane Language",
+        name: "Język magiczny",
         relatedStatName: "intelligence", // Arcane Language is based on Intelligence
         advanced: true,
-        description: "Allows you to read and understand magical tomes and communicate in mystical languages."
+        description: "Pozwala czytać i rozumieć magiczne księgi oraz komunikować się w mistycznych językach."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d67ff'),
-        name: "Disguise",
+        name: "Charakteryzacja",
         relatedStatName: "fellowship", // Disguise is based on Fellowship
         advanced: true,
-        description: "Allows you to disguise yourself or others to blend into different social or cultural groups."
+        description: "Pozwala przebrać się lub innych, aby wtapiać się w różne grupy społeczne lub kulturowe."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d6800'),
-        name: "Navigation",
+        name: "Nawigacja",
         relatedStatName: "intelligence", // Navigation is based on Intelligence
         advanced: true,
-        description: "Allows you to find your way through wilderness, seas, or unknown cities using maps and landmarks."
+        description: "Pozwala odnaleźć drogę przez dzicz, morza lub nieznane miasta, korzystając z map i punktów orientacyjnych."
     },
     {
         _id: new mongoose_1.default.Types.ObjectId('66d82a3046f4cd59924d6801'),
-        name: "Tactics",
+        name: "Taktyka",
         relatedStatName: "intelligence", // Tactics is based on Intelligence
         advanced: true,
-        description: "Gives you the ability to plan and execute complex battle strategies during warfare or smaller skirmishes."
+        description: "Daje umiejętność planowania i realizacji złożonych strategii bitewnych podczas wojen lub mniejszych potyczek."
     }
 ];
 var talents = [
     {
-        name: "Acute Hearing",
-        description: "Your hearing is exceptionally keen. You gain a +20% bonus on all Perception Skill Tests involving hearing."
+        name: "Broń naturalna",
+        description: "Bohater jest uzbrojony w naturalną broń, jak pazury, kły czy kolce. Zadaje obrażenia w zależności od rodzaju posiadanej broni naturalnej.",
     },
     {
-        name: "Ambidextrous",
-        description: "You can use both hands equally well. You do not suffer the normal -20% penalty for using your off hand in combat or other tests."
+        name: "Broń specjalna (różne)",
+        description: "Bohater potrafi używać konkretnego typu broni specjalnej, takiej jak np. łuki, kusze czy broń palna. Talent ten może być wykorzystywany wielokrotnie dla różnych rodzajów broni.",
     },
     {
-        name: "Coolheaded",
-        description: "Your mind is cool under pressure. You gain a permanent +5% bonus to your Willpower characteristic."
+        name: "Bystry wzrok",
+        description: "Bohater ma wyjątkowo dobry wzrok, co pozwala mu dostrzegać detale i obiekty z większej odległości niż przeciętny człowiek. Otrzymuje +10 do testów Zręczności związanych ze wzrokiem.",
     },
     {
-        name: "Fleet Footed",
-        description: "You are quicker than most. Your Movement increases by 1."
+        name: "Charyzmatyczny",
+        description: "Bohater posiada naturalny urok osobisty, który pozwala mu łatwiej zdobywać zaufanie i wpływać na innych. Otrzymuje +10 do testów Zręczności związanych z przekonywaniem.",
     },
     {
-        name: "Hardy",
-        description: "You are in excellent physical condition. You gain a permanent +1 Wound."
+        name: "Chirurgia",
+        description: "Bohater potrafi wykonywać zabiegi chirurgiczne, które mogą uratować życie innym. Otrzymuje +10 do testów związanych z leczeniem poważnych ran.",
     },
     {
-        name: "Lightning Reflexes",
-        description: "Your reflexes are extraordinarily fast. You gain a permanent +5% bonus to your Agility characteristic."
+        name: "Czarnoksięstwo",
+        description: "Bohater posiadł wiedzę i zdolności do manipulacji mrocznymi energiami magii czarnoksięskiej, uzyskując dostęp do zaklęć czarnoksięstwa.",
     },
     {
-        name: "Night Vision",
-        description: "You can see well in darkness. You can see in low light up to 30 yards (15 squares) without penalty."
+        name: "Chłód",
+        description: "Bohater jest odporny na ekstremalne zimno. Może przetrwać w mroźnych warunkach bez specjalnej ochrony przez długi czas.",
     },
     {
-        name: "Quick Draw",
-        description: "You have trained to be lightning quick when drawing a weapon. You may ready a weapon as a Free Action instead of a Half Action."
+        name: "Błyskawiczne przeładowanie",
+        description: "Bohater potrafi przeładować broń dystansową z nadzwyczajną szybkością, pozwalając na wykonanie dodatkowych ataków.",
     },
     {
-        name: "Resistance to Poison",
-        description: "You are resistant to poisons and toxins. You gain a +10% bonus on all Toughness Tests to resist the effects of poison."
+        name: "Bardzo silny",
+        description: "Bohater posiada nadludzką siłę fizyczną, co daje mu znaczną przewagę w walce wręcz. Otrzymuje +10 do testów związanych z siłą.",
     },
     {
-        name: "Strike Mighty Blow",
-        description: "Your melee attacks hit with increased force. You gain a +1 bonus to damage on all melee attacks."
-    },
-    {
-        name: "Very Resilient",
-        description: "Your body is tougher than most. You gain a permanent +5% bonus to your Toughness characteristic."
-    },
-    {
-        name: "Warrior Born",
-        description: "You have an innate talent for combat. You gain a permanent +5% bonus to your Weapon Skill characteristic."
+        name: "Bardzo szybki",
+        description: "Bohater porusza się znacznie szybciej niż przeciętny człowiek, co pozwala mu szybciej reagować i unikać ataków.",
     }
 ];
 var spells = [
     {
-        "name": "Acceptance of Fate",
-        "domain": "Death",
-        "castingNumber": 5,
-        "castingTime": "Full Action",
-        "ingredient": "A broken hourglass",
-        "description": "The caster invokes the inevitability of fate, calming a target's mind and making them more accepting of their eventual death, giving them temporary resistance to fear effects."
+        name: "Gra pozorów",
+        domain: "Ścieżka Główna",
+        castingNumber: 5,
+        castingTime: "Natychmiast",
+        ingredient: "Lustro",
+        description: "Pozwala na stworzenie iluzji, która oszukuje przeciwników.",
     },
     {
-        "name": "Death's Door",
-        "domain": "Death",
-        "castingNumber": 6,
-        "castingTime": "Full Action",
-        "ingredient": "A handful of grave dirt",
-        "description": "The caster brings the target to the brink of death, causing debilitating weakness but not killing them outright. The target suffers significant penalties to all actions."
+        name: "Sobowtór",
+        domain: "Ścieżka Główna",
+        castingNumber: 8,
+        castingTime: "2 rundy",
+        ingredient: "Fragment włosów",
+        description: "Tworzy identyczną kopię czarodzieja, która może wprowadzać w błąd.",
     },
     {
-        "name": "Deathsight",
-        "domain": "Death",
-        "castingNumber": 4,
-        "castingTime": "Half Action",
-        "ingredient": "A shard of obsidian",
-        "description": "The caster gains the ability to see the approaching death of a creature, allowing them to predict fatal blows or dangerous situations with eerie accuracy."
+        name: "Luka w pamięci",
+        domain: "Ścieżka Główna",
+        castingNumber: 10,
+        castingTime: "3 rundy",
+        ingredient: "Fragment pergaminu",
+        description: "Wymazuje wybrane wspomnienie z pamięci ofiary.",
     },
     {
-        "name": "Reaping Scythe",
-        "domain": "Death",
-        "castingNumber": 7,
-        "castingTime": "Full Action",
-        "ingredient": "A rusted scythe blade",
-        "description": "The caster conjures a spectral scythe that cuts through enemies in a wide arc, dealing severe damage to multiple targets in close proximity."
+        name: "Rumak z cieni",
+        domain: "Ścieżka Główna",
+        castingNumber: 12,
+        castingTime: "1 minuta",
+        ingredient: "Czarny jedwab",
+        description: "Tworzy rumaka z cienia, który jest szybszy od przeciętnego konia.",
     },
     {
-        "name": "Swift Passing",
-        "domain": "Death",
-        "castingNumber": 6,
-        "castingTime": "Full Action",
-        "ingredient": "A black feather",
-        "description": "This spell hastens the death of a creature that is on the brink of passing, allowing the caster to grant a merciful and quick death to the mortally wounded."
-    },
-    {
-        "name": "Wind of Death",
-        "domain": "Death",
-        "castingNumber": 9,
-        "castingTime": "Full Action",
-        "ingredient": "A bone from a long-dead corpse",
-        "description": "The caster summons a chilling wind that sweeps across the battlefield, draining life from all living creatures it touches and leaving a trail of death in its wake."
-    },
-    {
-        "name": "The Icy Grip of Death",
-        "domain": "Death",
-        "castingNumber": 8,
-        "castingTime": "Full Action",
-        "ingredient": "A shard of frozen bone",
-        "description": "The caster's touch causes the target's blood to freeze in their veins, immobilizing them and dealing significant damage as the cold of death takes hold."
-    },
-    {
-        "name": "Knocks of the Departed",
-        "domain": "Death",
-        "castingNumber": 6,
-        "castingTime": "Half Action",
-        "ingredient": "A bell from a funeral",
-        "description": "The caster calls upon the spirits of the recently departed, causing an eerie knocking sound that unnerves enemies and disrupts their concentration."
-    },
-    {
-        "name": "Grief's End",
-        "domain": "Death",
-        "castingNumber": 5,
-        "castingTime": "Full Action",
-        "ingredient": "A tear collected from a grieving mourner",
-        "description": "The caster soothes the sorrow of a target, allowing them to overcome debilitating grief or emotional trauma, giving them clarity of mind and resolve."
-    },
-    {
-        "name": "Tide of Years",
-        "domain": "Death",
-        "castingNumber": 10,
-        "castingTime": "Full Action",
-        "ingredient": "A drop of ancient ink",
-        "description": "The caster invokes the slow passage of time, aging their enemies rapidly. Those affected feel the weight of years upon them, suffering penalties to speed and strength."
-    },
-    {
-        "name": "Youth's Bane",
-        "domain": "Death",
-        "castingNumber": 8,
-        "castingTime": "Full Action",
-        "ingredient": "A lock of hair from a child",
-        "description": "The caster curses a young target, stripping them of their vitality and youth, leaving them weak and frail as though they had aged a hundred years."
-    },
-    {
-        "name": "Ward Against Abomination",
-        "domain": "Death",
-        "castingNumber": 7,
-        "castingTime": "Full Action",
-        "ingredient": "A blessed amulet",
-        "description": "The caster creates a protective ward that repels unnatural creatures and undead, preventing them from approaching or entering the protected area."
+        name: "Maska iluzji",
+        domain: "Ścieżka Główna",
+        castingNumber: 6,
+        castingTime: "1 runda",
+        ingredient: "Maska teatralna",
+        description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
     }
 ];
 // Database connection

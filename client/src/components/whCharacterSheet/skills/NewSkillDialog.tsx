@@ -79,7 +79,7 @@ const NewSkillDialog: React.FC<Props> = (props) => {
                         onChange={onSkillChange}
                         getOptionLabel={(option: Skill) => option.name} // Wyświetlanie pola `name` dla każdego obiektu
                         sx={{ mt: 2, width: 300 }}
-                        renderInput={(params) => <TextField autoFocus {...params} label="skill" />}
+                        renderInput={(params) => <TextField autoFocus {...params} label="umiejętność" />}
                     />
                 </DialogContent>
                 <DialogActions>

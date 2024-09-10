@@ -41,7 +41,7 @@ const SpellTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
-                            <TableCell align="left">Description</TableCell>
+                            <TableCell align="left">Opis czaru</TableCell>
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
@@ -61,7 +61,7 @@ const SpellTable: React.FC<Props> = (props) => {
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddSpellClick}>
-                            <TableCell align="center" colSpan={4}>Add {props.header} <AddIcon fontSize="inherit" /></TableCell>
+                            <TableCell align="center" colSpan={4}>Dodaj czar <AddIcon fontSize="inherit" /></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

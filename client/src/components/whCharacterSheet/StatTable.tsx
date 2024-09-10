@@ -4,8 +4,8 @@ import { GridItem } from "./GridItem"
 import { Paper } from "@mui/material"
 
 interface Stat {
-    statName?: string,
-    extendedStat?: PlayerStat,
+    key: string
+    stat: PlayerStat,
 }
 
 interface Props {
@@ -29,21 +29,21 @@ const StatTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
-                            <TableCell align="center">Starting</TableCell>
-                            <TableCell align="center">Advance</TableCell>
-                            <TableCell align="center">Current</TableCell>
+                            <TableCell align="center">Startowa</TableCell>
+                            <TableCell align="center">Rozwój</TableCell>
+                            <TableCell align="center">Obecna</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.stats?.map((stat: Stat) => (
-                            <TableRow key={stat.statName}
+                            <TableRow key={stat.key}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => props.handleClick(String(stat.statName))}>
-                                <TableCell>{nameFormat(stat.statName)}</TableCell>
-                                <TableCell align="center">{stat.extendedStat?.starting}</TableCell>
-                                <TableCell align="center">{stat.extendedStat?.advance}</TableCell>
-                                <TableCell align="center">{stat.extendedStat?.current}</TableCell>
+                                onClick={() => props.handleClick(String(stat.key))}>
+                                <TableCell>{nameFormat(stat.stat.name)}</TableCell>
+                                <TableCell align="center">{stat.stat.starting}</TableCell>
+                                <TableCell align="center">{stat.stat.advance}</TableCell>
+                                <TableCell align="center">{stat.stat.current}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
