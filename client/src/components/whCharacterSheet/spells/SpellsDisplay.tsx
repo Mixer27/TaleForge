@@ -60,7 +60,7 @@ const SpellsDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "auto" }}>
                 <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
                     <SpellTable
-                        header="Spell"
+                        header="czar"
                         handleAddSpellClick={handleAddSpellClick}
                         handleRemoveSpellClick={handleRemoveSpell}
                         spells={props.spells}

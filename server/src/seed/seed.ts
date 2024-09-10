@@ -2,9 +2,11 @@ import mongoose, { Schema } from "mongoose";
 import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 import { Skill } from "../models/skill";
 import { Talent } from "../models/talent"
-import { NpcSheet } from "../models/npcSheet";
+// import { NpcSheet } from "../models/npcSheet";
 import { Spell } from "../models/spell";
 import { Race, StatName, Gender, SkillLvl } from "../utils/enums";
+// import { Item } from "../models/item";
+import { ArmorItem } from "../models/armorItem";
 
 const examples = [{
     'owner_id': new mongoose.Types.ObjectId(),
@@ -321,6 +323,184 @@ const spells = [
     }
 ];
 
+const armorItems = [
+    {
+        item: {
+            name: "Helm (skórzany)",
+            description: "Skórzany hełm chroniący głowę.",
+            weight: 10,
+            value: { gc: 0, sh: 3, pn: 0 }, // 3 złote korony
+            availability: "przeciętna"
+        },
+        coverLocation: ["głowa"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kaftan (skórzany)",
+            description: "Skórzany kaftan chroniący korpus.",
+            weight: 40,
+            value: { gc: 0, sh: 6, pn: 0 }, // 6 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["korpus"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kurta (skórzana)",
+            description: "Skórzana kurta chroniąca korpus i ręce.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["Korpus", "ręce"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Nogawice (skórzane)",
+            description: "Skórzane nogawice chroniące nogi.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Skórznia",
+            description: "Pełna skórznia chroniąca wszystkie części ciała.",
+            weight: 80,
+            value: { gc: 0, sh: 25, pn: 0 }, // 25 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Czepiec (kolczuga)",
+            description: "Kolczugowy czepiec chroniący głowę.",
+            weight: 30,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kaftan (kolczuga)",
+            description: "Kolczugowy kaftan chroniący korpus.",
+            weight: 60,
+            value: { gc: 0, sh: 95, pn: 0 }, // 95 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Koszulka (kolczuga)",
+            description: "Kolczugowa koszulka chroniąca korpus i ręce.",
+            weight: 80,
+            value: { gc: 0, sh: 75, pn: 0 }, // 75 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kolczuga z rękawami",
+            description: "Pełna kolczuga z rękawami chroniąca korpus i nogi.",
+            weight: 120,
+            value: { gc: 0, sh: 125, pn: 0 }, // 125 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (kolczuga)",
+            description: "Kolczugowe nogawice chroniące nogi.",
+            weight: 60,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja kolcza",
+            description: "Pełna zbroja kolcza chroniąca całe ciało.",
+            weight: 210,
+            value: { gc: 0, sh: 170, pn: 0 }, // 170 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa", "korpus", "ręce" , "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Helm (płytowy)",
+            description: "Płytowy hełm chroniący głowę.",
+            weight: 40,
+            value: { gc: 0, sh: 30, pn: 0 }, // 30 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Naramienniki (płytowe)",
+            description: "Płytowe naramienniki chroniące ręce.",
+            weight: 30,
+            value: { gc: 0, sh: 60, pn: 0 }, // 60 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (płytowe)",
+            description: "Płytowe nogawice chroniące nogi.",
+            weight: 75,
+            value: { gc: 0, sh: 90, pn: 0 }, // 90 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Napierśnik (płytowy)",
+            description: "Płytowy napierśnik chroniący korpus.",
+            weight: 140,
+            value: { gc: 0, sh: 120, pn: 0 }, // 120 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja płytowa",
+            description: "Pełna płytowa zbroja chroniąca całe ciało.",
+            weight: 395,
+            value: { gc: 0, sh: 400, pn: 0 }, // 400 złotych koron
+            availability: "rzadka"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 5,
+    }
+];
 
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
@@ -336,6 +516,7 @@ const seedDB = async () => {
     await Skill.deleteMany({});
     await Talent.deleteMany({});
     await Spell.deleteMany({});
+    await ArmorItem.deleteMany({});
     Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");
@@ -356,6 +537,13 @@ const seedDB = async () => {
         })
         .catch((error) => {
             console.error("Error adding spells:", error);
+        });
+    ArmorItem.insertMany(armorItems)
+        .then(() => {
+            console.log("Armors added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding armors:", error);
         });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });

@@ -54,7 +54,7 @@ const SkillTable: React.FC<Props> = (props) => {
                             <TableCell>{props.header}</TableCell>
                             <TableCell align="center">Wyszkolenie</TableCell>
                             <TableCell align="center">Wartość</TableCell>
-                            <TableCell align="center">Statystyka</TableCell>
+                            <TableCell align="center">Cecha</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

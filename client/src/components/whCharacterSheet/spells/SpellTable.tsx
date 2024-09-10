@@ -41,7 +41,10 @@ const SpellTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
-                            <TableCell align="left">Opis czaru</TableCell>
+                            <TableCell align="center">rodzaj</TableCell>
+                            <TableCell align="center">wymagany poziom mocy</TableCell>
+                            <TableCell align="center">czas rzucania</TableCell>
+                            <TableCell align="center">opis czaru</TableCell>
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
@@ -52,7 +55,10 @@ const SpellTable: React.FC<Props> = (props) => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell>{spell.spell.name}</TableCell>
-                                <TableCell align="left">{spell.spell.description}</TableCell>
+                                <TableCell align="center">{spell.spell.domain}</TableCell>
+                                <TableCell align="center">{spell.spell.castingNumber}</TableCell>
+                                <TableCell align="center">{spell.spell.castingTime}</TableCell>
+                                <TableCell align="center">{spell.spell.description}</TableCell>
                                 <TableCell align="right">
                                     <IconButton aria-label="delete" size="small" onClick={() => props.handleRemoveSpellClick(spell)}>
                                         <DeleteIcon fontSize="small"/>
@@ -61,7 +67,7 @@ const SpellTable: React.FC<Props> = (props) => {
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddSpellClick}>
-                            <TableCell align="center" colSpan={4}>Dodaj czar <AddIcon fontSize="inherit" /></TableCell>
+                            <TableCell align="center" colSpan={6}>Dodaj czar <AddIcon fontSize="inherit" /></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

@@ -9,6 +9,7 @@ import cors from "cors";
 import path from 'path'
 import { talentRoutes } from './routes/talents';
 import { spellsRoutes } from './routes/spells';
+import { itemsRoutes } from './routes/items';
 
 const app: Express = express();
 
@@ -33,6 +34,7 @@ app.use("/pcsheets", pcsheetRoutes);
 app.use("/skills", skillRoutes);
 app.use("/talents", talentRoutes);
 app.use("/spells", spellsRoutes);
+app.use("/items", itemsRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("HELLO WORLD!!!");

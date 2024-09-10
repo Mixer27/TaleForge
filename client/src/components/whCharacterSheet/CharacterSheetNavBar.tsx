@@ -22,7 +22,7 @@ const CharacterSheetNavBar: React.FC<Props> = (props) => {
                 <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={2}>
                     <Toolbar variant="dense">
                         <Tabs sx={{ flexGrow: 1 }} variant="scrollable" value={props.currentTab} onChange={props.handleChange}>
-                            <NavBarButton value={CharacterSheetTab.Stats} label="Statystyki" />
+                            <NavBarButton value={CharacterSheetTab.Stats} label="Cechy" />
                             <NavBarButton value={CharacterSheetTab.Skills} label="Umiejętności" />
                             <NavBarButton value={CharacterSheetTab.Talents} label="Zdolności" />
                             <NavBarButton value={CharacterSheetTab.Spells} label="Czary" />

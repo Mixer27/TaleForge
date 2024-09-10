@@ -1,12 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
+exports.MoneySchema = exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
 var mongoose_1 = require("mongoose");
 var mongoose_2 = require("mongoose");
 var skill_1 = require("./skill");
 Object.defineProperty(exports, "Skill", { enumerable: true, get: function () { return skill_1.Skill; } });
 // import { Talent } from "./talent";
 var enums_1 = require("../utils/enums");
+var MoneySchema = new mongoose_2.Schema({
+    gc: { type: Number, default: 0 },
+    sh: { type: Number, default: 0 },
+    pn: { type: Number, default: 0 },
+}, { _id: false });
+exports.MoneySchema = MoneySchema;
 var ArmorSchema = new mongoose_2.Schema({
     head: { type: Number, required: true, default: 0 },
     l_arm: { type: Number, required: true, default: 0 },
@@ -101,11 +107,7 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
     spells: { type: [SpellSchema], default: [] },
-    wealth: {
-        gc: { type: Number, default: 0 },
-        sh: { type: Number, default: 0 },
-        pn: { type: Number, default: 0 },
-    }
+    wealth: MoneySchema
 });
 var PlayerCharacterSheet = mongoose_1.default.model("PlayerCharacterSheet", PlayerCharacterSchema);
 exports.PlayerCharacterSheet = PlayerCharacterSheet;

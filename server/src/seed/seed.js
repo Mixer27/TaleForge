@@ -51,8 +51,11 @@ var mongoose_1 = require("mongoose");
 var playerCharacterSheet_1 = require("../models/playerCharacterSheet");
 var skill_1 = require("../models/skill");
 var talent_1 = require("../models/talent");
+// import { NpcSheet } from "../models/npcSheet";
 var spell_1 = require("../models/spell");
 var enums_1 = require("../utils/enums");
+// import { Item } from "../models/item";
+var armorItem_1 = require("../models/armorItem");
 var examples = [{
         'owner_id': new mongoose_1.default.Types.ObjectId(),
         'session_id': new mongoose_1.default.Types.ObjectId(),
@@ -360,6 +363,184 @@ var spells = [
         description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
     }
 ];
+var armorItems = [
+    {
+        item: {
+            name: "Helm (skórzany)",
+            description: "Skórzany hełm chroniący głowę.",
+            weight: 10,
+            value: { gc: 0, sh: 3, pn: 0 }, // 3 złote korony
+            availability: "przeciętna"
+        },
+        coverLocation: ["głowa"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kaftan (skórzany)",
+            description: "Skórzany kaftan chroniący korpus.",
+            weight: 40,
+            value: { gc: 0, sh: 6, pn: 0 }, // 6 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["korpus"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kurta (skórzana)",
+            description: "Skórzana kurta chroniąca korpus i ręce.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["Korpus", "ręce"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Nogawice (skórzane)",
+            description: "Skórzane nogawice chroniące nogi.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Skórznia",
+            description: "Pełna skórznia chroniąca wszystkie części ciała.",
+            weight: 80,
+            value: { gc: 0, sh: 25, pn: 0 }, // 25 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Czepiec (kolczuga)",
+            description: "Kolczugowy czepiec chroniący głowę.",
+            weight: 30,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kaftan (kolczuga)",
+            description: "Kolczugowy kaftan chroniący korpus.",
+            weight: 60,
+            value: { gc: 0, sh: 95, pn: 0 }, // 95 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Koszulka (kolczuga)",
+            description: "Kolczugowa koszulka chroniąca korpus i ręce.",
+            weight: 80,
+            value: { gc: 0, sh: 75, pn: 0 }, // 75 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kolczuga z rękawami",
+            description: "Pełna kolczuga z rękawami chroniąca korpus i nogi.",
+            weight: 120,
+            value: { gc: 0, sh: 125, pn: 0 }, // 125 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (kolczuga)",
+            description: "Kolczugowe nogawice chroniące nogi.",
+            weight: 60,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja kolcza",
+            description: "Pełna zbroja kolcza chroniąca całe ciało.",
+            weight: 210,
+            value: { gc: 0, sh: 170, pn: 0 }, // 170 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Helm (płytowy)",
+            description: "Płytowy hełm chroniący głowę.",
+            weight: 40,
+            value: { gc: 0, sh: 30, pn: 0 }, // 30 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Naramienniki (płytowe)",
+            description: "Płytowe naramienniki chroniące ręce.",
+            weight: 30,
+            value: { gc: 0, sh: 60, pn: 0 }, // 60 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (płytowe)",
+            description: "Płytowe nogawice chroniące nogi.",
+            weight: 75,
+            value: { gc: 0, sh: 90, pn: 0 }, // 90 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Napierśnik (płytowy)",
+            description: "Płytowy napierśnik chroniący korpus.",
+            weight: 140,
+            value: { gc: 0, sh: 120, pn: 0 }, // 120 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja płytowa",
+            description: "Pełna płytowa zbroja chroniąca całe ciało.",
+            weight: 395,
+            value: { gc: 0, sh: 400, pn: 0 }, // 400 złotych koron
+            availability: "rzadka"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 5,
+    }
+];
 // Database connection
 var dbUrl = "mongodb://localhost:27017/taleForge";
 mongoose_1.default.connect(dbUrl, {});
@@ -384,6 +565,9 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                 return [4 /*yield*/, spell_1.Spell.deleteMany({})];
             case 4:
                 _a.sent();
+                return [4 /*yield*/, armorItem_1.ArmorItem.deleteMany({})];
+            case 5:
+                _a.sent();
                 skill_1.Skill.insertMany(skills)
                     .then(function () {
                     console.log("Skills added successfully!");
@@ -405,20 +589,27 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                     .catch(function (error) {
                     console.error("Error adding spells:", error);
                 });
+                armorItem_1.ArmorItem.insertMany(armorItems)
+                    .then(function () {
+                    console.log("Armors added successfully!");
+                })
+                    .catch(function (error) {
+                    console.error("Error adding armors:", error);
+                });
                 _i = 0, examples_1 = examples;
-                _a.label = 5;
-            case 5:
-                if (!(_i < examples_1.length)) return [3 /*break*/, 8];
+                _a.label = 6;
+            case 6:
+                if (!(_i < examples_1.length)) return [3 /*break*/, 9];
                 e = examples_1[_i];
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, e));
                 return [4 /*yield*/, character.save()];
-            case 6:
-                _a.sent();
-                _a.label = 7;
             case 7:
+                _a.sent();
+                _a.label = 8;
+            case 8:
                 _i++;
-                return [3 /*break*/, 5];
-            case 8: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

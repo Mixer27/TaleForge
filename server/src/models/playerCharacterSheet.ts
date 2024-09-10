@@ -2,8 +2,13 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { Skill } from "./skill";
 // import { Talent } from "./talent";
-import {Race, Gender, SkillLvl, StatName} from "../utils/enums"
+import { Race, Gender, SkillLvl, StatName } from "../utils/enums"
 
+const MoneySchema = new Schema({
+    gc: { type: Number, default: 0 },
+    sh: { type: Number, default: 0 },
+    pn: { type: Number, default: 0 },
+}, { _id: false });
 
 const ArmorSchema = new Schema({
     head: { type: Number, required: true, default: 0 },
@@ -15,13 +20,13 @@ const ArmorSchema = new Schema({
 }, { _id: false });
 
 const PlayerStatSchema = new Schema({
-    name: { type: String, enum: Object.values(StatName), required: true},
+    name: { type: String, enum: Object.values(StatName), required: true },
     starting: { type: Number, required: true, default: 0 },
     advance: { type: Number, required: true, default: 0 },
     current: { type: Number, required: true, default: 0 },
 }, { _id: false });
 const SingleStatSchema = new Schema({
-    name: { type: String, enum: Object.values(StatName), required: true},
+    name: { type: String, enum: Object.values(StatName), required: true },
     current: { type: Number, required: true, default: 0 },
 })
 
@@ -102,13 +107,9 @@ const PlayerCharacterSchema = new Schema({
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
     spells: { type: [SpellSchema], default: [] },
-    wealth: {
-        gc: { type: Number, default: 0 },
-        sh: { type: Number, default: 0 },
-        pn: { type: Number, default: 0 },
-    }
+    wealth: MoneySchema
 })
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
 
-export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill};
+export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, MoneySchema };
