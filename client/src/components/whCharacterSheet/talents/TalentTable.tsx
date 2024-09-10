@@ -40,7 +40,7 @@ const TalentTable: React.FC<Props> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>{props.header}</TableCell>
-                            <TableCell align="left">Opis talentu</TableCell>
+                            <TableCell align="left">Opis zdolności</TableCell>
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
@@ -60,7 +60,7 @@ const TalentTable: React.FC<Props> = (props) => {
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddTalentClick}>
-                            <TableCell align="center" colSpan={4}>Dodaj talent <AddIcon fontSize="inherit" /></TableCell>
+                            <TableCell align="center" colSpan={4}>Dodaj zdolność <AddIcon fontSize="inherit" /></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

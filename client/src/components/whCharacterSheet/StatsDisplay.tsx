@@ -87,7 +87,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "" }}>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Statystyki główne"
+                        header="Cechy główne"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(0, 8).map((statName: string) => ({
                             key: statName,
@@ -98,7 +98,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <StatTable
-                        header="Statystyki drugorzędne"
+                        header="cechy drugorzędne"
                         handleClick={handleStatClick}
                         stats={statsNames ? statsNames.slice(8, 12).map((statName: string) => ({
                             key: statName,
@@ -109,7 +109,7 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                     <SingleStatTable
-                        header="Pozostałe statystyki"
+                        header="Pozostałe cechy"
                         handleClick={handleSingleStatClick}
                         // stats={[props.stats?.strengthBonus ?? defaultSingleStat, props.stats?.toughnessBonus ?? defaultSingleStat, props.stats?.insanityPoints ?? defaultSingleStat, props.stats?.fatePoints ?? defaultSingleStat] ?? []}
                         stats={statsNames ? statsNames.slice(12, 16).map((statName: string) => ({

@@ -74,7 +74,7 @@ const SkillTable: React.FC<Props> = (props) => {
                             </TableRow>
                         ))}
                         <TableRow hover onClick={props.handleAddSkillClick}>
-                            <TableCell align="center" colSpan={4}>dodaj <AddIcon fontSize="inherit"/></TableCell>
+                            <TableCell align="center" colSpan={4}>dodaj umiejętność<AddIcon fontSize="inherit"/></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

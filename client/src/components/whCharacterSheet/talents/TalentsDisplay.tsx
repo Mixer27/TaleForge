@@ -52,30 +52,14 @@ const TalentsDisplay: React.FC<Props> = (props) => {
             props.handleChange("talents", update);
             // setIsDialogOpen(true)
         }
-    } 
-
-    // const handleSkillsChange = (updatedTalent: SkillwLvl) => {
-    //     if (selectedTalent) {
-    //         setSelectedTalent(updatedSkill);
-    //         console.log("SkillDisplay", props.skills, updatedSkill)
-    //         // const updatedSkills = { ...props.skills, [String(selectedSkillName)]: updatedSkill };
-    //         const updatedSkills = props.skills?.map((skill) => {
-    //             if (skill.skill._id === updatedSkill.skill._id) {
-    //                 return updatedSkill;
-    //             }
-    //             else return skill;
-    //         }) ?? [];
-    //         console.log('updatedSkills', updatedSkills);
-    //         props.handleChange("skills", updatedSkills);
-    //     }
-    // }
+    }
 
     return (
         <>
             <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "auto" }}>
                 <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
                     <TalentTable
-                        header="Talent"
+                        header="Zdolność"
                         handleAddTalentClick={handleAddTalentClick}
                         handleRemoveTalentClick={handleRemoveTalent}
                         talents={props.talents}
@@ -84,7 +68,7 @@ const TalentsDisplay: React.FC<Props> = (props) => {
                 </Grid>
             </Grid>
             {newTalentDialogOpen && <NewTalentDialog
-                headerName="Wybierz talent do dodania"
+                headerName="Wybierz zdolność do dodania"
                 isOpen={newTalentDialogOpen}
                 talents={props.talents.map((t: TalentObject) => t.talent) ?? []}
                 // handleChange={handleAdd}
