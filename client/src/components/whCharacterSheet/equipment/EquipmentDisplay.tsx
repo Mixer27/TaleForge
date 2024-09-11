@@ -1,17 +1,19 @@
-import { Grid, Theme, useMediaQuery, useTheme } from "@mui/material"
-import { Armor, Item, PlayerCharacterSheet, PlayerStat, PlayerStats, SingleStat, WeaponItem } from "../../../types"
+import { Box, Grid, Stack, Theme, useMediaQuery, useTheme } from "@mui/material"
+import { Armor, Item, Money, PlayerCharacterSheet, PlayerStat, PlayerStats, SingleStat, WeaponItem } from "../../../types"
 import { useState } from "react"
 import { ItemTable } from "./ItemTable";
 import { WeaponItemTable } from "./WeaponItemTable";
 import { ArmorItemTable } from "./ArmorItemTable";
+import { MoneyDisplay } from "./MoneyDisplay";
 
 interface Props {
-    stats ?: PlayerStats,
-        items: Item[],
-            weapons: WeaponItem[],
-                armor: Armor,
-                    handleSubmit: () => void,
-                        handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats) => void,
+    stats?: PlayerStats,
+    items: Item[],
+    weapons: WeaponItem[],
+    armor: Armor,
+    money: Money,
+    handleSubmit: () => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats) => void,
 }
 
 // const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
@@ -87,21 +89,20 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Grid container spacing={1} direction={isXLargeScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isXLargeScreen ? "75vh" : "" }}>
-                <Grid item xs={12} md={12} xl={12} >
-                    <WeaponItemTable header="Broń" items={props.weapons ?? []} />
+            <Grid container spacing={1} direction={isXLargeScreen ? "column" : "row"}>
+                <Grid container item xs={12} xl={7} style={{ flexGrow: 1 }}>
+                    <Box style={{width: "100%"}}>
+                        <WeaponItemTable header="Broń" items={props.weapons ?? []} />
+                    </Box>
                 </Grid>
-                <Grid item xs={12} md={12} xl={1}>
-                    <Grid container spacing={1} direction="row" sx={{marginRight: 1.8}}>
-                        <Grid item xs={12} md={12} xl={7}>
-                            <ArmorItemTable header="Pancerz" armor={props.armor} />
-                        </Grid>
-                        <Grid item xs={12} md={12} xl={7}>
-                            <ItemTable header="Przedmiot" items={props.items ?? []} />
-                        </Grid>
-                    </Grid>
+                <Grid container item xs={12} xl={5} style={{ flexGrow: 1 }}>
+                    <Stack spacing={2} style={{ flexGrow: 1 }}>
+                        <ArmorItemTable header="Pancerz" armor={props.armor} />
+                        <MoneyDisplay money={props.money} />
+                        <ItemTable header="Przedmiot" items={props.items ?? []} />
+                    </Stack>
                 </Grid>
-            </Grid >
+            </Grid>
         </>
     )
 }

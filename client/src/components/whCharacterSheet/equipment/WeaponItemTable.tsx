@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { WeaponItem } from "../../../types"
 import { GridItem } from "../GridItem"
 import { Paper } from "@mui/material"
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface Props {
@@ -54,6 +55,9 @@ const WeaponItemTable: React.FC<Props> = (props) => {
                                 {/* <TableCell align="center">{weapon.item.description}</TableCell> */}
                             </TableRow>
                         ))}
+                        <TableRow hover>
+                            <TableCell align="center" colSpan={9}>dodaj przedmiot<AddIcon fontSize="inherit"/></TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>

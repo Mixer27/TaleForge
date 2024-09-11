@@ -3,12 +3,13 @@ import react from '@vitejs/plugin-react'
 import fs from 'fs'
 import path from 'path'
 import 'dotenv/config'
+import svgr from 'vite-plugin-svgr';
 
 const { HOST, PORT, SSL_KEY, SSL_CERT } = process.env;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   // root: "src",
   server: {
     host: `${HOST}`,

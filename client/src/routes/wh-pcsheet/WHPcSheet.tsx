@@ -171,7 +171,7 @@ const WHPcSheet: React.FC = () => {
                         <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                 </Box>
             </TabContext>

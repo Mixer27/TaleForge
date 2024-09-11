@@ -3,7 +3,6 @@ import { Armor } from "../../../types"
 import { GridItem } from "../GridItem"
 import { Paper } from "@mui/material"
 
-
 interface Props {
     header: string,
     armor: Armor,
