@@ -88,21 +88,19 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
     return (
         <>
             <Grid container spacing={1} direction={isXLargeScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isXLargeScreen ? "75vh" : "" }}>
-                <Grid xs={12} md={12} xl={7}>
+                <Grid item xs={12} md={12} xl={12} >
                     <WeaponItemTable header="Broń" items={props.weapons ?? []} />
                 </Grid>
-                <Grid xs={12} md={12} xl={5}>
-                    <Grid container spacing={1} direction="row">
-                        <Grid xs={12} md={12} xl={12}>
+                <Grid item xs={12} md={12} xl={1}>
+                    <Grid container spacing={1} direction="row" sx={{marginRight: 1.8}}>
+                        <Grid item xs={12} md={12} xl={7}>
                             <ArmorItemTable header="Pancerz" armor={props.armor} />
                         </Grid>
-                        <Grid xs={12} md={12} xl={12}>
+                        <Grid item xs={12} md={12} xl={7}>
                             <ItemTable header="Przedmiot" items={props.items ?? []} />
                         </Grid>
                     </Grid>
-
                 </Grid>
-
             </Grid >
         </>
     )
