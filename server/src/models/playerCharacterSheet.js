@@ -7,19 +7,28 @@ var skill_1 = require("./skill");
 Object.defineProperty(exports, "Skill", { enumerable: true, get: function () { return skill_1.Skill; } });
 // import { Talent } from "./talent";
 var enums_1 = require("../utils/enums");
+var item_1 = require("./item");
+var weaponItem_1 = require("./weaponItem");
+var armorItem_1 = require("./armorItem");
 var MoneySchema = new mongoose_2.Schema({
     gc: { type: Number, default: 0 },
     sh: { type: Number, default: 0 },
     pn: { type: Number, default: 0 },
 }, { _id: false });
 exports.MoneySchema = MoneySchema;
+// const ArmorSchema = new Schema({
+//     head: { type: Number, required: true, default: 0 },
+//     l_arm: { type: Number, required: true, default: 0 },
+//     r_arm: { type: Number, required: true, default: 0 },
+//     body: { type: Number, required: true, default: 0 },
+//     l_leg: { type: Number, required: true, default: 0 },
+//     r_leg: { type: Number, required: true, default: 0 },
+// }, { _id: false });
 var ArmorSchema = new mongoose_2.Schema({
-    head: { type: Number, required: true, default: 0 },
-    l_arm: { type: Number, required: true, default: 0 },
-    r_arm: { type: Number, required: true, default: 0 },
-    body: { type: Number, required: true, default: 0 },
-    l_leg: { type: Number, required: true, default: 0 },
-    r_leg: { type: Number, required: true, default: 0 },
+    head: { type: armorItem_1.ArmorItemSchema, required: true },
+    torso: { type: armorItem_1.ArmorItemSchema, required: true },
+    arms: { type: armorItem_1.ArmorItemSchema, required: true },
+    legs: { type: armorItem_1.ArmorItemSchema, required: true },
 }, { _id: false });
 exports.ArmorSchema = ArmorSchema;
 var PlayerStatSchema = new mongoose_2.Schema({
@@ -102,12 +111,14 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     birthplace: { type: String, default: "" },
     distinguishMarks: { type: String, default: "" },
     backstory: { type: String, default: "" },
-    armor: { type: ArmorSchema, required: true },
     stats: { type: PlayerStatsSchema, required: true },
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
     spells: { type: [SpellSchema], default: [] },
-    wealth: MoneySchema
+    wealth: MoneySchema,
+    items: { type: [item_1.ItemSchema] }, default: [],
+    weapons: { type: [weaponItem_1.WeaponItemSchema], default: [] },
+    armor: { type: ArmorSchema }
 });
 var PlayerCharacterSheet = mongoose_1.default.model("PlayerCharacterSheet", PlayerCharacterSchema);
 exports.PlayerCharacterSheet = PlayerCharacterSheet;

@@ -3,11 +3,11 @@ import { Schema } from "mongoose";
 import { ItemSchema } from "./item";
 
 const ArmorItemSchema = new Schema({
-    item: ItemSchema,
+    item: {type: ItemSchema, required: true},
     coverLocation: [String],
-    armor: Number,
+    armor: {type: Number, required: true, default: 0},
 })
 
 const ArmorItem = mongoose.model("ArmorItem", ArmorItemSchema);
 
-export { ArmorItem };
+export { ArmorItem, ArmorItemSchema };

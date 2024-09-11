@@ -9,11 +9,11 @@ const MoneySchema = new Schema({
 }, { _id: false });
 
 const ItemSchema = new Schema({
-    name: String,
-    description: String,
-    weight: Number,
-    value: {type: MoneySchema, required: true},
-    availability: String,
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    weight: { type: Number, required: true },
+    value: { type: MoneySchema, required: true },
+    availability: { type: String, required: true },
 })
 
 const Item = mongoose.model("Item", ItemSchema);

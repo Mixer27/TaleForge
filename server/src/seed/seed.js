@@ -56,6 +56,53 @@ var spell_1 = require("../models/spell");
 var enums_1 = require("../utils/enums");
 // import { Item } from "../models/item";
 var armorItem_1 = require("../models/armorItem");
+var weaponItem_1 = require("../models/weaponItem");
+var defaultArmor = {
+    head: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" }, // Dopasuj domyślne wartości dla MoneySchema
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    torso: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    arms: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    legs: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+};
 var examples = [{
         'owner_id': new mongoose_1.default.Types.ObjectId(),
         'session_id': new mongoose_1.default.Types.ObjectId(),
@@ -74,14 +121,6 @@ var examples = [{
         'birthplace': 'Mała wioska',
         'distinguishMarks': 'Blizna na lewym policzku',
         'backstory': 'Zgubiony w lesie i wychowany przez wilki.',
-        'armor': {
-            'head': 0,
-            'l_arm': 0,
-            'r_arm': 0,
-            'body': 0,
-            'l_leg': 0,
-            'r_leg': 0,
-        },
         stats: {
             weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
             ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
@@ -107,7 +146,10 @@ var examples = [{
             'gc': 5,
             'sh': 2,
             'pn': 10,
-        }
+        },
+        items: [],
+        weapons: [],
+        armor: defaultArmor,
     },
     {
         owner_id: new mongoose_1.default.Types.ObjectId(),
@@ -127,14 +169,6 @@ var examples = [{
         birthplace: "Nieznane",
         distinguishMarks: "Blizna na lewym policzku",
         backstory: "Doświadczony wojownik o tajemniczej przeszłości.",
-        armor: {
-            head: 2,
-            l_arm: 1,
-            r_arm: 1,
-            body: 3,
-            l_leg: 1,
-            r_leg: 1,
-        },
         stats: {
             weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
             ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
@@ -181,7 +215,10 @@ var examples = [{
             gc: 10,
             sh: 20,
             pn: 30,
-        }
+        },
+        items: [],
+        weapons: [],
+        armor: defaultArmor,
     }
 ];
 // Skills
@@ -361,6 +398,98 @@ var spells = [
         castingTime: "1 runda",
         ingredient: "Maska teatralna",
         description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
+    }
+];
+var weaponItems = [
+    {
+        "item": {
+            "name": "Broń dwuręczna",
+            "description": "Ciężka broń dwuręczna z potężnymi uderzeniami.",
+            "weight": 200,
+            "value": {
+                "gc": 20,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A", // Brak zasięgu dla broni białej
+        "strength": "S+1",
+        "reload": "N/A", // Brak konieczności przeładowania
+        "weaponFeatures": "drzuczący, powolny"
+    },
+    {
+        "item": {
+            "name": "Broń jednoręczna",
+            "description": "Standardowa broń jednoręczna.",
+            "weight": 50,
+            "value": {
+                "gc": 10,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "przeciętna"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kij",
+            "description": "Prosty drewniany kij.",
+            "weight": 75,
+            "value": {
+                "gc": 1,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "duża"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S-2",
+        "reload": "N/A",
+        "weaponFeatures": "ogłuszający, parujący"
+    },
+    {
+        "item": {
+            "name": "Halabarda",
+            "description": "Wszechstronna broń drzewcowa.",
+            "weight": 175,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kopia",
+            "description": "Lanca kawaleryjska.",
+            "weight": 150,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "rzadka"
+        },
+        "category": "Kawaleryjska",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "ciężki, drzuczący, szybki"
     }
 ];
 var armorItems = [
@@ -568,6 +697,9 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                 return [4 /*yield*/, armorItem_1.ArmorItem.deleteMany({})];
             case 5:
                 _a.sent();
+                return [4 /*yield*/, weaponItem_1.WeaponItem.deleteMany({})];
+            case 6:
+                _a.sent();
                 skill_1.Skill.insertMany(skills)
                     .then(function () {
                     console.log("Skills added successfully!");
@@ -596,20 +728,27 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                     .catch(function (error) {
                     console.error("Error adding armors:", error);
                 });
+                weaponItem_1.WeaponItem.insertMany(weaponItems)
+                    .then(function () {
+                    console.log("Weapons added successfully!");
+                })
+                    .catch(function (error) {
+                    console.error("Error adding weapons:", error);
+                });
                 _i = 0, examples_1 = examples;
-                _a.label = 6;
-            case 6:
-                if (!(_i < examples_1.length)) return [3 /*break*/, 9];
+                _a.label = 7;
+            case 7:
+                if (!(_i < examples_1.length)) return [3 /*break*/, 10];
                 e = examples_1[_i];
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, e));
                 return [4 /*yield*/, character.save()];
-            case 7:
-                _a.sent();
-                _a.label = 8;
             case 8:
+                _a.sent();
+                _a.label = 9;
+            case 9:
                 _i++;
-                return [3 /*break*/, 6];
-            case 9: return [2 /*return*/];
+                return [3 /*break*/, 7];
+            case 10: return [2 /*return*/];
         }
     });
 }); };

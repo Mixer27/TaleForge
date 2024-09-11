@@ -3,6 +3,9 @@ import { Schema } from "mongoose";
 import { Skill } from "./skill";
 // import { Talent } from "./talent";
 import { Race, Gender, SkillLvl, StatName } from "../utils/enums"
+import { ItemSchema } from "./item";
+import { WeaponItemSchema } from "./weaponItem";
+import { ArmorItemSchema } from "./armorItem";
 
 const MoneySchema = new Schema({
     gc: { type: Number, default: 0 },
@@ -10,13 +13,20 @@ const MoneySchema = new Schema({
     pn: { type: Number, default: 0 },
 }, { _id: false });
 
+// const ArmorSchema = new Schema({
+//     head: { type: Number, required: true, default: 0 },
+//     l_arm: { type: Number, required: true, default: 0 },
+//     r_arm: { type: Number, required: true, default: 0 },
+//     body: { type: Number, required: true, default: 0 },
+//     l_leg: { type: Number, required: true, default: 0 },
+//     r_leg: { type: Number, required: true, default: 0 },
+// }, { _id: false });
+
 const ArmorSchema = new Schema({
-    head: { type: Number, required: true, default: 0 },
-    l_arm: { type: Number, required: true, default: 0 },
-    r_arm: { type: Number, required: true, default: 0 },
-    body: { type: Number, required: true, default: 0 },
-    l_leg: { type: Number, required: true, default: 0 },
-    r_leg: { type: Number, required: true, default: 0 },
+    head: { type: ArmorItemSchema, required: true },
+    torso: { type: ArmorItemSchema, required: true },
+    arms: { type: ArmorItemSchema, required: true },
+    legs: { type: ArmorItemSchema, required: true },
 }, { _id: false });
 
 const PlayerStatSchema = new Schema({
@@ -102,12 +112,14 @@ const PlayerCharacterSchema = new Schema({
     birthplace: { type: String, default: "" },
     distinguishMarks: { type: String, default: "" },
     backstory: { type: String, default: "" },
-    armor: { type: ArmorSchema, required: true },
     stats: { type: PlayerStatsSchema, required: true },
     skills: { type: [SkillLvlSchema], default: [] },
     talents: { type: [TalentSchema], default: [] },
     spells: { type: [SpellSchema], default: [] },
-    wealth: MoneySchema
+    wealth: MoneySchema,
+    items: { type: [ItemSchema] }, default: [],
+    weapons: { type: [WeaponItemSchema], default: [] },
+    armor: { type: ArmorSchema }
 })
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);

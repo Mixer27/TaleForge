@@ -10,11 +10,11 @@ var MoneySchema = new mongoose_2.Schema({
     pn: { type: Number, default: 0 },
 }, { _id: false });
 var ItemSchema = new mongoose_2.Schema({
-    name: String,
-    description: String,
-    weight: Number,
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    weight: { type: Number, required: true },
     value: { type: MoneySchema, required: true },
-    availability: String,
+    availability: { type: String, required: true },
 });
 exports.ItemSchema = ItemSchema;
 var Item = mongoose_1.default.model("Item", ItemSchema);

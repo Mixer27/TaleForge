@@ -7,6 +7,55 @@ import { Spell } from "../models/spell";
 import { Race, StatName, Gender, SkillLvl } from "../utils/enums";
 // import { Item } from "../models/item";
 import { ArmorItem } from "../models/armorItem";
+import { WeaponItem } from "../models/weaponItem";
+
+const defaultArmor = {
+    head: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" }, // Dopasuj domyślne wartości dla MoneySchema
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    torso: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    arms: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+    legs: {
+        item: {
+            name: "-",
+            description: "-",
+            weight: 0,
+            value: { amount: 0, currency: "gold" },
+            availability: "-",
+        },
+        coverLocation: [],
+        armor: 0,
+    },
+};
+
 
 const examples = [{
     'owner_id': new mongoose.Types.ObjectId(),
@@ -26,14 +75,6 @@ const examples = [{
     'birthplace': 'Mała wioska',
     'distinguishMarks': 'Blizna na lewym policzku',
     'backstory': 'Zgubiony w lesie i wychowany przez wilki.',
-    'armor': {
-        'head': 0,
-        'l_arm': 0,
-        'r_arm': 0,
-        'body': 0,
-        'l_leg': 0,
-        'r_leg': 0,
-    },
     stats: {
         weaponSkills: { name: StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
         ballisticSkills: { name: StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
@@ -59,7 +100,10 @@ const examples = [{
         'gc': 5,
         'sh': 2,
         'pn': 10,
-    }
+    },
+    items: [],
+    weapons: [],
+    armor: defaultArmor,
 },
 {
     owner_id: new mongoose.Types.ObjectId(),
@@ -79,14 +123,6 @@ const examples = [{
     birthplace: "Nieznane",
     distinguishMarks: "Blizna na lewym policzku",
     backstory: "Doświadczony wojownik o tajemniczej przeszłości.",
-    armor: {
-        head: 2,
-        l_arm: 1,
-        r_arm: 1,
-        body: 3,
-        l_leg: 1,
-        r_leg: 1,
-    },
     stats: {
         weaponSkills: { name: StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
         ballisticSkills: { name: StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
@@ -133,7 +169,10 @@ const examples = [{
         gc: 10,
         sh: 20,
         pn: 30,
-    }
+    },
+    items: [],
+    weapons: [],
+    armor: defaultArmor,
 }
 ]
 
@@ -323,6 +362,99 @@ const spells = [
     }
 ];
 
+const weaponItems = [
+    {
+        "item": {
+            "name": "Broń dwuręczna",
+            "description": "Ciężka broń dwuręczna z potężnymi uderzeniami.",
+            "weight": 200,
+            "value": {
+                "gc": 20,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A", // Brak zasięgu dla broni białej
+        "strength": "S+1",
+        "reload": "N/A", // Brak konieczności przeładowania
+        "weaponFeatures": "drzuczący, powolny"
+    },
+    {
+        "item": {
+            "name": "Broń jednoręczna",
+            "description": "Standardowa broń jednoręczna.",
+            "weight": 50,
+            "value": {
+                "gc": 10,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "przeciętna"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kij",
+            "description": "Prosty drewniany kij.",
+            "weight": 75,
+            "value": {
+                "gc": 1,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "duża"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S-2",
+        "reload": "N/A",
+        "weaponFeatures": "ogłuszający, parujący"
+    },
+    {
+        "item": {
+            "name": "Halabarda",
+            "description": "Wszechstronna broń drzewcowa.",
+            "weight": 175,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kopia",
+            "description": "Lanca kawaleryjska.",
+            "weight": 150,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "rzadka"
+        },
+        "category": "Kawaleryjska",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "ciężki, drzuczący, szybki"
+    }
+]
+
 const armorItems = [
     {
         item: {
@@ -442,7 +574,7 @@ const armorItems = [
             value: { gc: 0, sh: 170, pn: 0 }, // 170 złotych koron
             availability: "sporadyczna"
         },
-        coverLocation: ["głowa", "korpus", "ręce" , "nogi"],
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
         armor: 2,
     },
     {
@@ -517,6 +649,7 @@ const seedDB = async () => {
     await Talent.deleteMany({});
     await Spell.deleteMany({});
     await ArmorItem.deleteMany({});
+    await WeaponItem.deleteMany({});
     Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");
@@ -544,6 +677,13 @@ const seedDB = async () => {
         })
         .catch((error) => {
             console.error("Error adding armors:", error);
+        });
+    WeaponItem.insertMany(weaponItems)
+        .then(() => {
+            console.log("Weapons added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding weapons:", error);
         });
     for (const e of examples) {
         const character = new PlayerCharacterSheet({ ...e });
