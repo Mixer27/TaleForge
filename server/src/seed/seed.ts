@@ -56,6 +56,290 @@ const defaultArmor = {
     },
 };
 
+const items = [
+    {
+        "name": "Lampa",
+        "description": "Oświeta mrok.",
+        "weight": 15,
+        "value": {
+            "gc": 0,
+            "sh": 4,
+            "pn": 0
+        },
+        "availability": "mała"
+    }
+];
+const weaponItems = [
+    {
+        "item": {
+            "name": "Broń dwuręczna",
+            "description": "Ciężka broń dwuręczna z potężnymi uderzeniami.",
+            "weight": 200,
+            "value": {
+                "gc": 20,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A", // Brak zasięgu dla broni białej
+        "strength": "S+1",
+        "reload": "N/A", // Brak konieczności przeładowania
+        "weaponFeatures": "drzuczący, powolny"
+    },
+    {
+        "item": {
+            "name": "Broń jednoręczna",
+            "description": "Standardowa broń jednoręczna.",
+            "weight": 50,
+            "value": {
+                "gc": 10,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "przeciętna"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kij",
+            "description": "Prosty drewniany kij.",
+            "weight": 75,
+            "value": {
+                "gc": 1,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "duża"
+        },
+        "category": "Zwykla",
+        "range": "N/A",
+        "strength": "S-2",
+        "reload": "N/A",
+        "weaponFeatures": "ogłuszający, parujący"
+    },
+    {
+        "item": {
+            "name": "Halabarda",
+            "description": "Wszechstronna broń drzewcowa.",
+            "weight": 175,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "mała"
+        },
+        "category": "Dwuręczna",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "specjalny"
+    },
+    {
+        "item": {
+            "name": "Kopia",
+            "description": "Lanca kawaleryjska.",
+            "weight": 150,
+            "value": {
+                "gc": 15,
+                "sh": 0,
+                "pn": 0
+            },
+            "availability": "rzadka"
+        },
+        "category": "Kawaleryjska",
+        "range": "N/A",
+        "strength": "S+1",
+        "reload": "N/A",
+        "weaponFeatures": "ciężki, drzuczący, szybki"
+    }
+];
+
+const armorItems = [
+    {
+        item: {
+            name: "Helm (skórzany)",
+            description: "Skórzany hełm chroniący głowę.",
+            weight: 10,
+            value: { gc: 0, sh: 3, pn: 0 }, // 3 złote korony
+            availability: "przeciętna"
+        },
+        coverLocation: ["głowa"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kaftan (skórzany)",
+            description: "Skórzany kaftan chroniący korpus.",
+            weight: 40,
+            value: { gc: 0, sh: 6, pn: 0 }, // 6 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["korpus"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Kurta (skórzana)",
+            description: "Skórzana kurta chroniąca korpus i ręce.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["Korpus", "ręce"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Nogawice (skórzane)",
+            description: "Skórzane nogawice chroniące nogi.",
+            weight: 50,
+            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
+            availability: "przeciętna"
+        },
+        coverLocation: ["nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Skórznia",
+            description: "Pełna skórznia chroniąca wszystkie części ciała.",
+            weight: 80,
+            value: { gc: 0, sh: 25, pn: 0 }, // 25 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 1,
+    },
+    {
+        item: {
+            name: "Czepiec (kolczuga)",
+            description: "Kolczugowy czepiec chroniący głowę.",
+            weight: 30,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kaftan (kolczuga)",
+            description: "Kolczugowy kaftan chroniący korpus.",
+            weight: 60,
+            value: { gc: 0, sh: 95, pn: 0 }, // 95 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Koszulka (kolczuga)",
+            description: "Kolczugowa koszulka chroniąca korpus i ręce.",
+            weight: 80,
+            value: { gc: 0, sh: 75, pn: 0 }, // 75 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Kolczuga z rękawami",
+            description: "Pełna kolczuga z rękawami chroniąca korpus i nogi.",
+            weight: 120,
+            value: { gc: 0, sh: 125, pn: 0 }, // 125 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["korpus", "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (kolczuga)",
+            description: "Kolczugowe nogawice chroniące nogi.",
+            weight: 60,
+            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
+            availability: "mała"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja kolcza",
+            description: "Pełna zbroja kolcza chroniąca całe ciało.",
+            weight: 210,
+            value: { gc: 0, sh: 170, pn: 0 }, // 170 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Helm (płytowy)",
+            description: "Płytowy hełm chroniący głowę.",
+            weight: 40,
+            value: { gc: 0, sh: 30, pn: 0 }, // 30 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["głowa"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Naramienniki (płytowe)",
+            description: "Płytowe naramienniki chroniące ręce.",
+            weight: 30,
+            value: { gc: 0, sh: 60, pn: 0 }, // 60 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["ręce"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Nogawice (płytowe)",
+            description: "Płytowe nogawice chroniące nogi.",
+            weight: 75,
+            value: { gc: 0, sh: 90, pn: 0 }, // 90 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["nogi"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Napierśnik (płytowy)",
+            description: "Płytowy napierśnik chroniący korpus.",
+            weight: 140,
+            value: { gc: 0, sh: 120, pn: 0 }, // 120 złotych koron
+            availability: "sporadyczna"
+        },
+        coverLocation: ["korpus"],
+        armor: 2,
+    },
+    {
+        item: {
+            name: "Zbroja płytowa",
+            description: "Pełna płytowa zbroja chroniąca całe ciało.",
+            weight: 395,
+            value: { gc: 0, sh: 400, pn: 0 }, // 400 złotych koron
+            availability: "rzadka"
+        },
+        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
+        armor: 5,
+    }
+];
 
 const examples = [{
     'owner_id': new mongoose.Types.ObjectId(),
@@ -170,8 +454,8 @@ const examples = [{
         sh: 20,
         pn: 30,
     },
-    items: [],
-    weapons: [],
+    items: [items[0]],
+    weapons: [weaponItems[0]],
     armor: defaultArmor,
 }
 ]
@@ -359,278 +643,6 @@ const spells = [
         castingTime: "1 runda",
         ingredient: "Maska teatralna",
         description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
-    }
-];
-
-const weaponItems = [
-    {
-        "item": {
-            "name": "Broń dwuręczna",
-            "description": "Ciężka broń dwuręczna z potężnymi uderzeniami.",
-            "weight": 200,
-            "value": {
-                "gc": 20,
-                "sh": 0,
-                "pn": 0
-            },
-            "availability": "mała"
-        },
-        "category": "Dwuręczna",
-        "range": "N/A", // Brak zasięgu dla broni białej
-        "strength": "S+1",
-        "reload": "N/A", // Brak konieczności przeładowania
-        "weaponFeatures": "drzuczący, powolny"
-    },
-    {
-        "item": {
-            "name": "Broń jednoręczna",
-            "description": "Standardowa broń jednoręczna.",
-            "weight": 50,
-            "value": {
-                "gc": 10,
-                "sh": 0,
-                "pn": 0
-            },
-            "availability": "przeciętna"
-        },
-        "category": "Zwykla",
-        "range": "N/A",
-        "strength": "S",
-        "reload": "N/A",
-        "weaponFeatures": "specjalny"
-    },
-    {
-        "item": {
-            "name": "Kij",
-            "description": "Prosty drewniany kij.",
-            "weight": 75,
-            "value": {
-                "gc": 1,
-                "sh": 0,
-                "pn": 0
-            },
-            "availability": "duża"
-        },
-        "category": "Zwykla",
-        "range": "N/A",
-        "strength": "S-2",
-        "reload": "N/A",
-        "weaponFeatures": "ogłuszający, parujący"
-    },
-    {
-        "item": {
-            "name": "Halabarda",
-            "description": "Wszechstronna broń drzewcowa.",
-            "weight": 175,
-            "value": {
-                "gc": 15,
-                "sh": 0,
-                "pn": 0
-            },
-            "availability": "mała"
-        },
-        "category": "Dwuręczna",
-        "range": "N/A",
-        "strength": "S+1",
-        "reload": "N/A",
-        "weaponFeatures": "specjalny"
-    },
-    {
-        "item": {
-            "name": "Kopia",
-            "description": "Lanca kawaleryjska.",
-            "weight": 150,
-            "value": {
-                "gc": 15,
-                "sh": 0,
-                "pn": 0
-            },
-            "availability": "rzadka"
-        },
-        "category": "Kawaleryjska",
-        "range": "N/A",
-        "strength": "S+1",
-        "reload": "N/A",
-        "weaponFeatures": "ciężki, drzuczący, szybki"
-    }
-]
-
-const armorItems = [
-    {
-        item: {
-            name: "Helm (skórzany)",
-            description: "Skórzany hełm chroniący głowę.",
-            weight: 10,
-            value: { gc: 0, sh: 3, pn: 0 }, // 3 złote korony
-            availability: "przeciętna"
-        },
-        coverLocation: ["głowa"],
-        armor: 1,
-    },
-    {
-        item: {
-            name: "Kaftan (skórzany)",
-            description: "Skórzany kaftan chroniący korpus.",
-            weight: 40,
-            value: { gc: 0, sh: 6, pn: 0 }, // 6 złotych koron
-            availability: "przeciętna"
-        },
-        coverLocation: ["korpus"],
-        armor: 1,
-    },
-    {
-        item: {
-            name: "Kurta (skórzana)",
-            description: "Skórzana kurta chroniąca korpus i ręce.",
-            weight: 50,
-            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
-            availability: "przeciętna"
-        },
-        coverLocation: ["Korpus", "ręce"],
-        armor: 1,
-    },
-    {
-        item: {
-            name: "Nogawice (skórzane)",
-            description: "Skórzane nogawice chroniące nogi.",
-            weight: 50,
-            value: { gc: 0, sh: 12, pn: 0 }, // 12 złotych koron
-            availability: "przeciętna"
-        },
-        coverLocation: ["nogi"],
-        armor: 1,
-    },
-    {
-        item: {
-            name: "Skórznia",
-            description: "Pełna skórznia chroniąca wszystkie części ciała.",
-            weight: 80,
-            value: { gc: 0, sh: 25, pn: 0 }, // 25 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
-        armor: 1,
-    },
-    {
-        item: {
-            name: "Czepiec (kolczuga)",
-            description: "Kolczugowy czepiec chroniący głowę.",
-            weight: 30,
-            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["głowa"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Kaftan (kolczuga)",
-            description: "Kolczugowy kaftan chroniący korpus.",
-            weight: 60,
-            value: { gc: 0, sh: 95, pn: 0 }, // 95 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["korpus"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Koszulka (kolczuga)",
-            description: "Kolczugowa koszulka chroniąca korpus i ręce.",
-            weight: 80,
-            value: { gc: 0, sh: 75, pn: 0 }, // 75 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["korpus", "ręce"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Kolczuga z rękawami",
-            description: "Pełna kolczuga z rękawami chroniąca korpus i nogi.",
-            weight: 120,
-            value: { gc: 0, sh: 125, pn: 0 }, // 125 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["korpus", "nogi"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Nogawice (kolczuga)",
-            description: "Kolczugowe nogawice chroniące nogi.",
-            weight: 60,
-            value: { gc: 0, sh: 20, pn: 0 }, // 20 złotych koron
-            availability: "mała"
-        },
-        coverLocation: ["nogi"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Zbroja kolcza",
-            description: "Pełna zbroja kolcza chroniąca całe ciało.",
-            weight: 210,
-            value: { gc: 0, sh: 170, pn: 0 }, // 170 złotych koron
-            availability: "sporadyczna"
-        },
-        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Helm (płytowy)",
-            description: "Płytowy hełm chroniący głowę.",
-            weight: 40,
-            value: { gc: 0, sh: 30, pn: 0 }, // 30 złotych koron
-            availability: "sporadyczna"
-        },
-        coverLocation: ["głowa"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Naramienniki (płytowe)",
-            description: "Płytowe naramienniki chroniące ręce.",
-            weight: 30,
-            value: { gc: 0, sh: 60, pn: 0 }, // 60 złotych koron
-            availability: "sporadyczna"
-        },
-        coverLocation: ["ręce"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Nogawice (płytowe)",
-            description: "Płytowe nogawice chroniące nogi.",
-            weight: 75,
-            value: { gc: 0, sh: 90, pn: 0 }, // 90 złotych koron
-            availability: "sporadyczna"
-        },
-        coverLocation: ["nogi"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Napierśnik (płytowy)",
-            description: "Płytowy napierśnik chroniący korpus.",
-            weight: 140,
-            value: { gc: 0, sh: 120, pn: 0 }, // 120 złotych koron
-            availability: "sporadyczna"
-        },
-        coverLocation: ["korpus"],
-        armor: 2,
-    },
-    {
-        item: {
-            name: "Zbroja płytowa",
-            description: "Pełna płytowa zbroja chroniąca całe ciało.",
-            weight: 395,
-            value: { gc: 0, sh: 400, pn: 0 }, // 400 złotych koron
-            availability: "rzadka"
-        },
-        coverLocation: ["głowa", "korpus", "ręce", "nogi"],
-        armor: 5,
     }
 ];
 

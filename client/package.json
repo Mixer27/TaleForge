@@ -22,12 +22,12 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.11",
     "@mui/lab": "^5.0.0-alpha.170",
-    "@mui/material": "^5.15.19",
+    "@mui/material": "^5.16.7",
     "@mui/types": "^7.2.13",
     "@types/cors": "^2.8.17",
     "@types/react-router-dom": "^5.3.3",

@@ -12,6 +12,7 @@ import { defaultPlayerCharacterSheet } from "../../utils/defaults";
 import { SkillsDisplay } from "../../components/whCharacterSheet/skills/SkillsDisplay";
 import { TalentsDisplay } from "../../components/whCharacterSheet/talents/TalentsDisplay";
 import { SpellsDisplay } from "../../components/whCharacterSheet/spells/SpellsDisplay";
+import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/EquipmentDisplay";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -158,16 +159,19 @@ const WHPcSheet: React.FC = () => {
                 <Box mt="2em">
                     <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px" }}>
                         <StatsDisplay stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
-                    </TabPanel>
-                    <TabPanel value={CharacterSheetTab.Skills}>
+                    </TabPanel >
+                    <TabPanel value={CharacterSheetTab.Skills} sx={{ padding: "24px 6px 24px 6px" }}>
                         <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
-                    <TabPanel value={CharacterSheetTab.Talents}>
+                    <TabPanel value={CharacterSheetTab.Talents} sx={{ padding: "24px 6px 24px 6px" }}>
                         {/* aaa */}
                         <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
-                    <TabPanel value={CharacterSheetTab.Spells}>
+                    <TabPanel value={CharacterSheetTab.Spells} sx={{ padding: "24px 6px 24px 6px" }}>
                         <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={handleChange} />
+                    </TabPanel>
+                    <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
+                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} handleSubmit={handleSubmit} handleChange={handleChange} />
                     </TabPanel>
                 </Box>
             </TabContext>

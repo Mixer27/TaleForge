@@ -18,12 +18,44 @@ enum SkillLvl {
     EXPERT = "+20%",
 }
 
+interface Money {
+    gc: number,
+    sh: number,
+    pn: number,
+}
+
+interface Item {
+    _id: string,
+    name: string,
+    description: string,
+    weight: number,
+    value: Money,
+    availability: string,
+}
+
+interface WeaponItem {
+    _id: string,
+    item: Item,
+    category: string,
+    range: string,
+    reload: string,
+    strength: string,
+    weaponFeatures: string,
+}
+
+interface ArmorItem {
+    _id: string,
+    item: Item,
+    coverLocation: string[],
+    armor: Number,
+}
+
 // Interfejsy pomocnicze
 interface Armor {
-    head: number;
-    arms: number;
-    body: number;
-    legs: number;
+    head: ArmorItem;
+    arms: ArmorItem;
+    torso: ArmorItem;
+    legs: ArmorItem;
 }
 
 interface SingleStat {
@@ -39,7 +71,6 @@ interface PlayerStat {
 }
 
 interface PlayerStats {
-    // [key: string]: unknown | undefined,
     weaponSkills?: PlayerStat;
     ballisticSkills?: PlayerStat;
     strength?: PlayerStat;
@@ -68,7 +99,7 @@ interface Skill {
 
 interface SkillwLvl {
     skill: Skill,
-    lvl: SkillLvl; // 'Normal', 'Advanced', 'Expert'
+    lvl: SkillLvl;
 }
 
 interface Talent {
@@ -120,11 +151,13 @@ interface PlayerCharacterSheet {
     distinguishMarks: string;
     backstory: string;
     stats: PlayerStats;
-    armor: Armor,
     skills: SkillwLvl[],
     talents: TalentObject[],
     spells: SpellObject[],
-    wealth: Wealth;
+    armor: Armor,
+    items: Item[],
+    weapons: WeaponItem[],
+    wealth: Money;
 }
 
 const CharacterSheetTab = {
@@ -137,5 +170,22 @@ const CharacterSheetTab = {
 
 } as const;
 
-export type { PlayerCharacterSheet, PlayerStats, PlayerStat, SingleStat, Wealth, Armor, SkillwLvl, Skill, Talent, TalentObject, Spell, SpellObject };
+export type {
+    PlayerCharacterSheet,
+    PlayerStats,
+    PlayerStat,
+    SingleStat,
+    Wealth,
+    Armor,
+    SkillwLvl,
+    Skill,
+    Talent,
+    TalentObject,
+    Spell,
+    SpellObject,
+    Money,
+    Item,
+    ArmorItem,
+    WeaponItem
+};
 export { CharacterSheetTab, Gender, Race, SkillLvl }
