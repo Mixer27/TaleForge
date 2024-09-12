@@ -1,6 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
+import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import { Armor, ArmorItem } from '../../../types'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
     headerName: string,
@@ -12,11 +12,47 @@ interface Props {
     handleClose: () => void,
     handleSave?: () => void,
     // handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+}
 
+const ArmorLocations = Object.freeze({
+    "head": "głowa",
+    "torso": "korpus",
+    "arms": "ręce",
+    "legs": "nogi",
+});
+
+const emptyItem: ArmorItem = {
+    item: {
+        name: "-",
+        description: "-",
+        value: { gc: 0, sh: 0, pn: 0 },
+        weight: 0,
+        availability: "-",
+    },
+    armor: 0,
+    coverLocation: ["wszystkie"],
 }
 
 const ArmorDialog: React.FC<Props> = (props) => {
     const [armor, setArmor] = useState<ArmorItem>(props.armor);
+    const [items, setItems] = useState<ArmorItem[]>([]);
+
+    // fetch armor items
+    useEffect(() => {
+        fetch(`https://uwu.sex.pl:9000/items/armors`)
+            .then((res: Response) => {
+                return res.json();
+            })
+            .then((data: ArmorItem[]) => {
+                console.log(data);
+                setItems(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data!", error);
+            })
+
+    }, []);
+
     const onArmorChange = (field: string, value: string) => {
         if (field in armor.item.value) {
             const updateMoney = { ...armor.item.value, [field]: Number(value) >= 0 ? Number(value) : 0 };
@@ -54,12 +90,22 @@ const ArmorDialog: React.FC<Props> = (props) => {
             onClose()
             props.handleChange(location, item);
         }
-        //     props.handleChange ? props.handleChange(stat) : () => console.log("");
-        // }
-        // else if (props.singleStat) {
-        //     props.handleSingleChange ? props.handleSingleChange(singleStat) : () => console.log("")
-        // }
-        // props.handleSave()
+    }
+
+    const onAutocompleteChange = (_event: any, newValue: ArmorItem | null) => {
+        console.log(props.armorLocation, newValue)
+        if (props.armorLocation && newValue) {
+            console.log("import item");
+            setArmor(newValue);
+            // props.handleChange(props.armorLocation, newValue);
+        }
+    }
+    const onItemRemove = () => {
+        if (props.armorLocation) {
+            console.log("remove item");
+            setArmor(emptyItem);
+            // props.handleChange(props.armorLocation, emptyItem);
+        }
     }
 
     return (
@@ -135,10 +181,20 @@ const ArmorDialog: React.FC<Props> = (props) => {
                             value={armor.item.availability || ""}
                             onChange={(e) => onArmorChange('availability', e.target.value)}
                         />
+                        <Autocomplete
+                            autoHighlight
+                            options={items.filter((a: ArmorItem) => a.coverLocation.some((l) => l === ArmorLocations[props.armorLocation ?? "head"]))}
+                            // onChange={() => onAutocompleteChange(props.armorLocation ?? "head", selectedItem)}
+                            onChange={onAutocompleteChange}
+                            getOptionLabel={(option: ArmorItem) => option.item.name} // Wyświetlanie pola `name` dla każdego obiektu
+                            sx={{ mt: 2, width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="przedmiot" />}
+                        />
                     </>
                 )}
             </DialogContent>
             <DialogActions>
+                <Button onClick={onItemRemove}>Wyczyść</Button>
                 <Button onClick={onClose}>Anuluj</Button>
                 <Button onClick={() => onSave(props.armorLocation, armor)} type='submit'>Zapisz</Button>
             </DialogActions>

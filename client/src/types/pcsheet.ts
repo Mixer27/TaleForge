@@ -25,7 +25,7 @@ interface Money {
 }
 
 interface Item {
-    _id: string,
+    _id?: string,
     name: string,
     description: string,
     weight: number,
@@ -34,7 +34,7 @@ interface Item {
 }
 
 interface WeaponItem {
-    _id: string,
+    _id?: string,
     item: Item,
     category: string,
     range: string,
@@ -44,7 +44,7 @@ interface WeaponItem {
 }
 
 interface ArmorItem {
-    _id: string,
+    _id?: string,
     item: Item,
     coverLocation: string[],
     armor: Number,
