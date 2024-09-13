@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject } from "../../types";
+import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
@@ -84,7 +84,7 @@ const WHPcSheet: React.FC = () => {
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Armor) => {
+    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Armor | Money) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
         if (key === "PreviousCareers" && typeof value === 'string') {
@@ -129,6 +129,14 @@ const WHPcSheet: React.FC = () => {
             const update: PlayerCharacterSheet = {
                 ...sheet,
                 [key]: value as Armor,
+            }
+            console.log("change armor", value, update)
+            setSheet(update)
+        }
+        else if (key === 'wealth' && typeof value === 'object' && 'gc' in value) {
+            const update: PlayerCharacterSheet = {
+                ...sheet,
+                [key]: value as Money,
             }
             console.log("change armor", value, update)
             setSheet(update)

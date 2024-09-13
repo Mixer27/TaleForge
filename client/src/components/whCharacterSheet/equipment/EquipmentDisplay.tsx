@@ -12,7 +12,7 @@ interface Props {
     armor: Armor,
     money: Money,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: string | Armor) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor) => void,
 }
 
 // const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
@@ -63,13 +63,13 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
     //     }
     // }
     const handleArmorChange = (location: keyof Armor, updatedArmorItem: ArmorItem) => {
-        // if (selectedStat) {
-        // setSelectedStat(updatedStat);
         console.log("EqDisplay", props.armor, updatedArmorItem)
         const updatedArmor = { ...props.armor, [location]: updatedArmorItem };
-        // setStats(updatedStats);
         props.handleChange("armor", updatedArmor)
-        // }
+    }
+    const handleMoneyChange = (updatedMoney: Money) => {
+        console.log("EqDisplay", props.money, updatedMoney)
+        props.handleChange('wealth', updatedMoney);
     }
 
     return (
@@ -82,8 +82,8 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
                 </Grid>
                 <Grid container item xs={12} xl={5} style={{ flexGrow: 1 }}>
                     <Stack spacing={2} style={{ flexGrow: 1 }}>
-                        <ArmorItemTable header="Pancerz" armor={props.armor} handleArmorChange={handleArmorChange}/>
-                        <MoneyDisplay money={props.money} />
+                        <ArmorItemTable header="Pancerz" armor={props.armor} handleArmorChange={handleArmorChange} />
+                        <MoneyDisplay money={props.money} handleChange={handleMoneyChange} />
                         <ItemTable header="Przedmiot" items={props.items ?? []} />
                     </Stack>
                 </Grid>
