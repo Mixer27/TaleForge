@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money } from "../../types";
+import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money, Item } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
@@ -57,16 +57,15 @@ const WHPcSheet: React.FC = () => {
                 throw new Error("Failed to update character sheet");
             }
 
-            // await response.json()
             const updatedSheet = await response.json();
-            console.log("Character sheet updated succesfully.", sheet, updatedSheet);
+            setSheet(updatedSheet);
+            console.log("Character sheet updated succesfully.", updatedSheet);
             navigate(`/pcsheets/${id}`);
 
         } catch (error) {
-            // console.error("Error with patch request", error);
+            console.error("Error with patch request", error);
         }
-    }
-        , [id, navigate]);
+    }, [id, navigate]);
 
     const handleSubmit = async () => {
         // e.preventDefault()
@@ -75,82 +74,85 @@ const WHPcSheet: React.FC = () => {
 
     }
 
-    useEffect(() => {
-        console.log(isInitialLoad.current)
-        if (isInitialLoad.current) {
-            return;
-        }
-        console.log("DEBUG", sheet)
-        updateCharacterSheet(sheet);
-    }, [sheet, updateCharacterSheet])
+    // useEffect(() => {
+    //     console.log(isInitialLoad.current)
+    //     if (isInitialLoad.current) {
+    //         return;
+    //     }
+    //     console.log("DEBUG", sheet)
+    //     updateCharacterSheet(sheet);
+    // }, [sheet, updateCharacterSheet])
 
-    const handleChange = (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Armor | Money) => {
+    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | Armor | Money) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
+        let update: PlayerCharacterSheet = sheet;
         if (key === "PreviousCareers" && typeof value === 'string') {
-            setSheet({
+            update = {
                 ...sheet,
                 PreviousCareers: value.split(",").map((c: string) => c.trim())
-            })
+            }
         }
         else if (key === 'stats' && typeof value === 'object') {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: { ...value } as PlayerStats
 
             }
-            setSheet(update)
+            // setSheet(update)
             // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
         else if (key === 'skills' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
             console.log("change skills", value)
-            setSheet({
+            update = {
                 ...sheet,
                 [key]: value,
-            })
+            }
         }
         else if (key === 'talents' && Array.isArray(value) && value.every((v) => "talent" in v)) {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: value as Array<TalentObject>,
             }
             console.log("change talents", value, update)
-            setSheet(update)
+            // setSheet(update)
         }
         else if (key === 'spells' && Array.isArray(value) && value.every((v) => "spell" in v)) {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: value as Array<SpellObject>,
             }
             console.log("change spells", value, update)
-            setSheet(update)
+            // setSheet(update)
         }
         else if (key === 'armor' && typeof value === 'object' && 'armor' in value) {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: value as Armor,
             }
             console.log("change armor", value, update)
-            setSheet(update)
+            // setSheet(update)
         }
         else if (key === 'wealth' && typeof value === 'object' && 'gc' in value) {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: value as Money,
             }
             console.log("change armor", value, update)
-            setSheet(update)
+            // setSheet(update)
         }
         else {
-            const update: PlayerCharacterSheet = {
+            update = {
                 ...sheet,
                 [key]: value,
             }
             console.log("change other", value, update)
-            setSheet(update)
+            // setSheet(update)
 
         }
         // przy zmianie zamyka initail load
+        // setSheet(update)
+        await updateCharacterSheet(update);
         isInitialLoad.current = false;
         console.log("SHEET", sheet.stats)
     }

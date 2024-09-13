@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
-import { Armor, ArmorItem } from "../../../types"
+import { Armor, ArmorItem, ArmorLocations } from "../../../types"
 import { GridItem } from "../GridItem"
 import { Paper } from "@mui/material"
 import { useState } from "react"
@@ -10,6 +10,8 @@ interface Props {
     armor: Armor,
     handleArmorChange: (location: keyof Armor, updatedArmorItem: ArmorItem) => void
 }
+
+
 
 // const nameFormat = (name: string | undefined) => {
 //     let result = name ? name.replace(/([A-Z])/g, ' $1') : "";
@@ -47,7 +49,7 @@ const ArmorItemTable: React.FC<Props> = (props) => {
                         </TableHead>
                         <TableBody>
                             {Object.keys(props.armor).map((key: string) => (
-                                <TableRow key={props.armor[key as keyof Armor].item._id}
+                                <TableRow key={key}
                                     hover
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     onClick={() => onClick(key as keyof Armor)}
@@ -55,7 +57,8 @@ const ArmorItemTable: React.FC<Props> = (props) => {
                                     <TableCell>{props.armor[key as keyof Armor].item.name}</TableCell>
                                     <TableCell align="center">{props.armor[key as keyof Armor].item.weight}</TableCell>
                                     <TableCell align="center">{props.armor[key as keyof Armor].item.value.gc != 0 ? props.armor[key as keyof Armor].item.value.gc + " zk" : ""} {props.armor[key as keyof Armor].item.value.sh != 0 ? props.armor[key as keyof Armor].item.value.sh + " s" : ""} {props.armor[key as keyof Armor].item.value.pn != 0 ? props.armor[key as keyof Armor].item.value.pn + " p" : ""}</TableCell>
-                                    <TableCell align="center">{props.armor[key as keyof Armor].coverLocation.join(', ')}</TableCell>
+                                    <TableCell align="center">{ArmorLocations[key as keyof typeof ArmorLocations]}</TableCell>
+                                    {/* <TableCell align="center">{props.armor[key as keyof Armor].coverLocation.join(', ')}</TableCell> */}
                                     <TableCell align="center">{String(props.armor[key as keyof Armor].armor)}</TableCell>
                                     <TableCell align="center">{props.armor[key as keyof Armor].item.availability}</TableCell>
                                     {/* <TableCell align="center">{props.armor[key as keyof Armor].item.description}</TableCell> */}

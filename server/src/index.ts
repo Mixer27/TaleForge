@@ -16,9 +16,14 @@ const app: Express = express();
 const { PORT, SSL_KEY, SSL_CERT } = process.env;
 // console.log(process.env);
 
+const mongoOptions = {
+    connectTimeoutMS: 30000, // 30 sekund
+    socketTimeoutMS: 45000  // 45 sekund
+};
+
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
-mongoose.connect(dbUrl, {})
+mongoose.connect(dbUrl, mongoOptions)
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {

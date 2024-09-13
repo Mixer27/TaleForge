@@ -5,6 +5,7 @@ import { ItemTable } from "./ItemTable";
 import { WeaponItemTable } from "./WeaponItemTable";
 import { ArmorItemTable } from "./ArmorItemTable";
 import { MoneyDisplay } from "./MoneyDisplay";
+import { useCallback, useState } from "react";
 
 interface Props {
     items: Item[],
@@ -12,7 +13,7 @@ interface Props {
     armor: Armor,
     money: Money,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor | Item[]) => void,
 }
 
 // const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
@@ -20,48 +21,55 @@ interface Props {
 
 const EquipmentDisplay: React.FC<Props> = (props) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [newId, setNewId] = useState<string>("");
     const theme: Theme = useTheme();
     const isXLargeScreen = useMediaQuery(theme.breakpoints.down("xl"));
 
-    // const handleArmorClick = (statName: string) => {
-    //     setSelectedStatName(statName);
-    //     setSelectedStat(props.stats ? props.stats[statName as keyof PlayerStats] as PlayerStat : null)
-    //     setSelectedSingleStat(null);
+    const getNewId = useCallback(async () => {
+        try {
+            fetch(`https://uwu.sex.pl:9000/pcsheets/new_id`)
+                .then((res: Response) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        setNewId(data);
+                        console.log(data);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching data!", error);
+                })
+        } catch (error) {
+            console.error("Error with get new_id request", error);
+        }
+    }, [newId])
 
-    //     setIsDialogOpen(true);
-    // }
-    // const handleSingleStatClick = (statName: string) => {
-    //     console.log("single click", statName);
-    //     setSelectedStatName(statName);
-    //     setSelectedSingleStat(props.stats ? props.stats[statName as keyof PlayerStats] as SingleStat : null);
-    //     setSelectedStat(null);
 
-    //     setIsDialogOpen(true);
-    // }
-    // const handleCloseDialog = () => {
-    //     setIsDialogOpen(false);
-    //     setSelectedStat(null);
-    //     setSelectedSingleStat(null);
-    // }
-    // const handleSave = () => {
-    //     // Save the updated statistics here (e.g., update the state or make an API call)
-    //     props.handleSubmit()
-    //     console.log("saved to DB")
-    //     handleCloseDialog()
-    // }
-    // const handleStatChange = (field: string, value: string) => {
-    //     if (selectedStat) {
-    //         const updatedStat = {
-    //             ...selectedStat,
-    //             [field]: Number(value),
-    //         };
-    //         setSelectedStat(updatedStat);
-    //         console.log("StatsDisplay", props.stats, updatedStat)
-    //         const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
-    //         setStats(updatedStats);
-    //         props.handleChange("stats", updatedStats)
-    //     }
-    // }
+    const handleItemChange = (updatedItem: Item) => {
+        console.log("EqDisplay", props.items, updatedItem);
+        const updatedItems = props.items.map((i: Item) => {
+            if (i._id === updatedItem._id) {
+                return updatedItem;
+            }
+            else {
+                return i;
+            }
+        })
+        props.handleChange("items", updatedItems);
+    }
+    const handleRemoveItem = (removedItemId: string) => {
+        const updatedItems = props.items.filter((i: Item) => {
+            return i._id !== removedItemId;
+        })
+        props.handleChange('items', updatedItems);
+    }
+    const handleAddItem = async (addedItem: Item) => {
+        // const updatedItems = [...props.items, {...addedItem, _id: uuid()}];
+        await getNewId();
+        const updatedItems = [...props.items, {...addedItem, _id: newId}];
+        props.handleChange('items', updatedItems);
+    }
     const handleArmorChange = (location: keyof Armor, updatedArmorItem: ArmorItem) => {
         console.log("EqDisplay", props.armor, updatedArmorItem)
         const updatedArmor = { ...props.armor, [location]: updatedArmorItem };
@@ -84,7 +92,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
                     <Stack spacing={2} style={{ flexGrow: 1 }}>
                         <ArmorItemTable header="Pancerz" armor={props.armor} handleArmorChange={handleArmorChange} />
                         <MoneyDisplay money={props.money} handleChange={handleMoneyChange} />
-                        <ItemTable header="Przedmiot" items={props.items ?? []} />
+                        <ItemTable header="Przedmiot" items={props.items ?? []} handleChange={handleItemChange} handleAddItem={handleAddItem} handleRemoveItem={handleRemoveItem} />
                     </Stack>
                 </Grid>
             </Grid>

@@ -54,7 +54,7 @@ var talent_1 = require("../models/talent");
 // import { NpcSheet } from "../models/npcSheet";
 var spell_1 = require("../models/spell");
 var enums_1 = require("../utils/enums");
-// import { Item } from "../models/item";
+var item_1 = require("../models/item");
 var armorItem_1 = require("../models/armorItem");
 var weaponItem_1 = require("../models/weaponItem");
 var defaultArmor = {
@@ -114,6 +114,61 @@ var items = [
             "pn": 0
         },
         "availability": "mała"
+    },
+    {
+        "name": "Sakwa podróżna",
+        "description": "Skórzana sakwa na ramię, która pomieści podstawowe rzeczy podróżnika.",
+        "weight": 5,
+        "value": {
+            "gc": 0,
+            "sh": 2,
+            "pn": 6
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Menażka",
+        "description": "Metalowy zestaw do gotowania, idealny dla podróżników i najemników.",
+        "weight": 2,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 8
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Zestaw do pisania",
+        "description": "Składa się z pergaminu, atramentu i pióra. Używany do sporządzania dokumentów.",
+        "weight": 1,
+        "value": {
+            "gc": 0,
+            "sh": 3,
+            "pn": 5
+        },
+        "availability": "średnia"
+    },
+    {
+        "name": "Lina",
+        "description": "Długa, solidna lina, która może być użyta do wspinaczki lub zabezpieczania ładunku.",
+        "weight": 10,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 0
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Fajka i tytoń",
+        "description": "Drewniana fajka z mieszanką aromatycznego tytoniu. Popularna wśród starszych podróżników.",
+        "weight": 0.5,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 0
+        },
+        "availability": "pospolita"
     }
 ];
 var weaponItems = [
@@ -707,61 +762,83 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                 return [4 /*yield*/, spell_1.Spell.deleteMany({})];
             case 4:
                 _a.sent();
-                return [4 /*yield*/, armorItem_1.ArmorItem.deleteMany({})];
+                return [4 /*yield*/, item_1.Item.deleteMany({})];
             case 5:
                 _a.sent();
-                return [4 /*yield*/, weaponItem_1.WeaponItem.deleteMany({})];
+                return [4 /*yield*/, armorItem_1.ArmorItem.deleteMany({})];
             case 6:
                 _a.sent();
-                skill_1.Skill.insertMany(skills)
-                    .then(function () {
-                    console.log("Skills added successfully!");
-                })
-                    .catch(function (error) {
-                    console.error("Error adding skills:", error);
-                });
-                talent_1.Talent.insertMany(talents)
-                    .then(function () {
-                    console.log("Talents added successfully!");
-                })
-                    .catch(function (error) {
-                    console.error("Error adding talents:", error);
-                });
-                spell_1.Spell.insertMany(spells)
-                    .then(function () {
-                    console.log("Spells added successfully!");
-                })
-                    .catch(function (error) {
-                    console.error("Error adding spells:", error);
-                });
-                armorItem_1.ArmorItem.insertMany(armorItems)
-                    .then(function () {
-                    console.log("Armors added successfully!");
-                })
-                    .catch(function (error) {
-                    console.error("Error adding armors:", error);
-                });
-                weaponItem_1.WeaponItem.insertMany(weaponItems)
-                    .then(function () {
-                    console.log("Weapons added successfully!");
-                })
-                    .catch(function (error) {
-                    console.error("Error adding weapons:", error);
-                });
-                _i = 0, examples_1 = examples;
-                _a.label = 7;
+                return [4 /*yield*/, weaponItem_1.WeaponItem.deleteMany({})];
             case 7:
-                if (!(_i < examples_1.length)) return [3 /*break*/, 10];
+                _a.sent();
+                return [4 /*yield*/, skill_1.Skill.insertMany(skills)
+                        .then(function () {
+                        console.log("Skills added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding skills:", error);
+                    })];
+            case 8:
+                _a.sent();
+                return [4 /*yield*/, talent_1.Talent.insertMany(talents)
+                        .then(function () {
+                        console.log("Talents added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding talents:", error);
+                    })];
+            case 9:
+                _a.sent();
+                return [4 /*yield*/, spell_1.Spell.insertMany(spells)
+                        .then(function () {
+                        console.log("Spells added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding spells:", error);
+                    })];
+            case 10:
+                _a.sent();
+                return [4 /*yield*/, item_1.Item.insertMany(items)
+                        .then(function () {
+                        console.log("Items added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding items:", error);
+                    })];
+            case 11:
+                _a.sent();
+                return [4 /*yield*/, armorItem_1.ArmorItem.insertMany(armorItems)
+                        .then(function () {
+                        console.log("Armors added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding armors:", error);
+                    })];
+            case 12:
+                _a.sent();
+                return [4 /*yield*/, weaponItem_1.WeaponItem.insertMany(weaponItems)
+                        .then(function () {
+                        console.log("Weapons added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding weapons:", error);
+                    })];
+            case 13:
+                _a.sent();
+                _i = 0, examples_1 = examples;
+                _a.label = 14;
+            case 14:
+                if (!(_i < examples_1.length)) return [3 /*break*/, 17];
                 e = examples_1[_i];
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, e));
                 return [4 /*yield*/, character.save()];
-            case 8:
+            case 15:
                 _a.sent();
-                _a.label = 9;
-            case 9:
+                _a.label = 16;
+            case 16:
                 _i++;
-                return [3 /*break*/, 7];
-            case 10: return [2 /*return*/];
+                return [3 /*break*/, 14];
+            case 17: return [2 /*return*/];
         }
     });
 }); };

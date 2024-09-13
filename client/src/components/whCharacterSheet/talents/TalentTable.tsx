@@ -46,7 +46,7 @@ const TalentTable: React.FC<Props> = (props) => {
                     </TableHead>
                     <TableBody>
                         {alphabeticalSort(props.talents).map((talent: TalentObject) => (
-                            <TableRow key={talent.talent.name}
+                            <TableRow key={talent.talent._id}
                                 hover
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >

@@ -42,12 +42,49 @@ const getPlayerCharacters = async (req: Request, res: Response, next: NextFuncti
 }
 
 const updatePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
+    const { id} = req.params;
     const updates = req.body;
 
-    const updatedSheet = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true });
-    console.log(updates, updatedSheet);
-    res.send(updatedSheet);
+
+    let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true });
+    // if (back) {
+
+    //     const data = await PlayerCharacterSheet.findById(id)
+    //         .populate({
+    //             path: "skills",
+    //             populate: {
+    //                 path: 'skill',
+    //                 model: 'Skill',
+    //             }
+    //         })
+    //         .populate({
+    //             path: "talents",
+    //             populate: {
+    //                 path: 'talent',
+    //                 model: 'Talent'
+    //             }
+    //         })
+    //         .populate({
+    //             path: "spells",
+    //             populate: {
+    //                 path: "spell",
+    //                 model: "Spell",
+    //             }
+    //         });
+    // }
+    console.log(updates, data);
+    res.send(data);
 }
 
-export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet }
+const getNewId = async (req: Request, res: Response, next: NextFunction) => {
+    const data = new mongoose.Types.ObjectId();
+    console.log(data);
+    res.send(data);
+
+}
+
+// const addPlayerCharacterSheetItem = async (req: Request, res: Response, next: NextFunction) => {
+
+// }
+
+export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId }

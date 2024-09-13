@@ -5,7 +5,7 @@ import { Talent } from "../models/talent"
 // import { NpcSheet } from "../models/npcSheet";
 import { Spell } from "../models/spell";
 import { Race, StatName, Gender, SkillLvl } from "../utils/enums";
-// import { Item } from "../models/item";
+import { Item } from "../models/item";
 import { ArmorItem } from "../models/armorItem";
 import { WeaponItem } from "../models/weaponItem";
 
@@ -67,8 +67,64 @@ const items = [
             "pn": 0
         },
         "availability": "mała"
+    },
+    {
+        "name": "Sakwa podróżna",
+        "description": "Skórzana sakwa na ramię, która pomieści podstawowe rzeczy podróżnika.",
+        "weight": 5,
+        "value": {
+            "gc": 0,
+            "sh": 2,
+            "pn": 6
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Menażka",
+        "description": "Metalowy zestaw do gotowania, idealny dla podróżników i najemników.",
+        "weight": 2,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 8
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Zestaw do pisania",
+        "description": "Składa się z pergaminu, atramentu i pióra. Używany do sporządzania dokumentów.",
+        "weight": 1,
+        "value": {
+            "gc": 0,
+            "sh": 3,
+            "pn": 5
+        },
+        "availability": "średnia"
+    },
+    {
+        "name": "Lina",
+        "description": "Długa, solidna lina, która może być użyta do wspinaczki lub zabezpieczania ładunku.",
+        "weight": 10,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 0
+        },
+        "availability": "pospolita"
+    },
+    {
+        "name": "Fajka i tytoń",
+        "description": "Drewniana fajka z mieszanką aromatycznego tytoniu. Popularna wśród starszych podróżników.",
+        "weight": 0.5,
+        "value": {
+            "gc": 0,
+            "sh": 1,
+            "pn": 0
+        },
+        "availability": "pospolita"
     }
 ];
+
 const weaponItems = [
     {
         "item": {
@@ -660,37 +716,45 @@ const seedDB = async () => {
     await Skill.deleteMany({});
     await Talent.deleteMany({});
     await Spell.deleteMany({});
+    await Item.deleteMany({});
     await ArmorItem.deleteMany({});
     await WeaponItem.deleteMany({});
-    Skill.insertMany(skills)
+    await Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");
         })
         .catch((error) => {
             console.error("Error adding skills:", error);
         });
-    Talent.insertMany(talents)
+    await Talent.insertMany(talents)
         .then(() => {
             console.log("Talents added successfully!");
         })
         .catch((error) => {
             console.error("Error adding talents:", error);
         });
-    Spell.insertMany(spells)
+    await Spell.insertMany(spells)
         .then(() => {
             console.log("Spells added successfully!");
         })
         .catch((error) => {
             console.error("Error adding spells:", error);
         });
-    ArmorItem.insertMany(armorItems)
+    await Item.insertMany(items)
+        .then(() => {
+            console.log("Items added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding items:", error);
+        });
+    await ArmorItem.insertMany(armorItems)
         .then(() => {
             console.log("Armors added successfully!");
         })
         .catch((error) => {
             console.error("Error adding armors:", error);
         });
-    WeaponItem.insertMany(weaponItems)
+    await WeaponItem.insertMany(weaponItems)
         .then(() => {
             console.log("Weapons added successfully!");
         })

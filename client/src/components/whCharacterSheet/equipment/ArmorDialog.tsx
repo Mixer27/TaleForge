@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
-import { Armor, ArmorItem } from '../../../types'
+import { Armor, ArmorItem, ArmorLocations } from '../../../types'
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -10,16 +10,8 @@ interface Props {
     // handleChange?: (field: string, value: string) => void,
     handleChange: (location: keyof Armor, armorItem: ArmorItem) => void,
     handleClose: () => void,
-    handleSave?: () => void,
     // handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
 }
-
-const ArmorLocations = Object.freeze({
-    "head": "głowa",
-    "torso": "korpus",
-    "arms": "ręce",
-    "legs": "nogi",
-});
 
 const emptyItem: ArmorItem = {
     item: {

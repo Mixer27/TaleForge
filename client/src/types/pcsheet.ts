@@ -58,6 +58,13 @@ interface Armor {
     legs: ArmorItem;
 }
 
+const ArmorLocations = Object.freeze({
+    "head": "głowa",
+    "torso": "korpus",
+    "arms": "ręce",
+    "legs": "nogi",
+});
+
 interface SingleStat {
     name: string;
     current: number;
@@ -188,4 +195,4 @@ export type {
     ArmorItem,
     WeaponItem
 };
-export { CharacterSheetTab, Gender, Race, SkillLvl }
+export { CharacterSheetTab, Gender, Race, SkillLvl, ArmorLocations}

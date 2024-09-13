@@ -22,13 +22,6 @@ const MoneyDisplay: React.FC<Props> = (props) => {
         setIsDialogOpen(false);
     }
 
-    const handleSave = (money: Money) => {
-        // if (props.stat) {
-        console.log("update money");
-        handleClose()
-        props.handleChange(money);
-    }
-
     return (
         <>
             <Stack direction="row" justifyContent="space-around" alignItems="center" >
