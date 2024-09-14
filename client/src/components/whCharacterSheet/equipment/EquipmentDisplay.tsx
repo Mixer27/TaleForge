@@ -21,11 +21,11 @@ interface Props {
 
 const EquipmentDisplay: React.FC<Props> = (props) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [newId, setNewId] = useState<string>("");
+    // const [newId, setNewId] = useState<string>("");
     const theme: Theme = useTheme();
     const isXLargeScreen = useMediaQuery(theme.breakpoints.down("xl"));
 
-    const getNewId = useCallback(async () => {
+    const getNewId = useCallback(async (): string => {
         try {
             fetch(`https://uwu.sex.pl:9000/pcsheets/new_id`)
                 .then((res: Response) => {
@@ -33,17 +33,19 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
                 })
                 .then((data) => {
                     if (data) {
-                        setNewId(data);
-                        console.log(data);
+                        // setNewId(data);
+                        console.log("nowe ID", data);
+                        return (data);
                     }
                 })
                 .catch((error) => {
+                    return ("");
                     console.error("Error fetching data!", error);
                 })
         } catch (error) {
             console.error("Error with get new_id request", error);
         }
-    }, [newId])
+    }, [])
 
 
     const handleItemChange = (updatedItem: Item) => {
@@ -66,7 +68,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
     }
     const handleAddItem = async (addedItem: Item) => {
         // const updatedItems = [...props.items, {...addedItem, _id: uuid()}];
-        await getNewId();
+        const newId: string = await getNewId();
         const updatedItems = [...props.items, {...addedItem, _id: newId}];
         props.handleChange('items', updatedItems);
     }

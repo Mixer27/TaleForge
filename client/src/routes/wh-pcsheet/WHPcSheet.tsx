@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money, Item } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
@@ -17,7 +17,7 @@ import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/Eq
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<PlayerCharacterSheet>(defaultPlayerCharacterSheet);
-    const isInitialLoad = useRef(true);
+    // const isInitialLoad = useRef(true);
     const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
     const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
@@ -153,8 +153,8 @@ const WHPcSheet: React.FC = () => {
         // przy zmianie zamyka initail load
         // setSheet(update)
         await updateCharacterSheet(update);
-        isInitialLoad.current = false;
-        console.log("SHEET", sheet.stats)
+        // isInitialLoad.current = false;
+        // console.log("SHEET", sheet.stats)
     }
 
     const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {
