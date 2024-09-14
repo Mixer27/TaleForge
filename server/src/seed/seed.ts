@@ -9,13 +9,19 @@ import { Item } from "../models/item";
 import { ArmorItem } from "../models/armorItem";
 import { WeaponItem } from "../models/weaponItem";
 
+const defaultMoney = {
+    gc: 0,
+    sh: 0,
+    pn: 0,
+}
+
 const defaultArmor = {
     head: {
         item: {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" }, // Dopasuj domyślne wartości dla MoneySchema
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -26,7 +32,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -37,7 +43,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -48,7 +54,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
