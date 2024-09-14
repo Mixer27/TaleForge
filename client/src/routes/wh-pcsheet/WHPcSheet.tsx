@@ -13,6 +13,7 @@ import { SkillsDisplay } from "../../components/whCharacterSheet/skills/SkillsDi
 import { TalentsDisplay } from "../../components/whCharacterSheet/talents/TalentsDisplay";
 import { SpellsDisplay } from "../../components/whCharacterSheet/spells/SpellsDisplay";
 import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/EquipmentDisplay";
+import { CharacterDetails } from "../../components/whCharacterSheet/details/CharacterDetails";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -191,6 +192,25 @@ const WHPcSheet: React.FC = () => {
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
                         <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleSubmit={handleSubmit} handleChange={handleChange} />
+                    </TabPanel>
+                    <TabPanel value={CharacterSheetTab.Details} sx={{ padding: "24px 6px 24px 6px" }}>
+                        <CharacterDetails
+                            name={sheet.name}
+                            race={sheet.race}
+                            gender={sheet.gender}
+                            currentCareer={sheet.currentCareer}
+                            previousCareers={sheet.PreviousCareers}
+                            age={sheet.age}
+                            eyeColor={sheet.eyeColor}
+                            hairColor={sheet.hairColor}
+                            starSign={sheet.starSign}
+                            weight={sheet.weight}
+                            height={sheet.height}
+                            numOfSiblings={sheet.numOfSiblings}
+                            birthplace={sheet.birthplace}
+                            distinguishMarks={sheet.distinguishMarks}
+                            backstory={sheet.backstory}
+                        />
                     </TabPanel>
                 </Box>
             </TabContext>

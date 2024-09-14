@@ -463,8 +463,8 @@ const examples = [{
     eyeColor: "Niebieskie",
     hairColor: "Czarne",
     starSign: "Lew",
-    weight: 82, // Zmieniłem jednostki na kilogramy
-    height: 183, // Zmieniłem jednostki na centymetry
+    weight: 82,
+    height: 183, 
     numOfSiblings: 2,
     birthplace: "Nieznane",
     distinguishMarks: "Blizna na lewym policzku",

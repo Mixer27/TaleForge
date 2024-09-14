@@ -57,13 +57,18 @@ var enums_1 = require("../utils/enums");
 var item_1 = require("../models/item");
 var armorItem_1 = require("../models/armorItem");
 var weaponItem_1 = require("../models/weaponItem");
+var defaultMoney = {
+    gc: 0,
+    sh: 0,
+    pn: 0,
+};
 var defaultArmor = {
     head: {
         item: {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" }, // Dopasuj domyślne wartości dla MoneySchema
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -74,7 +79,7 @@ var defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -85,7 +90,7 @@ var defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -96,7 +101,7 @@ var defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { amount: 0, currency: "gold" },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
