@@ -5,7 +5,8 @@ import { ItemTable } from "./ItemTable";
 import { WeaponItemTable } from "./WeaponItemTable";
 import { ArmorItemTable } from "./ArmorItemTable";
 import { MoneyDisplay } from "./MoneyDisplay";
-import { useCallback, useState } from "react";
+// import { getNewId } from "../../../types/fetch";
+import { useCallback } from "react";
 
 interface Props {
     items: Item[],
@@ -25,25 +26,21 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
     const theme: Theme = useTheme();
     const isXLargeScreen = useMediaQuery(theme.breakpoints.down("xl"));
 
-    const getNewId = useCallback(async (): string => {
+    const getNewId = useCallback(async (): Promise<string> => {
         try {
-            fetch(`https://uwu.sex.pl:9000/pcsheets/new_id`)
-                .then((res: Response) => {
-                    return res.json();
-                })
-                .then((data) => {
-                    if (data) {
-                        // setNewId(data);
-                        console.log("nowe ID", data);
-                        return (data);
-                    }
-                })
-                .catch((error) => {
-                    return ("");
-                    console.error("Error fetching data!", error);
-                })
+            const res = await fetch(`https://uwu.sex.pl:9000/pcsheets/new_id`);
+            const data = await res.json();
+            if (data) {
+                // setNewId(data);
+                console.log("nowe ID", data);
+                return (data);
+            }
+            else {
+                return "";
+            }
         } catch (error) {
             console.error("Error with get new_id request", error);
+            return "";
         }
     }, [])
 
@@ -69,7 +66,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
     const handleAddItem = async (addedItem: Item) => {
         // const updatedItems = [...props.items, {...addedItem, _id: uuid()}];
         const newId: string = await getNewId();
-        const updatedItems = [...props.items, {...addedItem, _id: newId}];
+        const updatedItems = [...props.items, { ...addedItem, _id: newId }];
         props.handleChange('items', updatedItems);
     }
     const handleArmorChange = (location: keyof Armor, updatedArmorItem: ArmorItem) => {
