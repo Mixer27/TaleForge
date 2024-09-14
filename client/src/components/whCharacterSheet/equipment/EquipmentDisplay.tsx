@@ -14,7 +14,7 @@ interface Props {
     armor: Armor,
     money: Money,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor | Item[]) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor | Item[] | WeaponItem[]) => void,
 }
 
 // const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
@@ -74,6 +74,29 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
         const updatedArmor = { ...props.armor, [location]: updatedArmorItem };
         props.handleChange("armor", updatedArmor)
     }
+    const handleChangeWeapon = (updatedWeapon: WeaponItem) => {
+        console.log("EqDisplay", props.weapons, updatedWeapon);
+        const updatedWeapons = props.weapons.map((w: WeaponItem) => {
+            if (w._id === updatedWeapon._id) {
+                return updatedWeapon;
+            }
+            else {
+                return w;
+            }
+        })
+        props.handleChange("weapons", updatedWeapons);
+    }
+    const handleAddWeapon = async (addedWeapon: WeaponItem) => {
+        const newId: string = await getNewId();
+        const updatedWeapons = [...props.weapons, { ...addedWeapon, _id: newId }]
+        props.handleChange('weapons', updatedWeapons);
+    }
+    const handleRemoveWeapon = (removedWeaponId: string) => {
+        const updatedWeapons = props.weapons.filter((w: WeaponItem) => {
+            return w._id !== removedWeaponId;
+        })
+        props.handleChange('weapons', updatedWeapons);
+    }
     const handleMoneyChange = (updatedMoney: Money) => {
         console.log("EqDisplay", props.money, updatedMoney)
         props.handleChange('wealth', updatedMoney);
@@ -84,7 +107,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isXLargeScreen ? "column" : "row"}>
                 <Grid container item xs={12} xl={7} style={{ flexGrow: 1 }}>
                     <Box style={{ width: "100%" }}>
-                        <WeaponItemTable header="Broń" items={props.weapons ?? []} />
+                        <WeaponItemTable header="Broń" items={props.weapons ?? []} handleAddWeapon={handleAddWeapon} handleRemoveWeapon={handleRemoveWeapon} handleChangeWeapon={handleChangeWeapon}/>
                     </Box>
                 </Grid>
                 <Grid container item xs={12} xl={5} style={{ flexGrow: 1 }}>

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money, Item } from "../../types";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { Armor, PlayerCharacterSheet, SkillwLvl, SpellObject, TalentObject, Money, Item, WeaponItem } from "../../types";
 import { CharacterSheetNavBar } from "../../components/whCharacterSheet/CharacterSheetNavBar";
 import { StatsDisplay } from "../../components/whCharacterSheet/StatsDisplay";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
@@ -17,7 +17,7 @@ import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/Eq
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<PlayerCharacterSheet>(defaultPlayerCharacterSheet);
-    // const isInitialLoad = useRef(true);
+    const isInitialLoad = useRef(true);
     const [currentTab, setCurrentTab] = useState<string>(CharacterSheetTab.Stats);
     const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ const WHPcSheet: React.FC = () => {
             }
 
             const updatedSheet = await response.json();
-            setSheet(updatedSheet);
+            // setSheet(updatedSheet);
             console.log("Character sheet updated succesfully.", updatedSheet);
             navigate(`/pcsheets/${id}`);
 
@@ -74,16 +74,16 @@ const WHPcSheet: React.FC = () => {
 
     }
 
-    // useEffect(() => {
-    //     console.log(isInitialLoad.current)
-    //     if (isInitialLoad.current) {
-    //         return;
-    //     }
-    //     console.log("DEBUG", sheet)
-    //     updateCharacterSheet(sheet);
-    // }, [sheet, updateCharacterSheet])
+    useEffect(() => {
+        console.log(isInitialLoad.current)
+        if (isInitialLoad.current) {
+            return;
+        }
+        console.log("DEBUG", sheet)
+        updateCharacterSheet(sheet);
+    }, [sheet, updateCharacterSheet])
 
-    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | Armor | Money) => {
+    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | WeaponItem[] | Armor | Money) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
         let update: PlayerCharacterSheet = sheet;
@@ -152,6 +152,7 @@ const WHPcSheet: React.FC = () => {
         }
         // przy zmianie zamyka initail load
         // setSheet(update)
+        setSheet(update);
         await updateCharacterSheet(update);
         // isInitialLoad.current = false;
         // console.log("SHEET", sheet.stats)

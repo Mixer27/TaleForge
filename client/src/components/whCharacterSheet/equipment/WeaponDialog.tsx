@@ -1,37 +1,45 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
-import { Item } from '../../../types'
+import { WeaponItem } from '../../../types'
 import { useEffect, useState } from 'react';
+import { defaultWeapon } from '../../../utils/defaults';
 
 interface Props {
     headerName: string,
-    item: Item | null
+    weapon: WeaponItem | null
     isOpen: boolean,
     handleClose: () => void,
-    handleChange: (item: Item) => void,
-    handleRemove: (removedItemId: string) => void,
+    handleChange: (weapon: WeaponItem) => void,
+    handleRemove: (removedWeaponId: string) => void,
 }
 
-const emptyItem: Item = {
-    name: "-",
-    description: "-",
-    value: { gc: 0, sh: 0, pn: 0 },
-    weight: 0,
-    availability: "-",
-}
+// const emptyWeapon: WeaponItem = {
+//     item: {
+//         name: "-",
+//         description: "-",
+//         value: { gc: 0, sh: 0, pn: 0 },
+//         weight: 0,
+//         availability: "-",
+//     },
+//     category: '-',
+//     range: '-',
+//     reload: '-',
+//     strength: '-',
+//     weaponFeatures: '-'
+// }
 
-const ItemDialog: React.FC<Props> = (props) => {
-    const [item, setItem] = useState<Item>(props.item ?? emptyItem);
-    const [items, setItems] = useState<Item[]>([]);
+const WeaponDialog: React.FC<Props> = (props) => {
+    const [weapon, setWeapon] = useState<WeaponItem>(props.weapon ?? defaultWeapon);
+    const [weapons, setWeapons] = useState<WeaponItem[]>([]);
 
     // fetch armor items
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/items`)
+        fetch(`https://uwu.sex.pl:9000/items/weapons`)
             .then((res: Response) => {
                 return res.json();
             })
-            .then((data: Item[]) => {
+            .then((data: WeaponItem[]) => {
                 console.log(data);
-                setItems(data);
+                setWeapons(data);
             })
             .catch((error) => {
                 console.error("Error fetching data!", error);
@@ -40,17 +48,25 @@ const ItemDialog: React.FC<Props> = (props) => {
     }, []);
 
     const onChange = (field: string, value: string) => {
-        if (field in item.value) {
-            const updateMoney = { ...item.value, [field]: Number(value) >= 0 ? Number(value) : 0 };
-            const update = { ...item, value: updateMoney };
-            console.log("value", update)
-            setItem(update);
+        if (field in weapon.item.value) {
+            const updateMoney = { ...weapon.item.value, [field]: Number(value) >= 0 ? Number(value) : 0 };
+            const updatedItem = { ...weapon.item, value: updateMoney }
+            const update = { ...weapon, item: updatedItem };
+            console.log("weapon.item.value", update)
+            setWeapon(update);
+        }
+        else if (field in weapon.item) {
+            const updatedItem = { ...weapon.item, [field]: value };
+            const update = { ...weapon, item: updatedItem };
+            console.log("weapon.item", update);
+            setWeapon(update);
         }
         else {
-            const update = { ...item, [field as keyof Item]: value }
-            console.log("item", update)
-            setItem(update)
+            const update = { ...weapon, [field]: value }
+            console.log('weapon', update);
+            setWeapon(update);
         }
+
     }
     const onClose = () => {
         props.handleClose()
@@ -58,30 +74,29 @@ const ItemDialog: React.FC<Props> = (props) => {
 
     const onSave = () => {
         // if (props.stat) {
-        console.log("update item", item);
-        props.handleChange(item);
+        console.log("update weapon", weapon);
+        props.handleChange(weapon);
         onClose()
     }
 
-    const onAutocompleteChange = (_event: any, newValue: Item | null) => {
-        console.log(props.item, newValue)
+    const onAutocompleteChange = (_event: any, newValue: WeaponItem | null) => {
+        console.log(props.weapon, newValue)
         if (newValue) {
-            console.log("import item", newValue);
-            setItem({ ...newValue, _id: item._id });
+            console.log("import weapon", newValue);
+            setWeapon({ ...newValue, _id: weapon._id });
             // props.handleChange(props.armorLocation, newValue);
         }
     }
     const onItemClear = () => {
-        if (props.item) {
+        if (props.weapon) {
             console.log("clear item");
-            setItem({...emptyItem, _id: item._id});
-            // props.handleChange(props.armorLocation, emptyItem);
+            setWeapon({ ...defaultWeapon, _id: weapon._id });
         }
     }
     const onItemRemove = () => {
-        if (item._id) {
-            console.log("remove item", item);
-            props.handleRemove(item._id);
+        if (weapon._id) {
+            console.log("remove item", weapon);
+            props.handleRemove(weapon._id);
             onClose()
         }
     }
@@ -91,15 +106,15 @@ const ItemDialog: React.FC<Props> = (props) => {
         <Dialog open={props.isOpen} onClose={onClose} >
             <DialogTitle>Edytuj {props.headerName}</DialogTitle>
             <DialogContent>
-                {props.item && (
+                {props.weapon && (
                     <>
-                        {item._id ?? "null"}
+                        {weapon._id ?? "null"}
                         <TextField
                             margin="dense"
                             label="Nazwa"
                             type="text"
                             fullWidth
-                            value={item.name || ""}
+                            value={weapon.item.name || ""}
                             onChange={(e) => onChange('name', e.target.value)}
                         />
                         <TextField
@@ -107,7 +122,7 @@ const ItemDialog: React.FC<Props> = (props) => {
                             label="Obciążenie"
                             type="number"
                             fullWidth
-                            value={item.weight || ""}
+                            value={weapon.item.weight || ""}
                             onChange={(e) => onChange('weight', e.target.value)}
                         />
                         <Stack direction="row" spacing={2} sx={{ marginTop: 1 }}>
@@ -116,7 +131,7 @@ const ItemDialog: React.FC<Props> = (props) => {
                                 label="zk"
                                 type="number"
                                 // fullWidth
-                                value={item.value.gc || ""}
+                                value={weapon.item.value.gc || ""}
                                 onChange={(e) => onChange('gc', e.target.value)}
                             />
                             <TextField
@@ -124,7 +139,7 @@ const ItemDialog: React.FC<Props> = (props) => {
                                 label="s"
                                 type="number"
                                 // fullWidth
-                                value={item.value.sh || ""}
+                                value={weapon.item.value.sh || ""}
                                 onChange={(e) => onChange('sh', e.target.value)}
                             />
                             <TextField
@@ -132,7 +147,7 @@ const ItemDialog: React.FC<Props> = (props) => {
                                 label="p"
                                 type="number"
                                 // fullWidth
-                                value={item.value.pn || ""}
+                                value={weapon.item.value.pn || ""}
                                 onChange={(e) => onChange('pn', e.target.value)}
                             />
                         </Stack>
@@ -141,14 +156,14 @@ const ItemDialog: React.FC<Props> = (props) => {
                             label="Dostępność"
                             type="text"
                             fullWidth
-                            value={item.availability || ""}
+                            value={weapon.item.availability || ""}
                             onChange={(e) => onChange('availability', e.target.value)}
                         />
                         <Autocomplete
                             autoHighlight
-                            options={items}
+                            options={weapons}
                             onChange={onAutocompleteChange}
-                            getOptionLabel={(option: Item) => option.name}
+                            getOptionLabel={(option: WeaponItem) => option.item.name}
                             sx={{ mt: 2, width: 300 }}
                             renderInput={(params) => <TextField {...params} label="przedmiot" />}
                         />
@@ -156,7 +171,7 @@ const ItemDialog: React.FC<Props> = (props) => {
                 )}
             </DialogContent>
             <DialogActions>
-                <Button onClick={onItemRemove} sx={{marginRight: "auto"}}>Usuń</Button>
+                <Button onClick={onItemRemove} sx={{ marginRight: "auto" }}>Usuń</Button>
                 <Button onClick={onItemClear}>Wyczyść</Button>
                 <Button onClick={onClose}>Anuluj</Button>
                 <Button onClick={onSave} type='submit'>Zapisz</Button>
@@ -166,4 +181,4 @@ const ItemDialog: React.FC<Props> = (props) => {
     )
 }
 
-export { ItemDialog };
+export { WeaponDialog };
