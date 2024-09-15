@@ -107,14 +107,16 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
             <Grid container spacing={1} direction={isXLargeScreen ? "column" : "row"}>
                 <Grid container item xs={12} xl={7} style={{ flexGrow: 1 }}>
                     <Box style={{ width: "100%" }}>
-                        <WeaponItemTable header="Broń" items={props.weapons ?? []} handleAddWeapon={handleAddWeapon} handleRemoveWeapon={handleRemoveWeapon} handleChangeWeapon={handleChangeWeapon}/>
+                        <Stack spacing={2} style={{ flexGrow: 1 }}>
+                            <WeaponItemTable header="Broń" items={props.weapons ?? []} handleAddWeapon={handleAddWeapon} handleRemoveWeapon={handleRemoveWeapon} handleChangeWeapon={handleChangeWeapon} />
+                            <ItemTable header="Przedmiot" items={props.items ?? []} handleChange={handleItemChange} handleAddItem={handleAddItem} handleRemoveItem={handleRemoveItem} />
+                        </Stack>
                     </Box>
                 </Grid>
                 <Grid container item xs={12} xl={5} style={{ flexGrow: 1 }}>
                     <Stack spacing={2} style={{ flexGrow: 1 }}>
                         <ArmorItemTable header="Pancerz" armor={props.armor} handleArmorChange={handleArmorChange} />
                         <MoneyDisplay money={props.money} handleChange={handleMoneyChange} />
-                        <ItemTable header="Przedmiot" items={props.items ?? []} handleChange={handleItemChange} handleAddItem={handleAddItem} handleRemoveItem={handleRemoveItem} />
                     </Stack>
                 </Grid>
             </Grid>
