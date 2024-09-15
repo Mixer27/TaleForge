@@ -44,46 +44,51 @@ const WHPcSheet: React.FC = () => {
 
     }, [id]);
 
-    const updateCharacterSheet = useCallback(async (sheet: PlayerCharacterSheet) => {
+    const updateCharacterSheet = useCallback(async (update: PlayerCharacterSheet) => {
         try {
             const response = await fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(sheet),
+                body: JSON.stringify(update),
             });
 
             if (!response.ok) {
                 throw new Error("Failed to update character sheet");
             }
+            else {
+                setSheet(update);
+            }
 
             const updatedSheet = await response.json();
             // setSheet(updatedSheet);
             console.log("Character sheet updated succesfully.", updatedSheet);
-            navigate(`/pcsheets/${id}`);
+            // navigate(`/pcsheets/${id}`);
 
         } catch (error) {
-            console.error("Error with patch request", error);
+            console.error("Error with patch request", error, sheet);
+            console.log(sheet)
+            // setSheet(sheet);
         }
     }, [id, navigate]);
 
+    
+    // useEffect(() => {
+    //     console.log(isInitialLoad.current)
+    //     if (isInitialLoad.current) {
+    //         return;
+    //     }
+    //     console.log("DEBUG", sheet)
+    //     updateCharacterSheet(sheet);
+    // }, [sheet, updateCharacterSheet])
+    
     const handleSubmit = async () => {
         // e.preventDefault()
         // console.log(sheet);
         console.log("a");
 
     }
-
-    useEffect(() => {
-        console.log(isInitialLoad.current)
-        if (isInitialLoad.current) {
-            return;
-        }
-        console.log("DEBUG", sheet)
-        updateCharacterSheet(sheet);
-    }, [sheet, updateCharacterSheet])
-
     const handleChange = async (key: keyof PlayerCharacterSheet, value: string | number | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | WeaponItem[] | Armor | Money) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
@@ -153,9 +158,9 @@ const WHPcSheet: React.FC = () => {
         }
         // przy zmianie zamyka initail load
         // setSheet(update)
-        setSheet(update);
-        await updateCharacterSheet(update);
-        // isInitialLoad.current = false;
+        // setSheet(update);
+        updateCharacterSheet(update);
+        isInitialLoad.current = false;
         // console.log("SHEET", sheet.stats)
     }
 

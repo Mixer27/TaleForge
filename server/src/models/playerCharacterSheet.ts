@@ -91,7 +91,7 @@ const SpellSchema = new Schema({
 const PlayerCharacterSchema = new Schema({
     owner_id: { type: Schema.Types.ObjectId, required: true, index: true },
     session_id: { type: Schema.Types.ObjectId, required: true, index: true },
-    name: { type: String, required: true, minLength: 3 },
+    name: { type: String, required: true, minLength: [3, "Name must have at least 3 characters"] },
     race: {
         type: String,
         enum: Object.values(Race),
