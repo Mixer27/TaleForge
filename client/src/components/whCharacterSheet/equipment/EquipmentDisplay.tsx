@@ -106,7 +106,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
         <>
             <Grid container spacing={1} direction={isXLargeScreen ? "column" : "row"}>
                 <Grid container item xs={12} xl={7} style={{ flexGrow: 1 }}>
-                    <Box style={{ width: "100%" }}>
+                    <Box width={isXLargeScreen ? 'inherit' : "100%"}>
                         <Stack spacing={2} style={{ flexGrow: 1 }}>
                             <WeaponItemTable header="Broń" items={props.weapons ?? []} handleAddWeapon={handleAddWeapon} handleRemoveWeapon={handleRemoveWeapon} handleChangeWeapon={handleChangeWeapon} />
                             <ItemTable header="Przedmiot" items={props.items ?? []} handleChange={handleItemChange} handleAddItem={handleAddItem} handleRemoveItem={handleRemoveItem} />
