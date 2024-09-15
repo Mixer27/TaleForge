@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import { SkillwLvl, SkillLvl } from '../../../types'
 import { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
     headerName: string,
@@ -71,9 +71,9 @@ const SkillDialog: React.FC<Props> = (props) => {
                                         return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])} />
                                     })}
                                 </RadioGroup>
-                                <Button sx={{ mt: 1, mr: 1, width: 2/3}} variant="outlined" startIcon={<DeleteIcon />} onClick={() => onRemoveButtonClick(props.skill)}>
+                                {/* <Button sx={{ mt: 1, mr: 1, width: 2 / 3 }} variant="outlined" startIcon={<DeleteIcon />} onClick={() => onRemoveButtonClick(props.skill)}>
                                     Usuń
-                                </Button>
+                                </Button> */}
                             </FormControl>
 
                             {/* <TextField
@@ -107,6 +107,7 @@ const SkillDialog: React.FC<Props> = (props) => {
                     )}
                 </DialogContent>
                 <DialogActions>
+                    <Button onClick={() => onRemoveButtonClick(props.skill)} sx={{ marginRight: "auto" }}>Usuń</Button>
                     <Button onClick={onClose}>Anuluj</Button>
                     <Button onClick={onSave} type='submit'>Zapisz</Button>
                 </DialogActions>

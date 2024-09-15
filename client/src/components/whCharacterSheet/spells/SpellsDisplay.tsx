@@ -70,7 +70,7 @@ const SpellsDisplay: React.FC<Props> = (props) => {
                 </Grid>
             </Grid>
             {newSpellDialogOpen && <NewSpellDialog
-                headerName="Select Skill to add"
+                headerName="Wybierz czar do dodania"
                 isOpen={newSpellDialogOpen}
                 spells={props.spells.map((s: SpellObject) => s.spell) ?? []}
                 // handleChange={handleAdd}

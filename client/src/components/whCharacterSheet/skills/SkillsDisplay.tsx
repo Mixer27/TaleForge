@@ -115,7 +115,7 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                 handleSubmit={props.handleSubmit}
             />}
             {newSkillDialogOpen && <NewSkillDialog
-                headerName="Select Skill to add"
+                headerName="Wybierz umiejętność do dodania"
                 isOpen={newSkillDialogOpen}
                 skills={props.skills?.map((s: SkillwLvl) => s.skill) ?? []}
                 handleChange={handleAddSkill}
