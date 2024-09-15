@@ -46,7 +46,7 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     const updates = req.body;
 
 
-    let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true });
+    let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
     // if (back) {
 
     //     const data = await PlayerCharacterSheet.findById(id)

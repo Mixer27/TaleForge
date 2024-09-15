@@ -142,20 +142,23 @@ interface Wealth {
 // Główny interfejs dla PlayerCharacterSheet
 interface PlayerCharacterSheet {
     _id: string,
-    name: string;
-    race: Race;
-    currentCareer: string;
-    PreviousCareers: string[];
-    age: number;
-    gender: Gender;
-    eyeColor: string;
-    hairColor: string;
-    starSign: string;
-    weight: number;
-    height: number;
-    numOfSiblings: number;
-    birthplace: string;
-    distinguishMarks: string;
+    name: string,
+    race: Race,
+    currentCareer: string,
+    PreviousCareers: string[],
+    age: number,
+    gender: Gender,
+    eyeColor: string,
+    hairColor: string,
+    starSign: string,
+    weight: number,
+    height: number,
+    numOfSiblings: number,
+    birthplace: string,
+    distinguishMarks: string,
+    mentalDisorders: string,
+    scarsAndWounds: string,
+    religion: string,
     backstory: string;
     stats: PlayerStats;
     skills: SkillwLvl[],

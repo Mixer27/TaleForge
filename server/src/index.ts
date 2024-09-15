@@ -22,6 +22,7 @@ const mongoOptions = {
 };
 
 // Database connection
+mongoose.Schema.Types.String.checkRequired(v => typeof v === 'string');
 const dbUrl = "mongodb://localhost:27017/taleForge";
 mongoose.connect(dbUrl, mongoOptions)
 const db = mongoose.connection;

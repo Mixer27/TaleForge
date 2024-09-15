@@ -84,7 +84,7 @@ const WHPcSheet: React.FC = () => {
         updateCharacterSheet(sheet);
     }, [sheet, updateCharacterSheet])
 
-    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | WeaponItem[] | Armor | Money) => {
+    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | number | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | WeaponItem[] | Armor | Money) => {
         // console.log("zmieniam sheet", name, value)
         console.log("handle Change", key, value)
         let update: PlayerCharacterSheet = sheet;
@@ -103,7 +103,7 @@ const WHPcSheet: React.FC = () => {
             // setSheet(update)
             // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
         }
-        else if (key === 'skills' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
+        else if (key === 'skills' && typeof value !== 'string' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
             console.log("change skills", value)
             update = {
                 ...sheet,
@@ -199,7 +199,7 @@ const WHPcSheet: React.FC = () => {
                             race={sheet.race}
                             gender={sheet.gender}
                             currentCareer={sheet.currentCareer}
-                            previousCareers={sheet.PreviousCareers}
+                            PreviousCareers={sheet.PreviousCareers}
                             age={sheet.age}
                             eyeColor={sheet.eyeColor}
                             hairColor={sheet.hairColor}
@@ -210,6 +210,10 @@ const WHPcSheet: React.FC = () => {
                             birthplace={sheet.birthplace}
                             distinguishMarks={sheet.distinguishMarks}
                             backstory={sheet.backstory}
+                            mentalDisorders={sheet.mentalDisorders}
+                            scarsAndWounds={sheet.scarsAndWounds}
+                            religion={sheet.religion}
+                            handleChange={handleChange}
                         />
                     </TabPanel>
                 </Box>

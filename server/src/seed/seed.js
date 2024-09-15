@@ -464,6 +464,9 @@ var examples = [{
         'birthplace': 'Mała wioska',
         'distinguishMarks': 'Blizna na lewym policzku',
         'backstory': 'Zgubiony w lesie i wychowany przez wilki.',
+        religion: "-",
+        mentalDisorders: 'Arachnofobia',
+        scarsAndWounds: '-',
         stats: {
             weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
             ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
@@ -506,12 +509,15 @@ var examples = [{
         eyeColor: "Niebieskie",
         hairColor: "Czarne",
         starSign: "Lew",
-        weight: 82, // Zmieniłem jednostki na kilogramy
-        height: 183, // Zmieniłem jednostki na centymetry
+        weight: 82,
+        height: 183,
         numOfSiblings: 2,
         birthplace: "Nieznane",
         distinguishMarks: "Blizna na lewym policzku",
         backstory: "Doświadczony wojownik o tajemniczej przeszłości.",
+        religion: "Sigmar",
+        mentalDisorders: 'Trypofobia',
+        scarsAndWounds: 'Stara zagojona rana postrzałowa',
         stats: {
             weaponSkills: { name: enums_1.StatName.WEAPON_SKILLS, starting: 30, advance: 5, current: 35 },
             ballisticSkills: { name: enums_1.StatName.BALLISTIC_SKILLS, starting: 25, advance: 5, current: 30 },
