@@ -103,7 +103,7 @@ const ArmorDialog: React.FC<Props> = (props) => {
     return (
         // <form onSubmit={props.handleSubmit}>
         <Dialog open={props.isOpen} onClose={onClose} >
-            <DialogTitle>Edytuj {props.headerName} {props.armorLocation ?? "null"}</DialogTitle>
+            <DialogTitle>Edytuj {props.headerName} &lt;{ArmorLocations[props.armorLocation ?? 'head']}&gt;</DialogTitle>
             <DialogContent>
                 {props.armor && (
                     <>

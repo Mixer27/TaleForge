@@ -70,7 +70,7 @@ const ArmorItemTable: React.FC<Props> = (props) => {
             </GridItem>
             {
                 isDialogOpen && <ArmorDialog
-                    headerName="Edytuj pancerz"
+                    headerName="pancerz"
                     armor={props.armor[selectedArmorLocation ?? "head"]}
                     armorLocation={selectedArmorLocation}
                     isOpen={isDialogOpen}

@@ -30,7 +30,7 @@ const MoneyDisplay: React.FC<Props> = (props) => {
                 <Chip icon={<CoinIcon color="#B87333" />} label={props.money.pn + " p"} sx={{ width: "20%" }} onClick={handleClick} />
             </Stack>
             {isDialogOpen && <MoneyDialog
-                headerName="Majątek"
+                headerName="majątek"
                 money={props.money}
                 isOpen={isDialogOpen}
                 handleChange={props.handleChange}

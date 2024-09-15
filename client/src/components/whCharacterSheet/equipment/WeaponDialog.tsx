@@ -103,12 +103,12 @@ const WeaponDialog: React.FC<Props> = (props) => {
 
     return (
         // <form onSubmit={props.handleSubmit}>
-        <Dialog open={props.isOpen} onClose={onClose} >
+        <Dialog open={props.isOpen} onClose={onClose} scroll='body'>
             <DialogTitle>Edytuj {props.headerName}</DialogTitle>
             <DialogContent>
                 {props.weapon && (
                     <>
-                        {weapon._id ?? "null"}
+                        {/* {weapon._id ?? "null"} */}
                         <TextField
                             margin="dense"
                             label="Nazwa"
@@ -149,6 +149,42 @@ const WeaponDialog: React.FC<Props> = (props) => {
                                 // fullWidth
                                 value={weapon.item.value.pn || ""}
                                 onChange={(e) => onChange('pn', e.target.value)}
+                            />
+                        </Stack>
+                        <Stack direction="row" spacing={2} sx={{ marginTop: 1 }}>
+                            <TextField
+                                margin="dense"
+                                label="Kategoria"
+                                type="text"
+                                fullWidth
+                                value={weapon.category || ""}
+                                onChange={(e) => onChange('category', e.target.value)}
+                            />
+                            <TextField
+                                margin="dense"
+                                label="Siła Broni"
+                                type="text"
+                                fullWidth
+                                value={weapon.strength || ""}
+                                onChange={(e) => onChange('strength', e.target.value)}
+                            />
+                        </Stack>
+                        <Stack direction="row" spacing={2} sx={{ marginTop: 1 }}>
+                            <TextField
+                                margin="dense"
+                                label="Zasięg"
+                                type="text"
+                                fullWidth
+                                value={weapon.range || ""}
+                                onChange={(e) => onChange('range', e.target.value)}
+                            />
+                            <TextField
+                                margin="dense"
+                                label="Przeładowanie"
+                                type="text"
+                                fullWidth
+                                value={weapon.reload || ""}
+                                onChange={(e) => onChange('reload', e.target.value)}
                             />
                         </Stack>
                         <TextField

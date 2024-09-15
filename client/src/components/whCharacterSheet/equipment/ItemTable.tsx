@@ -72,7 +72,7 @@ const ItemTable: React.FC<Props> = (props) => {
                 </TableContainer>
             </GridItem>
             {isDialogOpen && <ItemDialog
-                headerName="Przedmiot"
+                headerName="przedmiot"
                 item={selectedItem}
                 isOpen={isDialogOpen}
                 handleChange={props.handleChange}

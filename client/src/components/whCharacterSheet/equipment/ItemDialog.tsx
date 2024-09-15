@@ -93,7 +93,7 @@ const ItemDialog: React.FC<Props> = (props) => {
             <DialogContent>
                 {props.item && (
                     <>
-                        {item._id ?? "null"}
+                        {/* {item._id ?? "null"} */}
                         <TextField
                             margin="dense"
                             label="Nazwa"

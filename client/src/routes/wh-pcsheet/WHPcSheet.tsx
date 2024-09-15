@@ -96,7 +96,7 @@ const WHPcSheet: React.FC = () => {
         if (key === "PreviousCareers" && typeof value === 'string') {
             update = {
                 ...sheet,
-                PreviousCareers: value.split(",").map((c: string) => c.trim())
+                PreviousCareers: value.split(", ").map((c: string) => c.trim())
             }
         }
         else if (key === 'stats' && typeof value === 'object') {
