@@ -8,6 +8,8 @@ import { Race, StatName, Gender, SkillLvl } from "../utils/enums";
 import { Item } from "../models/item";
 import { ArmorItem } from "../models/armorItem";
 import { WeaponItem } from "../models/weaponItem";
+import { User } from "../models/user";
+import { hashSync } from "bcrypt";
 
 const defaultMoney = {
     gc: 0,
@@ -467,7 +469,7 @@ const examples = [{
     hairColor: "Czarne",
     starSign: "Lew",
     weight: 82,
-    height: 183, 
+    height: 183,
     numOfSiblings: 2,
     birthplace: "Nieznane",
     distinguishMarks: "Blizna na lewym policzku",
@@ -714,6 +716,14 @@ const spells = [
     }
 ];
 
+const users = [
+    {
+        _id: new mongoose.Types.ObjectId(),
+        username: 'mix',
+        password: hashSync("123", 10),
+    },
+];
+
 // Database connection
 const dbUrl = "mongodb://localhost:27017/taleForge";
 mongoose.connect(dbUrl, {})
@@ -731,6 +741,14 @@ const seedDB = async () => {
     await Item.deleteMany({});
     await ArmorItem.deleteMany({});
     await WeaponItem.deleteMany({});
+    await User.deleteMany({});
+    await User.insertMany(users)
+        .then(() => {
+            console.log("Users added successfully!");
+        })
+        .catch((error) => {
+            console.error("Error adding Users:", error);
+        });
     await Skill.insertMany(skills)
         .then(() => {
             console.log("Skills added successfully!");

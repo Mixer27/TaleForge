@@ -57,6 +57,8 @@ var enums_1 = require("../utils/enums");
 var item_1 = require("../models/item");
 var armorItem_1 = require("../models/armorItem");
 var weaponItem_1 = require("../models/weaponItem");
+var user_1 = require("../models/user");
+var bcrypt_1 = require("bcrypt");
 var defaultMoney = {
     gc: 0,
     sh: 0,
@@ -749,6 +751,13 @@ var spells = [
         description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
     }
 ];
+var users = [
+    {
+        _id: new mongoose_1.default.Types.ObjectId(),
+        username: 'mix',
+        password: (0, bcrypt_1.hashSync)("123", 10),
+    },
+];
 // Database connection
 var dbUrl = "mongodb://localhost:27017/taleForge";
 mongoose_1.default.connect(dbUrl, {});
@@ -782,6 +791,18 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                 return [4 /*yield*/, weaponItem_1.WeaponItem.deleteMany({})];
             case 7:
                 _a.sent();
+                return [4 /*yield*/, user_1.User.deleteMany({})];
+            case 8:
+                _a.sent();
+                return [4 /*yield*/, user_1.User.insertMany(users)
+                        .then(function () {
+                        console.log("Users added successfully!");
+                    })
+                        .catch(function (error) {
+                        console.error("Error adding Users:", error);
+                    })];
+            case 9:
+                _a.sent();
                 return [4 /*yield*/, skill_1.Skill.insertMany(skills)
                         .then(function () {
                         console.log("Skills added successfully!");
@@ -789,7 +810,7 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding skills:", error);
                     })];
-            case 8:
+            case 10:
                 _a.sent();
                 return [4 /*yield*/, talent_1.Talent.insertMany(talents)
                         .then(function () {
@@ -798,7 +819,7 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding talents:", error);
                     })];
-            case 9:
+            case 11:
                 _a.sent();
                 return [4 /*yield*/, spell_1.Spell.insertMany(spells)
                         .then(function () {
@@ -807,7 +828,7 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding spells:", error);
                     })];
-            case 10:
+            case 12:
                 _a.sent();
                 return [4 /*yield*/, item_1.Item.insertMany(items)
                         .then(function () {
@@ -816,7 +837,7 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding items:", error);
                     })];
-            case 11:
+            case 13:
                 _a.sent();
                 return [4 /*yield*/, armorItem_1.ArmorItem.insertMany(armorItems)
                         .then(function () {
@@ -825,7 +846,7 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding armors:", error);
                     })];
-            case 12:
+            case 14:
                 _a.sent();
                 return [4 /*yield*/, weaponItem_1.WeaponItem.insertMany(weaponItems)
                         .then(function () {
@@ -834,22 +855,22 @@ var seedDB = function () { return __awaiter(void 0, void 0, void 0, function () 
                         .catch(function (error) {
                         console.error("Error adding weapons:", error);
                     })];
-            case 13:
+            case 15:
                 _a.sent();
                 _i = 0, examples_1 = examples;
-                _a.label = 14;
-            case 14:
-                if (!(_i < examples_1.length)) return [3 /*break*/, 17];
+                _a.label = 16;
+            case 16:
+                if (!(_i < examples_1.length)) return [3 /*break*/, 19];
                 e = examples_1[_i];
                 character = new playerCharacterSheet_1.PlayerCharacterSheet(__assign({}, e));
                 return [4 /*yield*/, character.save()];
-            case 15:
+            case 17:
                 _a.sent();
-                _a.label = 16;
-            case 16:
+                _a.label = 18;
+            case 18:
                 _i++;
-                return [3 /*break*/, 14];
-            case 17: return [2 /*return*/];
+                return [3 /*break*/, 16];
+            case 19: return [2 /*return*/];
         }
     });
 }); };

@@ -90,7 +90,7 @@ var SpellSchema = new mongoose_2.Schema({
 var PlayerCharacterSchema = new mongoose_2.Schema({
     owner_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
     session_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
-    name: { type: String, required: true, minLength: 3 },
+    name: { type: String, required: true, minLength: [3, "Name must have at least 3 characters"] },
     race: {
         type: String,
         enum: Object.values(enums_1.Race),

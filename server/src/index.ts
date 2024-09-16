@@ -10,6 +10,8 @@ import path from 'path'
 import { talentRoutes } from './routes/talents';
 import { spellsRoutes } from './routes/spells';
 import { itemsRoutes } from './routes/items';
+import { authRoutes } from './routes/auth';
+import session from 'express-session';
 
 const app: Express = express();
 
@@ -33,9 +35,17 @@ db.once("open", () => {
 
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'mySecret', // Zastąp odpowiednim sekretem
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }, // Zmień na true, jeśli używasz HTTPS
+}));
 
 
 //  routes
+app.use("/auth", authRoutes);
 app.use("/pcsheets", pcsheetRoutes);
 app.use("/skills", skillRoutes);
 app.use("/talents", talentRoutes);
