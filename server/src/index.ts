@@ -12,6 +12,7 @@ import { spellsRoutes } from './routes/spells';
 import { itemsRoutes } from './routes/items';
 import { authRoutes } from './routes/auth';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 const app: Express = express();
 
@@ -34,13 +35,21 @@ db.once("open", () => {
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ['https://194.59.140.170:9001', "https://uwu.sex.pl:9001", "https://devproj3ct.pl:9001"],
+    credentials: true,
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: 'mySecret', // Zastąp odpowiednim sekretem
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false }, // Zmień na true, jeśli używasz HTTPS
+    store: new MongoStore({
+        mongoUrl: 'mongodb://localhost:27017/taleForge',
+        ttl: 14 * 24 * 60 * 60,
+        autoRemove: 'native'
+    }),
 }));
 
 

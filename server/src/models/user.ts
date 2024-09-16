@@ -28,7 +28,7 @@ const UserSchema = new Schema({
 UserSchema.statics.findAndValidate = async function (username: string, password: string) {
     const foundUser = await this.findOne({ username });
     // console.log(username === 'mix' ? "YES" : "NO");
-    console.log("findAndValidate", foundUser, username, password);
+    // console.log("findAndValidate", foundUser, username, password);
     const isValid = await compare(password, foundUser.password);
     return isValid ? foundUser : false;
 }
