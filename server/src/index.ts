@@ -44,7 +44,7 @@ app.use(session({
     secret: 'mySecret', // Zastąp odpowiednim sekretem
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Zmień na true, jeśli używasz HTTPS
+    cookie: { secure: true }, // Zmień na true, jeśli używasz HTTPS
     store: new MongoStore({
         mongoUrl: 'mongodb://localhost:27017/taleForge',
         ttl: 14 * 24 * 60 * 60,

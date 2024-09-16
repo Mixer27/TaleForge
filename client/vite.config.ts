@@ -18,7 +18,6 @@ export default defineConfig({
       key: fs.readFileSync(path.resolve(__dirname, `${SSL_KEY}`)),
       cert: fs.readFileSync(path.resolve(__dirname, `${SSL_CERT}`))
     },
-
   },
   preview: {
     host: `${HOST}`,

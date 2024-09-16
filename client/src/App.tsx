@@ -11,6 +11,7 @@ import { DRAWER_WIDTH } from './constants.tsx';
 import { useState } from 'react';
 import { DrawerContext } from './context/drawerContext.tsx';
 import { SheetsList } from './routes/wh-pcsheet/SheetList.tsx';
+import { Login } from './routes/login/Login.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -47,9 +48,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />
     },
-    // {
-    //     path: "/login"
-    // },
+    {
+        path: "/login",
+        element: <Login />
+    },
     {
         path: "/home",
         element: <Home />

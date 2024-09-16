@@ -25,9 +25,18 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     // res.send(req.body)
 }
 
-const postLogout = (req: Request, res: Response, next: NextFunction) => {
-    req.session.destroy();
+const postLogout = async (req: Request, res: Response, next: NextFunction) => {
+    await req.session.destroy();
     res.send("Logged out");
 }
 
-export { postLogin, postLogout, postRegister };
+const getSession = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.session.user_id) {
+        const user = await User.findById(req.session.user_id);
+        res.json({ isLoggedIn: true, username: user?.username });
+    } else {
+        res.json({ isLoggedIn: false });
+    }
+};
+
+export { postLogin, postLogout, postRegister, getSession };
