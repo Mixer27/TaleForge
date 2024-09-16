@@ -28,7 +28,7 @@ const NewSkillDialog: React.FC<Props> = (props) => {
     const [addedSkill, setAddedSkill] = useState<Skill | undefined>(undefined);
     const [skills, setSkills] = useState<Skill[]>([]);
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/skills`)
+        fetch(`https://devproj3ct.pl:9000/skills`)
             .then((res: Response) => {
                 return res.json();
             })

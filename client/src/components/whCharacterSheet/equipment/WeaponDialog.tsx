@@ -33,7 +33,7 @@ const WeaponDialog: React.FC<Props> = (props) => {
 
     // fetch armor items
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/items/weapons`)
+        fetch(`https://devproj3ct.pl:9000/items/weapons`)
             .then((res: Response) => {
                 return res.json();
             })

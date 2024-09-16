@@ -25,7 +25,7 @@ const WHPcSheet: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     useEffect(() => {
         // fetch(`https://194.59.140.170:9000/pcsheets/${id}`)
-        fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`)
+        fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -46,7 +46,7 @@ const WHPcSheet: React.FC = () => {
 
     const updateCharacterSheet = useCallback(async (update: PlayerCharacterSheet) => {
         try {
-            const response = await fetch(`https://uwu.sex.pl:9000/pcsheets/${id}`, {
+            const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json',

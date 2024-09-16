@@ -64,7 +64,7 @@ const FormDialog: React.FC<Props> = (props) => {
                                 type="number"
                                 fullWidth
                                 // value={props.stat?.starting}
-                                value={stat.starting}
+                                value={stat.starting ? stat.starting : ""} 
                                 onChange={(e) => onStatChange('starting', e.target.value)}
                             />
                             <TextField
@@ -73,7 +73,7 @@ const FormDialog: React.FC<Props> = (props) => {
                                 type="number"
                                 fullWidth
                                 // value={props.stat?.advance}
-                                value={stat?.advance}
+                                value={stat.advance ? stat.advance : ""}
                                 onChange={(e) => onStatChange('advance', e.target.value)}
                             />
                             <TextField
@@ -82,7 +82,7 @@ const FormDialog: React.FC<Props> = (props) => {
                                 type="number"
                                 fullWidth
                                 // value={props.stat?.current}
-                                value={stat?.current}
+                                value={stat.current ? stat.current : ""}
                                 onChange={(e) => onStatChange('current', e.target.value)}
                             />
                         </>

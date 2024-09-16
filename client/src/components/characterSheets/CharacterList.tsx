@@ -5,7 +5,7 @@ import { CharacterElement } from "./CharacterElement";
 const CharacterList: React.FC = () => {
     const [characterList, setCharacterList] = useState<Array<PlayerCharacterSheet>>([]);
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/pcsheets`)
+        fetch(`https://devproj3ct.pl:9000/pcsheets`)
             .then((res: Response) => {
                 return res.json();
             })

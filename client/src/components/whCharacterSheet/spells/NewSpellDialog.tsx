@@ -28,7 +28,7 @@ const NewSpellDialog: React.FC<Props> = (props) => {
     const [addedTalent, setAddedTalent] = useState<Spell | undefined>(undefined);
     const [spells, setSpells] = useState<Spell[]>([]);
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/spells`)
+        fetch(`https://devproj3ct.pl:9000/spells`)
             .then((res: Response) => {
                 return res.json();
             })
