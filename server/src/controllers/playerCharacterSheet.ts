@@ -49,10 +49,10 @@ const postPlayerCharacterSheet = async (req: Request, res: Response, next: NextF
     try {
         if (!req.session.user_id) {
             res.status(403).send("You don't have permission to do that");
-            return 
+            return
         }
         const user_id = req.session.user_id;
-        const character = new PlayerCharacterSheet({...defaultPlayerCharacterSheet, owner_id: user_id, name: "newa postać" });
+        const character = new PlayerCharacterSheet({ ...defaultPlayerCharacterSheet, owner_id: user_id, name: "Nowa postać" });
         // const character = new PlayerCharacterSheet({...defaultPlayerCharacterSheet, name: "aaa"});
         await character.save();
         res.status(200).send(character);
@@ -88,6 +88,17 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     }
 }
 
+const deletePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { id } = req.body;
+        await PlayerCharacterSheet.findByIdAndDelete(id);
+        res.status(200).send({ message: "Character deleted successfully" });
+    } catch (err) {
+        res.status(500).send({ message: "Error deleting character sheet" + err });
+    }
+
+}
+
 const getNewId = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = new mongoose.Types.ObjectId();
@@ -103,4 +114,4 @@ const getNewId = async (req: Request, res: Response, next: NextFunction) => {
 
 // }
 
-export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, postPlayerCharacterSheet }
+export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, postPlayerCharacterSheet, deletePlayerCharacterSheet }
