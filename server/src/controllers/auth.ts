@@ -34,13 +34,13 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
 
 const postLogout = async (req: Request, res: Response, next: NextFunction) => {
     await req.session.destroy();
-    res.send("Logged out");
+    res.send(JSON.stringify({message: "Logged out"}));
 }
 
 const getSession = async (req: Request, res: Response, next: NextFunction) => {
     if (req.session.user_id) {
         const user = await User.findById(req.session.user_id);
-        res.json({ isLoggedIn: true, username: user?.username });
+        res.json({ isLoggedIn: true, username: user?.username, user_id: user?._id });
     } else {
         res.json({ isLoggedIn: false });
     }

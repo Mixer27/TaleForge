@@ -8,10 +8,11 @@ import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
 import { DRAWER_WIDTH } from './constants.tsx';
-import { useState } from 'react';
 import { DrawerContext } from './context/drawerContext.tsx';
 import { SheetsList } from './routes/wh-pcsheet/SheetList.tsx';
-import { Login } from './routes/login/Login.tsx';
+import { Auth } from './routes/auth/Auth.tsx';
+import { ProtectedRoute } from './routes/auth/ProtectedRoute.tsx';
+import { useState } from 'react';
 
 const darkTheme = createTheme({
     palette: {
@@ -42,46 +43,31 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
 }));
 
-
 const router = createBrowserRouter([
     {
+        path: "/auth",
+        element: <Auth /> // Strona logowania
+    },
+    {
         path: "/",
-        element: <Home />
+        element: <ProtectedRoute />, // Ochrona tras
+        children: [
+            { path: "/", element: <Home /> },
+            { path: "/home", element: <Home /> },
+            { path: "/about", element: <About /> },
+            { path: "/test", element: <Test /> },
+            { path: "/pcsheets", element: <SheetsList /> },
+            { path: "/pcsheets/:id", element: <WHPcSheet /> },
+            { path: "/old-pcsheets/:id", element: <Sheet /> }
+        ]
     },
-    {
-        path: "/login",
-        element: <Login />
-    },
-    {
-        path: "/home",
-        element: <Home />
-    },
-    {
-        path: "/about",
-        element: <About />
-    },
-    {
-        path: "/test",
-        element: <Test />
-    },
-    {
-        path: "/pcsheets",
-        element: <SheetsList />
-    },
-    {
-        path: "/pcsheets/:id",
-        element: <WHPcSheet />
-    },
-    {
-        path: "/old-pcsheets/:id",
-        element: <Sheet/>
-    }
-])
+]);
 
 function App() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const theme: Theme = useTheme();
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
+    // const { setUserId, setUsername, setIsLoggedIn } = useAuth();
 
     const toggleDrawer = (newValue: boolean) => () => {
         setIsDrawerOpen(newValue);
@@ -97,7 +83,7 @@ function App() {
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
                     {/* <Box sx={{ flexGrow: 1 }}> */}
-                    <Main open={isDrawerOpen} onClick={handleMainToggleDrawer}>
+                    <Main open={isDrawerOpen} onClick={handleMainToggleDrawer} >
                         <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
                             <RouterProvider router={router} />
                         </DrawerContext.Provider>

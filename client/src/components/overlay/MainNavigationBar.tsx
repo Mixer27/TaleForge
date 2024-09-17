@@ -2,12 +2,14 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 // import { useState } from 'react'
-import { Box, IconButton, styled } from '@mui/material'
+import { Box, IconButton, Stack, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { DRAWER_WIDTH } from '../../constants';
 import { DrawerContext } from '../../context/drawerContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { MainDrawer } from './MainDrawer';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from '../../context/AuthContext';
 
 interface Props {
     // isDrawerOpen: boolean,
@@ -36,13 +38,13 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 
 const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
-    const [username, setUsername] = useState("");
-
-    useEffect(() => {
+    const { username, isLoggedIn, checkSession } = useAuth();
+    // const [username, setUsername] = useState("");
+    // const [isLoggedIn, setIsLoggedin] = useState(false);
+    const handleLogout = async () => {
         try {
-
-            fetch('https://devproj3ct.pl:9000/auth/session', {
-                method: 'GET',
+            await fetch('https://devproj3ct.pl:9000/auth/logout', {
+                method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,26 +52,52 @@ const MainNavigationBar: React.FC<Props> = (props) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    setUsername(data.username);
+                    checkSession();
                     console.log(data)
                 });
         } catch (err) {
             console.log("error with checking session", err);
         }
-    }, [])
+    }
+    // useEffect(() => {
+    //     try {
+
+    //         fetch('https://devproj3ct.pl:9000/auth/session', {
+    //             method: 'GET',
+    //             credentials: 'include',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 setUsername(data.username);
+    //                 setIsLoggedin(true);
+    //                 console.log(data)
+    //             });
+    //     } catch (err) {
+    //         console.log("error with checking session", err);
+    //     }
+    // }, [])
 
     return (
         <>
             <MainDrawer isOpen={drawerContext.isDrawerOpen} toggleDrawer={drawerContext.toggleDrawer} />
-            <NavigationBarShift open={drawerContext.isDrawerOpen} sx={{marginBottom: props.options ? "2em" : 0 }}>
-                <Box sx={{ flexGrow: 1}}>
+            <NavigationBarShift open={drawerContext.isDrawerOpen} sx={{ marginBottom: props.options ? "2em" : 0 }}>
+                <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={0}>
                         <Toolbar>
                             <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{ marginRight: 1 }}>
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6">{props?.headerText}</Typography>
-                            <Typography variant="h6" sx={{ marginLeft: "auto" }}>{username}</Typography>
+                            {/* <Typography variant="h6">{username}</Typography> */}
+                            <Stack direction="row" spacing={1} sx={{ marginLeft: "auto", alignItems: "center" }}>
+                                {isLoggedIn && <>
+                                    <Typography variant="h6" sx={{}}>{username}</Typography>
+                                    <IconButton onClick={handleLogout}><LogoutIcon fontSize='medium' /></IconButton></>
+                                }
+                            </Stack>
                         </Toolbar>
                     </AppBar>
                 </Box>

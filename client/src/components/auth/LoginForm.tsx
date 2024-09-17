@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Stack, TextField } from "@mui/material";
 import React from "react"
 
 interface Props {
@@ -21,24 +21,29 @@ const LoginForm: React.FC<Props> = (props) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(payload),
-            }
-            )
+            })
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    props.handleSubmit()
+                    // navigate("/home");
+                })
 
         } catch (err) {
             console.error("Error in login post request", err);
         }
         console.log(payload, document.cookie);
-        props.handleSubmit()
+
     }
 
     return (
         <>
             <form onSubmit={onSubmit}>
-                <TextField name="username"></TextField>
-                <TextField name="password" type="password"></TextField>
-                <Button type="submit">Submit</Button>
+                <Stack spacing={2} width={"80%"} marginLeft={"10%"}>
+                    <TextField name="username" label="Nazwa użytkownika"></TextField>
+                    <TextField name="password" type="password" label="Hasło"></TextField>
+                    <Button type="submit">Zaloguj</Button>
+                </Stack>
             </form>
         </>
 
