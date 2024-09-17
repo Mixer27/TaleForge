@@ -48,6 +48,7 @@ const WHPcSheet: React.FC = () => {
         try {
             const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
                 method: 'PATCH',
+                credentials: 'include',
                 headers: {
                     'Content-type': 'application/json',
                 },

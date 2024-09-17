@@ -4,6 +4,7 @@ import { AppBar, Container, Paper, Tab, Tabs } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { RegisterForm } from "../../components/auth/RegisterForm";
 
 const AuthForm = Object.freeze({
     LOGIN: 'Logowanie',
@@ -57,7 +58,7 @@ const Auth: React.FC = () => {
                             <LoginForm handleSubmit={handleSubmit}></LoginForm>
                         </TabPanel>
                         <TabPanel value={AuthForm.REGISTER}>
-                            AAA
+                            <RegisterForm handleSubmit={handleSubmit}></RegisterForm>
                             {/* Logged user: {username ?? "none"};
                             <LoginForm handleSubmit={handleSubmit}></LoginForm> */}
                         </TabPanel>

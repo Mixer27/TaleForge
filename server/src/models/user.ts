@@ -18,10 +18,12 @@ const UserSchema = new Schema({
         type: String,
         required: [true, "Username cannot be blank"],
         unique: true,
+        minLength: [3, "Username must be at least 3 characters long"]
     },
     password: {
         type: String,
         required: [true, "Password cannot be blank"],
+        minLength: [3, "Username must be at least 3 characters long"]
     },
 });
 

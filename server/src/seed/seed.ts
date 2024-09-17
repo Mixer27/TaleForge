@@ -406,7 +406,7 @@ const armorItems = [
 ];
 
 const examples = [{
-    'owner_id': new mongoose.Types.ObjectId(),
+    'owner_id': new mongoose.Types.ObjectId("66e9ba372fd89788d886d392"),
     'session_id': new mongoose.Types.ObjectId(),
     'name': 'Jan Kowalski',
     'race': Race.ELF,
@@ -457,7 +457,7 @@ const examples = [{
     armor: defaultArmor,
 },
 {
-    owner_id: new mongoose.Types.ObjectId(),
+    owner_id: new mongoose.Types.ObjectId("66e9ba372fd89788d886d392"),
     session_id: new mongoose.Types.ObjectId(),
     name: "Reinhardt Falken",
     race: Race.HUMAN,
@@ -718,7 +718,7 @@ const spells = [
 
 const users = [
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId("66e9ba372fd89788d886d392"),
         username: 'mix',
         password: hashSync("123", 10),
     },

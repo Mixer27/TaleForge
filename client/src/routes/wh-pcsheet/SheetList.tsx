@@ -17,7 +17,13 @@ const SheetsList: React.FC = () => {
 
     const [characterList, setCharacterList] = useState<Array<PlayerCharacterSheet>>([]);
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/pcsheets`)
+        fetch(`https://devproj3ct.pl:9000/pcsheets`, {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
             .then((res: Response) => {
                 return res.json();
             })

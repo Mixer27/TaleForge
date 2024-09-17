@@ -42,6 +42,7 @@ const MainNavigationBar: React.FC<Props> = (props) => {
     // const [username, setUsername] = useState("");
     // const [isLoggedIn, setIsLoggedin] = useState(false);
     const handleLogout = async () => {
+        drawerContext.toggleDrawer(false);
         try {
             await fetch('https://devproj3ct.pl:9000/auth/logout', {
                 method: 'POST',
@@ -52,6 +53,7 @@ const MainNavigationBar: React.FC<Props> = (props) => {
             })
                 .then(response => response.json())
                 .then(data => {
+                    
                     checkSession();
                     console.log(data)
                 });
@@ -59,26 +61,6 @@ const MainNavigationBar: React.FC<Props> = (props) => {
             console.log("error with checking session", err);
         }
     }
-    // useEffect(() => {
-    //     try {
-
-    //         fetch('https://devproj3ct.pl:9000/auth/session', {
-    //             method: 'GET',
-    //             credentials: 'include',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 setUsername(data.username);
-    //                 setIsLoggedin(true);
-    //                 console.log(data)
-    //             });
-    //     } catch (err) {
-    //         console.log("error with checking session", err);
-    //     }
-    // }, [])
 
     return (
         <>

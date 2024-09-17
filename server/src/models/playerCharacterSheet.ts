@@ -38,7 +38,7 @@ const PlayerStatSchema = new Schema({
 const SingleStatSchema = new Schema({
     name: { type: String, enum: Object.values(StatName), required: true },
     current: { type: Number, required: true, default: 0 },
-})
+}, { _id: false });
 
 const PlayerStatsSchema: Schema = new Schema({
     weaponSkills: PlayerStatSchema,

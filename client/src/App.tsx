@@ -13,6 +13,7 @@ import { SheetsList } from './routes/wh-pcsheet/SheetList.tsx';
 import { Auth } from './routes/auth/Auth.tsx';
 import { ProtectedRoute } from './routes/auth/ProtectedRoute.tsx';
 import { useState } from 'react';
+import { useAuth } from './context/AuthContext.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -64,10 +65,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+    const { isLoggedIn } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const theme: Theme = useTheme();
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
-    // const { setUserId, setUsername, setIsLoggedIn } = useAuth();
 
     const toggleDrawer = (newValue: boolean) => () => {
         setIsDrawerOpen(newValue);
@@ -83,7 +84,7 @@ function App() {
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
                     {/* <Box sx={{ flexGrow: 1 }}> */}
-                    <Main open={isDrawerOpen} onClick={handleMainToggleDrawer} >
+                    <Main open={!isLoggedIn ? false : isDrawerOpen} onClick={handleMainToggleDrawer} >
                         <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
                             <RouterProvider router={router} />
                         </DrawerContext.Provider>

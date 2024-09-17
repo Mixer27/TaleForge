@@ -40,7 +40,7 @@ var PlayerStatSchema = new mongoose_2.Schema({
 var SingleStatSchema = new mongoose_2.Schema({
     name: { type: String, enum: Object.values(enums_1.StatName), required: true },
     current: { type: Number, required: true, default: 0 },
-});
+}, { _id: false });
 var PlayerStatsSchema = new mongoose_2.Schema({
     weaponSkills: PlayerStatSchema,
     ballisticSkills: PlayerStatSchema,

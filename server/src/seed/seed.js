@@ -449,7 +449,7 @@ var armorItems = [
     }
 ];
 var examples = [{
-        'owner_id': new mongoose_1.default.Types.ObjectId(),
+        'owner_id': new mongoose_1.default.Types.ObjectId("66e9ba372fd89788d886d392"),
         'session_id': new mongoose_1.default.Types.ObjectId(),
         'name': 'Jan Kowalski',
         'race': enums_1.Race.ELF,
@@ -500,7 +500,7 @@ var examples = [{
         armor: defaultArmor,
     },
     {
-        owner_id: new mongoose_1.default.Types.ObjectId(),
+        owner_id: new mongoose_1.default.Types.ObjectId("66e9ba372fd89788d886d392"),
         session_id: new mongoose_1.default.Types.ObjectId(),
         name: "Reinhardt Falken",
         race: enums_1.Race.HUMAN,
@@ -753,7 +753,7 @@ var spells = [
 ];
 var users = [
     {
-        _id: new mongoose_1.default.Types.ObjectId(),
+        _id: new mongoose_1.default.Types.ObjectId("66e9ba372fd89788d886d392"),
         username: 'mix',
         password: (0, bcrypt_1.hashSync)("123", 10),
     },
