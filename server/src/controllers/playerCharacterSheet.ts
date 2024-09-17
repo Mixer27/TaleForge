@@ -60,9 +60,14 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
             res.status(403).send({ message: "You dont have permission to update this character sheet" });
             return
         }
-        let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-        console.log(updates, data);
-        res.status(200).send(data);
+        // let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        character.set(updates);
+        // character.wealth.gc = -5; // Ustaw nieprawidłową wartość
+        // character.markModified('wealth');
+        // console.log(await character.validate());
+        await character.save();
+        // console.log(updates, character);
+        res.status(200).send(character);
         return
     } catch (err) {
         console.error(err);
@@ -72,9 +77,13 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
 }
 
 const getNewId = async (req: Request, res: Response, next: NextFunction) => {
-    const data = new mongoose.Types.ObjectId();
-    console.log(data);
-    res.send(data);
+    try {
+        const data = new mongoose.Types.ObjectId();
+        console.log(data);
+        res.status(200).send(data);
+    } catch (err) {
+        res.status(500).send({ message: "Error getting unique ID" });
+    } 
 
 }
 

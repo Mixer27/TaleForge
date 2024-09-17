@@ -8,19 +8,10 @@ import { WeaponItemSchema } from "./weaponItem";
 import { ArmorItemSchema } from "./armorItem";
 
 const MoneySchema = new Schema({
-    gc: { type: Number, default: 0 },
-    sh: { type: Number, default: 0 },
-    pn: { type: Number, default: 0 },
-}, { _id: false });
-
-// const ArmorSchema = new Schema({
-//     head: { type: Number, required: true, default: 0 },
-//     l_arm: { type: Number, required: true, default: 0 },
-//     r_arm: { type: Number, required: true, default: 0 },
-//     body: { type: Number, required: true, default: 0 },
-//     l_leg: { type: Number, required: true, default: 0 },
-//     r_leg: { type: Number, required: true, default: 0 },
-// }, { _id: false });
+    gc: { type: Number, default: 0, min: 0, },
+    sh: { type: Number, default: 0, min: 0 },
+    pn: { type: Number, default: 0, min: 0 },
+}, { _id: false, validateBeforeSave: true });
 
 const ArmorSchema = new Schema({
     head: { type: ArmorItemSchema, required: true },
@@ -31,13 +22,13 @@ const ArmorSchema = new Schema({
 
 const PlayerStatSchema = new Schema({
     name: { type: String, enum: Object.values(StatName), required: true },
-    starting: { type: Number, required: true, default: 0 },
-    advance: { type: Number, required: true, default: 0 },
-    current: { type: Number, required: true, default: 0 },
+    starting: { type: Number, required: true, default: 0, min: 0 },
+    advance: { type: Number, required: true, default: 0, min: 0 },
+    current: { type: Number, required: true, default: 0, min: 0 },
 }, { _id: false });
 const SingleStatSchema = new Schema({
     name: { type: String, enum: Object.values(StatName), required: true },
-    current: { type: Number, required: true, default: 0 },
+    current: { type: Number, required: true, default: 0, min: 0 },
 }, { _id: false });
 
 const PlayerStatsSchema: Schema = new Schema({
@@ -99,7 +90,7 @@ const PlayerCharacterSchema = new Schema({
     },
     currentCareer: { type: String, requiredd: true },
     PreviousCareers: { type: [String], required: true },
-    age: Number,
+    age: { type: Number, required: true, default: 0, min: 0 },
     gender: {
         type: String,
         enum: Object.values(Gender),
@@ -108,9 +99,9 @@ const PlayerCharacterSchema = new Schema({
     eyeColor: { type: String, default: "", required: true },
     hairColor: { type: String, default: "", required: true },
     starSign: { type: String, default: "", required: true },
-    weight: { type: Number, default: 0, required: true },
-    height: { type: Number, default: 0, required: true },
-    numOfSiblings: { type: Number, default: 0, required: true },
+    weight: { type: Number, default: 0, required: true, min: 0 },
+    height: { type: Number, default: 0, required: true, min: 0 },
+    numOfSiblings: { type: Number, default: 0, required: true, min: 0 },
     birthplace: { type: String, default: "", required: true },
     distinguishMarks: { type: String, default: "", required: true },
     scarsAndWounds: { type: String, default: "", required: true },

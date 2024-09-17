@@ -11,19 +11,11 @@ var item_1 = require("./item");
 var weaponItem_1 = require("./weaponItem");
 var armorItem_1 = require("./armorItem");
 var MoneySchema = new mongoose_2.Schema({
-    gc: { type: Number, default: 0 },
-    sh: { type: Number, default: 0 },
-    pn: { type: Number, default: 0 },
-}, { _id: false });
+    gc: { type: Number, default: 0, min: 0, },
+    sh: { type: Number, default: 0, min: 0 },
+    pn: { type: Number, default: 0, min: 0 },
+}, { _id: false, validateBeforeSave: true });
 exports.MoneySchema = MoneySchema;
-// const ArmorSchema = new Schema({
-//     head: { type: Number, required: true, default: 0 },
-//     l_arm: { type: Number, required: true, default: 0 },
-//     r_arm: { type: Number, required: true, default: 0 },
-//     body: { type: Number, required: true, default: 0 },
-//     l_leg: { type: Number, required: true, default: 0 },
-//     r_leg: { type: Number, required: true, default: 0 },
-// }, { _id: false });
 var ArmorSchema = new mongoose_2.Schema({
     head: { type: armorItem_1.ArmorItemSchema, required: true },
     torso: { type: armorItem_1.ArmorItemSchema, required: true },
@@ -33,13 +25,13 @@ var ArmorSchema = new mongoose_2.Schema({
 exports.ArmorSchema = ArmorSchema;
 var PlayerStatSchema = new mongoose_2.Schema({
     name: { type: String, enum: Object.values(enums_1.StatName), required: true },
-    starting: { type: Number, required: true, default: 0 },
-    advance: { type: Number, required: true, default: 0 },
-    current: { type: Number, required: true, default: 0 },
+    starting: { type: Number, required: true, default: 0, min: 0 },
+    advance: { type: Number, required: true, default: 0, min: 0 },
+    current: { type: Number, required: true, default: 0, min: 0 },
 }, { _id: false });
 var SingleStatSchema = new mongoose_2.Schema({
     name: { type: String, enum: Object.values(enums_1.StatName), required: true },
-    current: { type: Number, required: true, default: 0 },
+    current: { type: Number, required: true, default: 0, min: 0 },
 }, { _id: false });
 var PlayerStatsSchema = new mongoose_2.Schema({
     weaponSkills: PlayerStatSchema,
@@ -98,7 +90,7 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     },
     currentCareer: { type: String, requiredd: true },
     PreviousCareers: { type: [String], required: true },
-    age: Number,
+    age: { type: Number, required: true, default: 0, min: 0 },
     gender: {
         type: String,
         enum: Object.values(enums_1.Gender),
@@ -107,9 +99,9 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
     eyeColor: { type: String, default: "", required: true },
     hairColor: { type: String, default: "", required: true },
     starSign: { type: String, default: "", required: true },
-    weight: { type: Number, default: 0, required: true },
-    height: { type: Number, default: 0, required: true },
-    numOfSiblings: { type: Number, default: 0, required: true },
+    weight: { type: Number, default: 0, required: true, min: 0 },
+    height: { type: Number, default: 0, required: true, min: 0 },
+    numOfSiblings: { type: Number, default: 0, required: true, min: 0 },
     birthplace: { type: String, default: "", required: true },
     distinguishMarks: { type: String, default: "", required: true },
     scarsAndWounds: { type: String, default: "", required: true },

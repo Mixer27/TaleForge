@@ -7,7 +7,7 @@ var item_1 = require("./item");
 var ArmorItemSchema = new mongoose_2.Schema({
     item: { type: item_1.ItemSchema, required: true },
     coverLocation: [String],
-    armor: { type: Number, required: true, default: 0 },
+    armor: { type: Number, required: true, default: 0, min: 0 },
 });
 exports.ArmorItemSchema = ArmorItemSchema;
 var ArmorItem = mongoose_1.default.model("ArmorItem", ArmorItemSchema);

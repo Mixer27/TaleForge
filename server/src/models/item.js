@@ -12,7 +12,7 @@ var MoneySchema = new mongoose_2.Schema({
 var ItemSchema = new mongoose_2.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    weight: { type: Number, required: true },
+    weight: { type: Number, required: true, min: 0 },
     value: { type: MoneySchema, required: true },
     availability: { type: String, required: true },
 });
