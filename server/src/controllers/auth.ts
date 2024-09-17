@@ -12,15 +12,22 @@ const postRegister = async (req: Request, res: Response, next: NextFunction) => 
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
-    // console.log("controller", username, password)
+    console.log("controller", username, password)
     const foundUser = await User.findAndValidate(username, password);
     if (foundUser) {
-        req.session.user_id = foundUser._id;
+        const userId = JSON.stringify({user_id: foundUser._id});
+        res.cookie('session', userId, {
+            httpOnly: true,      // Zapewnia, że ciasteczko nie jest dostępne w JavaScript
+            secure: true, // Ustaw na true, jeśli używasz HTTPS
+            // sameSite: 'strict',  // Chroni przed atakami CSRF
+            maxAge: 1000 * 60 * 60 * 24,  // Ustaw ciasteczko na 24 godziny
+        });
+        req.session.user_id = foundUser._id.toString();
         // res.redirect('/secret');
-        res.send("Logged you in!");
+        res.send(JSON.stringify({message: "Logged you in!"}));
     } else {
         // res.redirect('/login');
-        res.send("Wrong login or password!");
+        res.send(JSON.stringify({message: "Wrong login or password!"}));
     }
     // res.send(req.body)
 }

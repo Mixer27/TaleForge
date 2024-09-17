@@ -6,7 +6,7 @@ import { Box, IconButton, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { DRAWER_WIDTH } from '../../constants';
 import { DrawerContext } from '../../context/drawerContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MainDrawer } from './MainDrawer';
 
 interface Props {
@@ -36,6 +36,27 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 
 const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
+    const [username, setUsername] = useState("");
+
+    useEffect(() => {
+        try {
+
+            fetch('https://devproj3ct.pl:9000/auth/session', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setUsername(data.username);
+                    console.log(data)
+                });
+        } catch (err) {
+            console.log("error with checking session", err);
+        }
+    }, [])
 
     return (
         <>
@@ -48,7 +69,7 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6">{props?.headerText}</Typography>
-                            <Typography variant="h6" sx={{ marginLeft: "auto" }}>User</Typography>
+                            <Typography variant="h6" sx={{ marginLeft: "auto" }}>{username}</Typography>
                         </Toolbar>
                     </AppBar>
                 </Box>
