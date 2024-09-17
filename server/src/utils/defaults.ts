@@ -1,7 +1,8 @@
-import { PlayerStats, Gender, PlayerCharacterSheet, Wealth, Race, WeaponItem } from "../types";
+import { Gender, Race } from "./enums";
+// import { PlayerCharacterSheet, PlayerStats } from "../models/playerCharacterSheet";
+import mongoose from "mongoose";
 
-
-const defaultPlayerStats: PlayerStats = {
+const defaultPlayerStats = {
     weaponSkills: { name: 'Walka wręcz', starting: 0, advance: 0, current: 0 },
     ballisticSkills: {
         name: 'Umiejętności strzeleckie',
@@ -38,11 +39,11 @@ const defaultPlayerStats: PlayerStats = {
 };
 
 
-const defaultWealth: Wealth = {
+const defaultMoney = {
     gc: 0,
     sh: 0,
-    pn: 0
-};
+    pn: 0,
+}
 
 const defaultArmor = {
     head: {
@@ -50,7 +51,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -61,7 +62,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -72,7 +73,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -83,7 +84,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: { ...defaultMoney },
             availability: "-",
         },
         coverLocation: [],
@@ -91,8 +92,9 @@ const defaultArmor = {
     },
 };
 
-const defaultPlayerCharacterSheet: PlayerCharacterSheet = {
-    _id: "",
+const defaultPlayerCharacterSheet = {
+    // _id: "",
+    owner_id: new mongoose.Types.ObjectId(),
     name: "",
     race: Race.HUMAN,
     currentCareer: "",
@@ -118,24 +120,9 @@ const defaultPlayerCharacterSheet: PlayerCharacterSheet = {
     skills: [],
     talents: [],
     spells: [],
-    wealth: { ...defaultWealth },
+    wealth: { ...defaultMoney },
 };
 
-const defaultWeapon: WeaponItem = {
-    item: {
-        name: "-",
-        description: "-",
-        value: { gc: 0, sh: 0, pn: 0 },
-        weight: 0,
-        availability: "-",
-    },
-    category: '-',
-    range: '-',
-    reload: '-',
-    strength: '-',
-    weaponFeatures: '-'
-}
 
 
-
-export { defaultPlayerCharacterSheet, defaultWeapon };
+export { defaultPlayerCharacterSheet, defaultMoney, defaultArmor };

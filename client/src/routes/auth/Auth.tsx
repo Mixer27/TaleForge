@@ -31,7 +31,6 @@ const Auth: React.FC = () => {
     }
 
     const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-        console.log(newValue);
         setCurrentTab(newValue);
     };
 

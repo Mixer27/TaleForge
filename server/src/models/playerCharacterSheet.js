@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MoneySchema = exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
+exports.SingleStatSchema = exports.PlayerStats = exports.PlayerStatsSchema = exports.MoneySchema = exports.Skill = exports.PlayerCharacterSheet = exports.TalentSchema = exports.SkillLvlSchema = exports.ArmorSchema = void 0;
 var mongoose_1 = require("mongoose");
 var mongoose_2 = require("mongoose");
 var skill_1 = require("./skill");
@@ -33,6 +33,7 @@ var SingleStatSchema = new mongoose_2.Schema({
     name: { type: String, enum: Object.values(enums_1.StatName), required: true },
     current: { type: Number, required: true, default: 0, min: 0 },
 }, { _id: false });
+exports.SingleStatSchema = SingleStatSchema;
 var PlayerStatsSchema = new mongoose_2.Schema({
     weaponSkills: PlayerStatSchema,
     ballisticSkills: PlayerStatSchema,
@@ -51,6 +52,7 @@ var PlayerStatsSchema = new mongoose_2.Schema({
     insanityPoints: SingleStatSchema,
     fatePoints: SingleStatSchema,
 }, { _id: false });
+exports.PlayerStatsSchema = PlayerStatsSchema;
 var SkillLvlSchema = new mongoose_2.Schema({
     skill: {
         type: mongoose_2.Schema.Types.ObjectId,
@@ -81,7 +83,7 @@ var SpellSchema = new mongoose_2.Schema({
 }, { _id: false });
 var PlayerCharacterSchema = new mongoose_2.Schema({
     owner_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
-    session_id: { type: mongoose_2.Schema.Types.ObjectId, required: true, index: true },
+    // campaign_id: { type: Schema.Types.ObjectId, required: true, index: true },
     name: { type: String, required: true, minLength: [3, "Name must have at least 3 characters"] },
     race: {
         type: String,
@@ -119,3 +121,5 @@ var PlayerCharacterSchema = new mongoose_2.Schema({
 });
 var PlayerCharacterSheet = mongoose_1.default.model("PlayerCharacterSheet", PlayerCharacterSchema);
 exports.PlayerCharacterSheet = PlayerCharacterSheet;
+var PlayerStats = mongoose_1.default.model("PlayerStats", PlayerStatsSchema);
+exports.PlayerStats = PlayerStats;

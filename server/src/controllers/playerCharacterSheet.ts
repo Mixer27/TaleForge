@@ -2,6 +2,7 @@ import { PlayerCharacterSheet } from "../models/playerCharacterSheet";
 import { Skill } from "../models/skill";
 import { NextFunction, Response, Request } from "express";
 import mongoose from "mongoose";
+import { defaultPlayerCharacterSheet } from "../utils/defaults";
 
 interface reqParams {
     id: string,
@@ -39,9 +40,25 @@ const getPlayerCharacters = async (req: Request, res: Response, next: NextFuncti
     const user_id = req.session.user_id;
     const data = await PlayerCharacterSheet.find({ owner_id: user_id });
     // const data = await PlayerCharacterSheet.find();
-    console.log(user_id, data);
+    // console.log(user_id, data);
     // console.log(data)
     res.json(data)
+}
+
+const postPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        if (!req.session.user_id) {
+            res.status(403).send("You don't have permission to do that");
+            return 
+        }
+        const user_id = req.session.user_id;
+        const character = new PlayerCharacterSheet({...defaultPlayerCharacterSheet, owner_id: user_id, name: "newa postać" });
+        // const character = new PlayerCharacterSheet({...defaultPlayerCharacterSheet, name: "aaa"});
+        await character.save();
+        res.status(200).send(character);
+    } catch (err) {
+        res.status(500).send({ message: "Error adding character sheet" + err });
+    }
 }
 
 const updatePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -50,7 +67,7 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     const updates = req.body;
 
     try {
-        const character = await PlayerCharacterSheet.findById(id);
+        let character = await PlayerCharacterSheet.findById(id);
         if (!character) {
             res.status(404).send({ message: "Character sheet not found." });
             return
@@ -60,12 +77,7 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
             res.status(403).send({ message: "You dont have permission to update this character sheet" });
             return
         }
-        // let data = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-        character.set(updates);
-        // character.wealth.gc = -5; // Ustaw nieprawidłową wartość
-        // character.markModified('wealth');
-        // console.log(await character.validate());
-        await character.save();
+        character = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
         // console.log(updates, character);
         res.status(200).send(character);
         return
@@ -83,7 +95,7 @@ const getNewId = async (req: Request, res: Response, next: NextFunction) => {
         res.status(200).send(data);
     } catch (err) {
         res.status(500).send({ message: "Error getting unique ID" });
-    } 
+    }
 
 }
 
@@ -91,4 +103,4 @@ const getNewId = async (req: Request, res: Response, next: NextFunction) => {
 
 // }
 
-export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId }
+export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, postPlayerCharacterSheet }

@@ -3,11 +3,15 @@ import { User } from "../models/user";
 import { NextFunction, Request, Response } from "express";
 
 const postRegister = async (req: Request, res: Response, next: NextFunction) => {
-    const { username, password } = req.body;
-    const newUser = new User({ username, password });
-    await newUser.save();
-    req.session.user_id = newUser._id;
-    res.send(JSON.stringify({ message: username + " Registered" }))
+    try {
+        const { username, password } = req.body;
+        const newUser = new User({ username, password });
+        await newUser.save();
+        req.session.user_id = newUser._id;
+        res.status(200).send(JSON.stringify({ message: username + " Registered" }))
+    } catch (err) {
+        res.status(500).send("Error saving character sheet")
+    }
 }
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
@@ -46,4 +50,26 @@ const getSession = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { postLogin, postLogout, postRegister, getSession };
+const checkUserSession = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.session.user_id;
+
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            req.session.destroy();
+            return res.status(401).json({ message: 'Session invalid, user does not exist' });
+        }
+
+        next();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export { postLogin, postLogout, postRegister, getSession, checkUserSession };

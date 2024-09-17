@@ -81,7 +81,7 @@ const SpellSchema = new Schema({
 
 const PlayerCharacterSchema = new Schema({
     owner_id: { type: Schema.Types.ObjectId, required: true, index: true },
-    session_id: { type: Schema.Types.ObjectId, required: true, index: true },
+    // campaign_id: { type: Schema.Types.ObjectId, required: true, index: true },
     name: { type: String, required: true, minLength: [3, "Name must have at least 3 characters"] },
     race: {
         type: String,
@@ -119,5 +119,6 @@ const PlayerCharacterSchema = new Schema({
 })
 
 const PlayerCharacterSheet = mongoose.model("PlayerCharacterSheet", PlayerCharacterSchema);
+const PlayerStats = mongoose.model("PlayerStats", PlayerStatsSchema);
 
-export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, MoneySchema };
+export { ArmorSchema, SkillLvlSchema, TalentSchema, PlayerCharacterSheet, Skill, MoneySchema, PlayerStatsSchema, PlayerStats, SingleStatSchema };

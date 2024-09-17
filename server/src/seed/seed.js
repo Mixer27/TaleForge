@@ -59,57 +59,7 @@ var armorItem_1 = require("../models/armorItem");
 var weaponItem_1 = require("../models/weaponItem");
 var user_1 = require("../models/user");
 var bcrypt_1 = require("bcrypt");
-var defaultMoney = {
-    gc: 0,
-    sh: 0,
-    pn: 0,
-};
-var defaultArmor = {
-    head: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: __assign({}, defaultMoney),
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    torso: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: __assign({}, defaultMoney),
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    arms: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: __assign({}, defaultMoney),
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    legs: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: __assign({}, defaultMoney),
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-};
+var defaults_1 = require("../utils/defaults");
 var items = [
     {
         "name": "Lampa",
@@ -497,7 +447,7 @@ var examples = [{
         },
         items: [],
         weapons: [],
-        armor: defaultArmor,
+        armor: defaults_1.defaultArmor,
     },
     {
         owner_id: new mongoose_1.default.Types.ObjectId("66e9ba372fd89788d886d392"),
@@ -569,7 +519,7 @@ var examples = [{
         },
         items: [items[0]],
         weapons: [weaponItems[0]],
-        armor: defaultArmor,
+        armor: defaults_1.defaultArmor,
     }
 ];
 // Skills

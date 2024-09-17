@@ -1,7 +1,21 @@
-import { PlayerStats, Gender, PlayerCharacterSheet, Wealth, Race, WeaponItem } from "../types";
-
-
-const defaultPlayerStats: PlayerStats = {
+"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.defaultArmor = exports.defaultMoney = exports.defaultPlayerCharacterSheet = void 0;
+var enums_1 = require("./enums");
+// import { PlayerCharacterSheet, PlayerStats } from "../models/playerCharacterSheet";
+var mongoose_1 = require("mongoose");
+var defaultPlayerStats = {
     weaponSkills: { name: 'Walka wręcz', starting: 0, advance: 0, current: 0 },
     ballisticSkills: {
         name: 'Umiejętności strzeleckie',
@@ -36,21 +50,19 @@ const defaultPlayerStats: PlayerStats = {
         current: 0,
     }
 };
-
-
-const defaultWealth: Wealth = {
+var defaultMoney = {
     gc: 0,
     sh: 0,
-    pn: 0
+    pn: 0,
 };
-
-const defaultArmor = {
+exports.defaultMoney = defaultMoney;
+var defaultArmor = {
     head: {
         item: {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -61,7 +73,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -72,7 +84,7 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
@@ -83,22 +95,23 @@ const defaultArmor = {
             name: "-",
             description: "-",
             weight: 0,
-            value: { ...defaultWealth },
+            value: __assign({}, defaultMoney),
             availability: "-",
         },
         coverLocation: [],
         armor: 0,
     },
 };
-
-const defaultPlayerCharacterSheet: PlayerCharacterSheet = {
-    _id: "",
+exports.defaultArmor = defaultArmor;
+var defaultPlayerCharacterSheet = {
+    // _id: "",
+    owner_id: new mongoose_1.default.Types.ObjectId(),
     name: "",
-    race: Race.HUMAN,
+    race: enums_1.Race.HUMAN,
     currentCareer: "",
     PreviousCareers: [],
     age: 0,
-    gender: Gender.OTHER,
+    gender: enums_1.Gender.OTHER,
     eyeColor: "",
     hairColor: "",
     starSign: "",
@@ -111,31 +124,13 @@ const defaultPlayerCharacterSheet: PlayerCharacterSheet = {
     religion: "",
     mentalDisorders: "",
     scarsAndWounds: "",
-    stats: { ...defaultPlayerStats },
-    armor: { ...defaultArmor },
+    stats: __assign({}, defaultPlayerStats),
+    armor: __assign({}, defaultArmor),
     items: [],
     weapons: [],
     skills: [],
     talents: [],
     spells: [],
-    wealth: { ...defaultWealth },
+    wealth: __assign({}, defaultMoney),
 };
-
-const defaultWeapon: WeaponItem = {
-    item: {
-        name: "-",
-        description: "-",
-        value: { gc: 0, sh: 0, pn: 0 },
-        weight: 0,
-        availability: "-",
-    },
-    category: '-',
-    range: '-',
-    reload: '-',
-    strength: '-',
-    weaponFeatures: '-'
-}
-
-
-
-export { defaultPlayerCharacterSheet, defaultWeapon };
+exports.defaultPlayerCharacterSheet = defaultPlayerCharacterSheet;

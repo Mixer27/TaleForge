@@ -10,59 +10,9 @@ import { ArmorItem } from "../models/armorItem";
 import { WeaponItem } from "../models/weaponItem";
 import { User } from "../models/user";
 import { hashSync } from "bcrypt";
+import { defaultArmor } from "../utils/defaults";
 
-const defaultMoney = {
-    gc: 0,
-    sh: 0,
-    pn: 0,
-}
 
-const defaultArmor = {
-    head: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: { ...defaultMoney },
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    torso: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: { ...defaultMoney },
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    arms: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: { ...defaultMoney },
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-    legs: {
-        item: {
-            name: "-",
-            description: "-",
-            weight: 0,
-            value: { ...defaultMoney },
-            availability: "-",
-        },
-        coverLocation: [],
-        armor: 0,
-    },
-};
 
 const items = [
     {
