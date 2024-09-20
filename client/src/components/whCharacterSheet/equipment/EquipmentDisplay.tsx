@@ -69,9 +69,10 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
         const updatedItems = [...props.items, { ...addedItem, _id: newId }];
         props.handleChange('items', updatedItems);
     }
-    const handleArmorChange = (location: keyof Armor, updatedArmorItem: ArmorItem) => {
+    const handleArmorChange = async (location: keyof Armor, updatedArmorItem: ArmorItem) => {
+        const newId: string = await getNewId();
         console.log("EqDisplay", props.armor, updatedArmorItem)
-        const updatedArmor = { ...props.armor, [location]: updatedArmorItem };
+        const updatedArmor = { ...props.armor, [location]: { ...updatedArmorItem, _id: newId } };
         props.handleChange("armor", updatedArmor)
     }
     const handleChangeWeapon = (updatedWeapon: WeaponItem) => {

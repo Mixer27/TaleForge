@@ -75,12 +75,12 @@ const ArmorDialog: React.FC<Props> = (props) => {
         props.handleClose()
     }
 
-    const onSave = (location: keyof Armor | null, item: ArmorItem) => {
+    const onSave = async (location: keyof Armor | null, item: ArmorItem) => {
         // if (props.stat) {
         if (location) {
             console.log("update stat");
             onClose()
-            props.handleChange(location, item);
+            await props.handleChange(location, item);
         }
     }
 
