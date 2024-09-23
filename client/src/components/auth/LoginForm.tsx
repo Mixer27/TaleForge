@@ -34,7 +34,8 @@ const LoginForm: React.FC<Props> = (props) => {
             try {
                 // if (localStorage.getItem('username')) {
                 if (localStorage.getItem('username')) {
-                    console.log("WRACAMY!!", localStorage.getItem('username'));
+                    // console.log("WRACAMY!!", localStorage.getItem('username'));
+                    setUsername(localStorage.getItem('username'));
                     navigate('/home')
                     // return;
                 } else {
@@ -57,6 +58,7 @@ const LoginForm: React.FC<Props> = (props) => {
                 }
             } catch (err) {
                 console.error("Error in login post request", err);
+                navigate('/home')
             }
         },
     });
