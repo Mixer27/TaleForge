@@ -6,7 +6,7 @@ var mongoose_2 = require("mongoose");
 var skill_1 = require("./skill");
 Object.defineProperty(exports, "Skill", { enumerable: true, get: function () { return skill_1.Skill; } });
 // import { Talent } from "./talent";
-var enums_1 = require("../utils/enums");
+var enums_1 = require("../types/enums");
 var item_1 = require("./item");
 var weaponItem_1 = require("./weaponItem");
 var armorItem_1 = require("./armorItem");

@@ -53,7 +53,7 @@ var skill_1 = require("../models/skill");
 var talent_1 = require("../models/talent");
 // import { NpcSheet } from "../models/npcSheet";
 var spell_1 = require("../models/spell");
-var enums_1 = require("../utils/enums");
+var enums_1 = require("../types/enums");
 var item_1 = require("../models/item");
 var armorItem_1 = require("../models/armorItem");
 var weaponItem_1 = require("../models/weaponItem");

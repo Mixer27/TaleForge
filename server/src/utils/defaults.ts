@@ -1,4 +1,4 @@
-import { Gender, Race } from "./enums";
+import { Gender, Race } from "../types/enums";
 // import { PlayerCharacterSheet, PlayerStats } from "../models/playerCharacterSheet";
 import mongoose from "mongoose";
 

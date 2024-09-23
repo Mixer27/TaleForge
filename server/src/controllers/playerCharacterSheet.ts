@@ -9,31 +9,41 @@ interface reqParams {
 }
 
 const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    console.log(mongoose.modelNames());
-    const data = await PlayerCharacterSheet.findById(id)
-        .populate({
-            path: "skills",
-            populate: {
-                path: 'skill',
-                model: 'Skill',
-            }
-        })
-        .populate({
-            path: "talents",
-            populate: {
-                path: 'talent',
-                model: 'Talent'
-            }
-        })
-        .populate({
-            path: "spells",
-            populate: {
-                path: "spell",
-                model: "Spell",
-            }
-        });
-    res.json(data);
+    try {
+
+        const { id } = req.params;
+        // console.log(mongoose.modelNames());
+        const data = await PlayerCharacterSheet.findById(id)
+            .populate({
+                path: "skills",
+                populate: {
+                    path: 'skill',
+                    model: 'Skill',
+                }
+            })
+            .populate({
+                path: "talents",
+                populate: {
+                    path: 'talent',
+                    model: 'Talent'
+                }
+            })
+            .populate({
+                path: "spells",
+                populate: {
+                    path: "spell",
+                    model: "Spell",
+                }
+            });
+        // if (req.session.user_id !== data?.owner_id.toString()) {
+        //     res.status(401).send({ message: "Unauthorized access to characeter sheet" });
+        //     return;
+        // }
+        res.json(data);
+
+    } catch (err) {
+        res.status(500).send({ message: "Error fetching character sheet" + err });
+    }
 }
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
@@ -89,14 +99,24 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
 }
 
 const deletePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const user_id = req.session.user_id;
+    const { id } = req.params;
     try {
-        const { id } = req.body;
-        await PlayerCharacterSheet.findByIdAndDelete(id);
+        const character = await PlayerCharacterSheet.findById(id);
+        // if (!user_id) {
+        //     res.status(401).send({ message: "User not authenticated" });
+        //     return;
+        // }
+        if (character?.owner_id.toString() !== user_id) {
+            res.status(403).send({ message: "You dont have permission to update this character sheet" });
+            return
+        }
+        await character?.deleteOne();
+        // await PlayerCharacterSheet.findByIdAndDelete(id);
         res.status(200).send({ message: "Character deleted successfully" });
     } catch (err) {
         res.status(500).send({ message: "Error deleting character sheet" + err });
     }
-
 }
 
 const getNewId = async (req: Request, res: Response, next: NextFunction) => {

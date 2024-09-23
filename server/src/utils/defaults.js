@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultArmor = exports.defaultMoney = exports.defaultPlayerCharacterSheet = void 0;
-var enums_1 = require("./enums");
+var enums_1 = require("../types/enums");
 // import { PlayerCharacterSheet, PlayerStats } from "../models/playerCharacterSheet";
 var mongoose_1 = require("mongoose");
 var defaultPlayerStats = {

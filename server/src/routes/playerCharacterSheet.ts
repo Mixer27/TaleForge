@@ -10,12 +10,12 @@ const router = Router()
 router.route("/")
     .get(catchAsync(getPlayerCharacters))
     .post(checkUserSession, catchAsync(postPlayerCharacterSheet))
-    .delete(checkUserSession, catchAsync(deletePlayerCharacterSheet))
-router.route("/new_id")
+    router.route("/new_id")
     .get(catchAsync(getNewId))
-router.route("/:id")
-    .get(catchAsync(getPlayerCharacterSheet))
+    router.route("/:id")
+    .get(checkUserSession, catchAsync(getPlayerCharacterSheet))
     .patch(checkUserSession, catchAsync(updatePlayerCharacterSheet))
+    .delete(checkUserSession, catchAsync(deletePlayerCharacterSheet))
 
 
 

@@ -3,17 +3,23 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const ProtectedRoute: React.FC = () => {
-    const { isLoggedIn, loading } = useAuth();
+    const { username } = useAuth();
 
-    if (loading) {
-        return <div>Loading...</div>; // Możesz dodać spinner lub inny komponent ładowania
-    }
-
-    if (!isLoggedIn) {
+    if (!username) {
+        { console.log(username)}
         return <Navigate to="/auth" />;
+    } else {
+        { console.log(username) }
+        return <Outlet />;
     }
 
-    return <Outlet />;
+    // if (loading) {
+    //     return <div>{ isLoggedIn ? "ISLOGGEDIN" : "NOPE"} Loading...</div>; // Możesz dodać spinner lub inny komponent ładowania
+    // }
+
+    
+
+    // return <Outlet />;
 };
 
 export { ProtectedRoute };

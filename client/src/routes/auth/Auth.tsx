@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LoginForm } from "../../components/auth/LoginForm";
-import { AppBar, Container, Paper, Tab, Tabs } from "@mui/material";
+import { AppBar, Container, Paper, Tab, Tabs, Typography } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -13,20 +13,18 @@ const AuthForm = Object.freeze({
 
 
 const Auth: React.FC = () => {
-    const { isLoggedIn, checkSession } = useAuth();
-    // const [username, setUsername] = useState("");
+    const { username } = useAuth();
     const [currentTab, setCurrentTab] = useState<string>(AuthForm.LOGIN);
-    // const [value, setValue] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (username) {
             navigate("/home");
         }
-    }, [isLoggedIn])
+    }, [username])
 
     const handleSubmit = async () => {
-        await checkSession();
+        // await checkSession();
         navigate("/home");
     }
 
@@ -36,6 +34,9 @@ const Auth: React.FC = () => {
 
     return (
         <>
+            <Container sx={{ width: "100%", display: 'flex', justifyContent: "center", alignItems: 'center', marginBottom: 5 }}>
+                <Typography variant='h1'>TaleForge</Typography>
+            </Container>
             <Container sx={{ width: "500px" }}>
                 <Paper>
                     <TabContext value={currentTab}>
@@ -43,23 +44,20 @@ const Auth: React.FC = () => {
                             <Tabs
                                 value={currentTab}
                                 onChange={handleChange}
-                                indicatorColor="secondary"
+                                indicatorColor="primary"
                                 textColor="inherit"
-                                // variant="fullWidth"
+                                centered
                                 aria-label="full width tabs example"
                             >
                                 <Tab value={AuthForm.LOGIN} label={AuthForm.LOGIN} />
                                 <Tab value={AuthForm.REGISTER} label={AuthForm.REGISTER} />
-                                {/* <Tab label="Item Three" /> */}
                             </Tabs>
                         </AppBar>
-                        <TabPanel value={AuthForm.LOGIN} sx={{padding: "24px 6px 24px 6px"}}>
+                        <TabPanel value={AuthForm.LOGIN} sx={{ padding: "24px 6px 24px 6px" }}>
                             <LoginForm handleSubmit={handleSubmit}></LoginForm>
                         </TabPanel>
                         <TabPanel value={AuthForm.REGISTER}>
                             <RegisterForm handleSubmit={handleSubmit}></RegisterForm>
-                            {/* Logged user: {username ?? "none"};
-                            <LoginForm handleSubmit={handleSubmit}></LoginForm> */}
                         </TabPanel>
                     </TabContext>
                 </Paper>

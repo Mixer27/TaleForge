@@ -36,7 +36,7 @@ db.once("open", () => {
 
 app.use(express.json());
 app.use(cors({
-    origin: ['https://194.59.140.170:9001', "https://uwu.sex.pl:9001", "https://devproj3ct.pl:9001"],
+    origin: ['https://194.59.140.170:9001', "https://devproj3ct.pl:9001" ,'https://devproj3ct.pl:80', 'https://devproj3ct.pl'],
     credentials: true,
 }));
 app.use(express.urlencoded({ extended: true }));

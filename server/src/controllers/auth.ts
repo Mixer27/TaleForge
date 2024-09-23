@@ -8,7 +8,7 @@ const postRegister = async (req: Request, res: Response, next: NextFunction) => 
         const newUser = new User({ username, password });
         await newUser.save();
         req.session.user_id = newUser._id;
-        res.status(200).send(JSON.stringify({ message: username + " Registered" }))
+        res.status(200).send(JSON.stringify({ message: username + " Registered", isLoggedIn: true, username: newUser.username, user_id: newUser._id }));
     } catch (err) {
         res.status(500).send("Error saving character sheet")
     }
@@ -28,7 +28,7 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
         });
         req.session.user_id = foundUser._id.toString();
         // res.redirect('/secret');
-        res.send(JSON.stringify({ message: "Logged you in!" }));
+        res.send(JSON.stringify({ message: "Logged you in!", isLoggedIn: true, username: foundUser?.username, user_id: foundUser?._id }));
     } else {
         // res.redirect('/login');
         res.send(JSON.stringify({ message: "Wrong login or password!" }));
@@ -38,7 +38,7 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
 
 const postLogout = async (req: Request, res: Response, next: NextFunction) => {
     await req.session.destroy();
-    res.send(JSON.stringify({ message: "Logged out" }));
+    res.send(JSON.stringify({ message: "Logged out", isLoggedIn: false }));
 }
 
 const getSession = async (req: Request, res: Response, next: NextFunction) => {

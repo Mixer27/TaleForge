@@ -14,6 +14,7 @@ import { TalentsDisplay } from "../../components/whCharacterSheet/talents/Talent
 import { SpellsDisplay } from "../../components/whCharacterSheet/spells/SpellsDisplay";
 import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/EquipmentDisplay";
 import { CharacterDetails } from "../../components/whCharacterSheet/details/CharacterDetails";
+import { useAuth } from "../../context/AuthContext";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -23,25 +24,36 @@ const WHPcSheet: React.FC = () => {
     const drawerContext = useContext(DrawerContext);
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
+    const { setUsername } = useAuth();
     useEffect(() => {
-        // fetch(`https://194.59.140.170:9000/pcsheets/${id}`)
-        fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`)
-            .then((res: Response) => {
-                return res.json();
-            })
-            .then((data) => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
+                    method: "GET",
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.status === 401) {
+                    console.log(response.status);
+                    setUsername(null);
+                    navigate('/auth');
+                    return;
+                }
+                const data = await response.json();
+                console.log(data);
                 if (data) {
                     setSheet(data);
                     console.log(data);
-                }
-                else {
+                } else {
                     navigate('/pcsheets');
                 }
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Error fetching data!", error);
-            })
-
+            }
+        }
+        fetchData();
     }, [id]);
 
     const updateCharacterSheet = useCallback(async (update: PlayerCharacterSheet) => {
@@ -56,6 +68,12 @@ const WHPcSheet: React.FC = () => {
             });
 
             if (!response.ok) {
+                if (response.status === 401) {
+                    console.log(response.status);
+                    localStorage.removeItem('username');
+                    setUsername(null);
+                    navigate('/auth');
+                }
                 throw new Error("Failed to update character sheet");
             }
             else {
@@ -74,7 +92,7 @@ const WHPcSheet: React.FC = () => {
         }
     }, [id, navigate]);
 
-    
+
     // useEffect(() => {
     //     console.log(isInitialLoad.current)
     //     if (isInitialLoad.current) {
@@ -83,7 +101,7 @@ const WHPcSheet: React.FC = () => {
     //     console.log("DEBUG", sheet)
     //     updateCharacterSheet(sheet);
     // }, [sheet, updateCharacterSheet])
-    
+
     const handleSubmit = async () => {
         // e.preventDefault()
         // console.log(sheet);

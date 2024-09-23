@@ -38,9 +38,8 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 
 const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
-    const { username, isLoggedIn, checkSession } = useAuth();
-    // const [username, setUsername] = useState("");
-    // const [isLoggedIn, setIsLoggedin] = useState(false);
+    const { username, setUsername } = useAuth();
+
     const handleLogout = async () => {
         drawerContext.toggleDrawer(false);
         try {
@@ -54,8 +53,11 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                 .then(response => response.json())
                 .then(data => {
                     
-                    checkSession();
                     console.log(data)
+                    if (data.isLoggedIn === false) {
+                        localStorage.removeItem('username');
+                        setUsername(null);
+                    }
                 });
         } catch (err) {
             console.log("error with checking session", err);
@@ -75,7 +77,7 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                             <Typography variant="h6">{props?.headerText}</Typography>
                             {/* <Typography variant="h6">{username}</Typography> */}
                             <Stack direction="row" spacing={1} sx={{ marginLeft: "auto", alignItems: "center" }}>
-                                {isLoggedIn && <>
+                                { username && <>
                                     <Typography variant="h6" sx={{}}>{username}</Typography>
                                     <IconButton onClick={handleLogout}><LogoutIcon fontSize='medium' /></IconButton></>
                                 }

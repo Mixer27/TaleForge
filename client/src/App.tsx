@@ -65,7 +65,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    const { isLoggedIn } = useAuth();
+    const { username } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const theme: Theme = useTheme();
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -84,7 +84,8 @@ function App() {
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
                     {/* <Box sx={{ flexGrow: 1 }}> */}
-                    <Main open={!isLoggedIn ? false : isDrawerOpen} onClick={handleMainToggleDrawer} >
+                    <Main open={!username ? false : isDrawerOpen} onClick={handleMainToggleDrawer} >
+                        {/* {console.log(isLoggedIn)} */}
                         <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
                             <RouterProvider router={router} />
                         </DrawerContext.Provider>

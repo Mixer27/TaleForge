@@ -5,13 +5,13 @@ import { GridItem } from "../../components/whCharacterSheet/GridItem";
 import { SheetListElement } from "./SheetListElement";
 import { useNavigate } from "react-router-dom";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
-
-
+import { useAuth } from "../../context/AuthContext";
 
 
 const SheetsList: React.FC = () => {
     const navigate = useNavigate();
     const [characterList, setCharacterList] = useState<Array<PlayerCharacterSheet>>([]);
+    const { setUsername } = useAuth();
 
     const handleClick = (path: string) => {
         localStorage.setItem('currentTab', 'Stats');
@@ -27,6 +27,11 @@ const SheetsList: React.FC = () => {
             },
         })
             .then((res: Response) => {
+                if (res.status === 401) {
+                    console.log(res.status);
+                    setUsername(null);
+                    navigate('/auth');
+                }
                 return res.json();
             })
             .then((data) => {
@@ -40,15 +45,19 @@ const SheetsList: React.FC = () => {
     }
 
     const HandleRemoveCharacterSheet = async (characterId: string) => {
-        await fetch(`https://devproj3ct.pl:9000/pcsheets`, {
+        await fetch(`https://devproj3ct.pl:9000/pcsheets/${characterId}`, {
             method: "DELETE",
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: characterId}),
+            }
         })
             .then((res: Response) => {
+                if (res.status === 401) {
+                    console.log(res.status);
+                    setUsername(null);
+                    navigate('/auth');
+                }
                 return res.json();
             })
             .then((data) => {
@@ -98,7 +107,7 @@ const SheetsList: React.FC = () => {
                     <GridItem>
                         <List>
                             {characterList.map(item => (
-                                <SheetListElement id={item._id} name={item.name} key={item._id} handleClick={handleClick} handleRemoveClick={HandleRemoveCharacterSheet}/>
+                                <SheetListElement id={item._id} name={item.name} key={item._id} handleClick={handleClick} handleRemoveClick={HandleRemoveCharacterSheet} />
                             ))}
                             <ListItem disablePadding>
                                 <ListItemButton onClick={handleAddCharacterSheet} >Dodaj kartę postaci</ListItemButton>

@@ -4,7 +4,7 @@ import { Skill } from "../models/skill";
 import { Talent } from "../models/talent"
 // import { NpcSheet } from "../models/npcSheet";
 import { Spell } from "../models/spell";
-import { Race, StatName, Gender, SkillLvl } from "../utils/enums";
+import { Race, StatName, Gender, SkillLvl } from "../types/enums";
 import { Item } from "../models/item";
 import { ArmorItem } from "../models/armorItem";
 import { WeaponItem } from "../models/weaponItem";

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import { Skill } from "./skill";
 // import { Talent } from "./talent";
-import { Race, Gender, SkillLvl, StatName } from "../utils/enums"
+import { Race, Gender, SkillLvl, StatName } from "../types/enums"
 import { ItemSchema } from "./item";
 import { WeaponItemSchema } from "./weaponItem";
 import { ArmorItemSchema } from "./armorItem";
