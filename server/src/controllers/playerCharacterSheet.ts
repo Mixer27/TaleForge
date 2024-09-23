@@ -55,7 +55,7 @@ const getPlayerCharacters = async (req: Request, res: Response, next: NextFuncti
     res.json(data)
 }
 
-const postPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const addPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.session.user_id) {
             res.status(403).send("You don't have permission to do that");
@@ -130,4 +130,4 @@ const getNewId = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, postPlayerCharacterSheet, deletePlayerCharacterSheet }
+export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, addPlayerCharacterSheet, deletePlayerCharacterSheet }

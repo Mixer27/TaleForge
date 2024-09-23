@@ -59,7 +59,7 @@ const WHPcSheet: React.FC = () => {
     const updateCharacterSheet = useCallback(async (update: PlayerCharacterSheet) => {
         try {
             const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
-                method: 'PATCH',
+                method: 'PUT',
                 credentials: 'include',
                 headers: {
                     'Content-type': 'application/json',
