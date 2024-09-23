@@ -11,7 +11,7 @@ interface Props {
     stats?: PlayerStats,
     skills?: Array<SkillwLvl>,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats | Array<SkillwLvl>) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, data: Array<SkillwLvl>) => void,
 }
 
 // const defaultSkill: SkillwLvl = {  };

@@ -14,7 +14,7 @@ interface Props {
     armor: Armor,
     money: Money,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: Money | Armor | Item[] | WeaponItem[]) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, data: Money | Armor | Item[] | WeaponItem[]) => void,
 }
 
 // const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };
@@ -70,9 +70,9 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
         props.handleChange('items', updatedItems);
     }
     const handleArmorChange = async (location: keyof Armor, updatedArmorItem: ArmorItem) => {
-        const newId: string = await getNewId();
+        // const newId: string = await getNewId();
         console.log("EqDisplay", props.armor, updatedArmorItem)
-        const updatedArmor = { ...props.armor, [location]: { ...updatedArmorItem, _id: newId } };
+        const updatedArmor = { ...props.armor, [location]: { ...updatedArmorItem, _id: props.armor[location]._id } };
         props.handleChange("armor", updatedArmor)
     }
     const handleChangeWeapon = (updatedWeapon: WeaponItem) => {

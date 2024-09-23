@@ -8,7 +8,7 @@ import { FormDialog } from "./FormDialog"
 interface Props {
     stats?: PlayerStats,
     handleSubmit: () => void,
-    handleChange: (key: keyof PlayerCharacterSheet, value: string | PlayerStats) => void,
+    handleChange: (key: keyof PlayerCharacterSheet, data: PlayerStats) => void,
 }
 
 const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 };

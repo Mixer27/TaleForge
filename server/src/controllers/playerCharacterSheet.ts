@@ -130,8 +130,4 @@ const getNewId = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-// const addPlayerCharacterSheetItem = async (req: Request, res: Response, next: NextFunction) => {
-
-// }
-
 export { getPlayerCharacterSheet, getPlayerCharacters, updatePlayerCharacterSheet, getNewId, postPlayerCharacterSheet, deletePlayerCharacterSheet }

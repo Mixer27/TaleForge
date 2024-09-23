@@ -108,79 +108,33 @@ const WHPcSheet: React.FC = () => {
         console.log("a");
 
     }
-    const handleChange = async (key: keyof PlayerCharacterSheet, value: string | number | PlayerStats | SkillwLvl[] | TalentObject[] | SpellObject[] | Item[] | WeaponItem[] | Armor | Money) => {
-        // console.log("zmieniam sheet", name, value)
-        console.log("handle Change", key, value)
-        let update: PlayerCharacterSheet = sheet;
-        if (key === "PreviousCareers" && typeof value === 'string') {
-            update = {
-                ...sheet,
-                PreviousCareers: value.split(", ").map((c: string) => c.trim())
-            }
-        }
-        else if (key === 'stats' && typeof value === 'object') {
-            update = {
-                ...sheet,
-                [key]: { ...value } as PlayerStats
 
-            }
-            // setSheet(update)
-            // console.log("SHEET - zmiana statów", value, update.stats, sheet.stats)
+    const updateStats = async (key: keyof PlayerCharacterSheet, data: PlayerStats) => {
+        console.log("handleUpdateStats", key, data)
+        const update = {
+            ...sheet,
+            [key]: { ...data } as PlayerStats
         }
-        else if (key === 'skills' && typeof value !== 'string' && Array.isArray(value) && value.every((v) => 'skill' in v && 'lvl' in v)) {
-            console.log("change skills", value)
-            update = {
-                ...sheet,
-                [key]: value,
-            }
-        }
-        else if (key === 'talents' && Array.isArray(value) && value.every((v) => "talent" in v)) {
-            update = {
-                ...sheet,
-                [key]: value as Array<TalentObject>,
-            }
-            console.log("change talents", value, update)
-            // setSheet(update)
-        }
-        else if (key === 'spells' && Array.isArray(value) && value.every((v) => "spell" in v)) {
-            update = {
-                ...sheet,
-                [key]: value as Array<SpellObject>,
-            }
-            console.log("change spells", value, update)
-            // setSheet(update)
-        }
-        else if (key === 'armor' && typeof value === 'object' && 'armor' in value) {
-            update = {
-                ...sheet,
-                [key]: value as Armor,
-            }
-            console.log("change armor", value, update)
-            // setSheet(update)
-        }
-        else if (key === 'wealth' && typeof value === 'object' && 'gc' in value) {
-            update = {
-                ...sheet,
-                [key]: value as Money,
-            }
-            console.log("change armor", value, update)
-            // setSheet(update)
-        }
-        else {
-            update = {
-                ...sheet,
-                [key]: value,
-            }
-            console.log("change other", value, update)
-            // setSheet(update)
-
-        }
-        // przy zmianie zamyka initail load
-        // setSheet(update)
-        // setSheet(update);
         updateCharacterSheet(update);
         isInitialLoad.current = false;
-        // console.log("SHEET", sheet.stats)
+    }
+
+    const updateSimple = async (key: keyof PlayerCharacterSheet, data: Array<Item> | Array<WeaponItem> | Armor | Money | Array<TalentObject> | Array<SkillwLvl> | string | Array<SpellObject> | number) => {
+        if (key === "PreviousCareers" && typeof data === 'string') {
+            const update = {
+                ...sheet,
+                PreviousCareers: data.split(", ").map((c: string) => c.trim())
+            }
+            updateCharacterSheet(update);
+        } else {
+            console.log("update simple: ", key);
+            const update = {
+                ...sheet,
+                [key]: data,
+            }
+            updateCharacterSheet(update);
+        }
+        isInitialLoad.current = false;
     }
 
     const handleChangeTab = (_event: React.SyntheticEvent, newValue: string) => {
@@ -202,20 +156,20 @@ const WHPcSheet: React.FC = () => {
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
                 <Box mt="2em">
                     <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <StatsDisplay stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <StatsDisplay stats={sheet.stats} handleSubmit={handleSubmit} handleChange={updateStats} />
                     </TabPanel >
                     <TabPanel value={CharacterSheetTab.Skills} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Talents} sx={{ padding: "24px 6px 24px 6px" }}>
                         {/* aaa */}
-                        <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Spells} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleSubmit={handleSubmit} handleChange={handleChange} />
+                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleSubmit={handleSubmit} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Details} sx={{ padding: "24px 6px 24px 6px" }}>
                         <CharacterDetails
@@ -237,7 +191,7 @@ const WHPcSheet: React.FC = () => {
                             mentalDisorders={sheet.mentalDisorders}
                             scarsAndWounds={sheet.scarsAndWounds}
                             religion={sheet.religion}
-                            handleChange={handleChange}
+                            handleChange={updateSimple}
                         />
                     </TabPanel>
                 </Box>

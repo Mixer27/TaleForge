@@ -62,7 +62,7 @@ const checkUserSession = async (req: Request, res: Response, next: NextFunction)
 
         if (!user) {
             req.session.destroy();
-            return res.status(401).json({ message: 'Session invalid, user does not exist' });
+            return res.status(403).json({ message: 'Session invalid, user does not exist' });
         }
 
         next();
