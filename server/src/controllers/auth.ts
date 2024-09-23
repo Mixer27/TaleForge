@@ -7,16 +7,27 @@ const postRegister = async (req: Request, res: Response, next: NextFunction) => 
         const { username, password } = req.body;
         const newUser = new User({ username, password });
         await newUser.save();
+
         req.session.user_id = newUser._id;
+        const userId = JSON.stringify({ user_id: newUser._id });
+        res.cookie('session', userId, {
+            httpOnly: true,      // Zapewnia, że ciasteczko nie jest dostępne w JavaScript
+            secure: true, // Ustaw na true, jeśli używasz HTTPS
+            // sameSite: 'strict',  // Chroni przed atakami CSRF
+            maxAge: 1000 * 60 * 60 * 24,  // Ustaw ciasteczko na 24 godziny
+        });
         res.status(200).send(JSON.stringify({ message: username + " Registered", isLoggedIn: true, username: newUser.username, user_id: newUser._id }));
     } catch (err) {
-        res.status(500).send("Error saving character sheet")
+        res.status(500).send("Error creating account")
     }
 }
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
     console.log("controller", username, password)
+    if (req.session.user_id) {
+        res.status(409).send({ message: "User already logged in" });
+    }
     const foundUser = await User.findAndValidate(username, password);
     if (foundUser) {
         const userId = JSON.stringify({ user_id: foundUser._id });

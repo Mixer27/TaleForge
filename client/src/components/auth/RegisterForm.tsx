@@ -3,6 +3,7 @@ import React from "react"
 import * as yup from 'yup';
 import { useFormik } from "formik";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     handleSubmit: () => void,
@@ -26,7 +27,8 @@ const validationSchema = yup.object({
 
 
 const RegisterForm: React.FC<Props> = (props) => {
-    const { username, setUsername } = useAuth();
+    const { setUsername } = useAuth();
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -36,69 +38,39 @@ const RegisterForm: React.FC<Props> = (props) => {
         validationSchema: validationSchema, // Walidacja za pomocą yup
         onSubmit: async (values) => {
             try {
-                if (username) {
-                    return;
+                if (localStorage.getItem('username')) {
+                    navigate('/home')
+                    // throw new Error("Session is currently establisihed. Log out to change account or create a new one.")
+                    // return;
+                } else {
+                    const response = await fetch("https://devproj3ct.pl:9000/auth/register", {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(values),
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.isLoggedIn) {
+                        localStorage.setItem('username', data.username);
+                        setUsername(data.username);
+                    }
+                    props.handleSubmit();
                 }
-                const response = await fetch("https://devproj3ct.pl:9000/auth/register", {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(values),  // Przesyłamy wartości formularza
-                });
-                const data = await response.json();
-                console.log(data);
-                if (data.isLoggedIn) {
-                    localStorage.setItem('username', data.username);
-                    setUsername(data.username);
-                    // setLoading(false);
-                }
-                props.handleSubmit();  // Wywołujemy handleSubmit po sukcesie
             } catch (err) {
                 console.error("Error in login post request", err);
+                navigate('/home')
             }
         },
     });
-
-
-
-    // const onSubmit = async (e: React.SyntheticEvent) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.target as HTMLFormElement);
-    //     const payload = Object.fromEntries(formData);
-    //     if (payload.password === payload.confirmPassword) {
-
-    //     }
-    //     console.log(JSON.stringify(payload));
-    //     try {
-    //         await fetch("https://devproj3ct.pl:9000/auth/register", {
-    //             method: 'POST',
-    //             credentials: 'include',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(payload),
-    //         })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log(data)
-    //                 props.handleSubmit()
-    //                 // navigate("/home");
-    //             })
-
-    //     } catch (err) {
-    //         console.error("Error in login post request", err);
-    //     }
-    //     console.log(payload, document.cookie);
-
-    // }
 
     return (
         <>
             <form onSubmit={formik.handleSubmit}>
                 <Stack spacing={2} width={"80%"} marginLeft={"10%"}>
-                <TextField
+                    <TextField
                         name="username"
                         label="Nazwa użytkownika"
                         value={formik.values.username}

@@ -6,7 +6,7 @@ import { Box, IconButton, Stack, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { DRAWER_WIDTH } from '../../constants';
 import { DrawerContext } from '../../context/drawerContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MainDrawer } from './MainDrawer';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../context/AuthContext';
@@ -39,6 +39,7 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
     const { username, setUsername } = useAuth();
+    const [username2, setUsername2] = useState<string | null>(localStorage.getItem('username') ?? null) 
 
     const handleLogout = async () => {
         drawerContext.toggleDrawer(false);
@@ -77,8 +78,8 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                             <Typography variant="h6">{props?.headerText}</Typography>
                             {/* <Typography variant="h6">{username}</Typography> */}
                             <Stack direction="row" spacing={1} sx={{ marginLeft: "auto", alignItems: "center" }}>
-                                { username && <>
-                                    <Typography variant="h6" sx={{}}>{username}</Typography>
+                                { username2 && <>
+                                    <Typography variant="h6" sx={{}}>{username2}</Typography>
                                     <IconButton onClick={handleLogout}><LogoutIcon fontSize='medium' /></IconButton></>
                                 }
                             </Stack>

@@ -5,8 +5,8 @@ import { useAuth } from '../../context/AuthContext';
 const ProtectedRoute: React.FC = () => {
     const { username } = useAuth();
 
-    if (!username) {
-        { console.log(username)}
+    if (!localStorage.getItem('username')) {
+        { console.log("back to auth", localStorage.getItem('username'))}
         return <Navigate to="/auth" />;
     } else {
         { console.log(username) }

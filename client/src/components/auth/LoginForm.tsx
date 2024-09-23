@@ -34,6 +34,7 @@ const LoginForm: React.FC<Props> = (props) => {
             try {
                 // if (localStorage.getItem('username')) {
                 if (localStorage.getItem('username')) {
+                    console.log("WRACAMY!!", localStorage.getItem('username'));
                     navigate('/home')
                     // return;
                 } else {
@@ -59,33 +60,6 @@ const LoginForm: React.FC<Props> = (props) => {
             }
         },
     });
-
-    // const onSubmit = async (e: React.SyntheticEvent) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.target as HTMLFormElement);
-    //     const payload = Object.fromEntries(formData);
-    //     console.log(JSON.stringify(payload));
-    //     try {
-    //         await fetch("https://devproj3ct.pl:9000/auth/login", {
-    //             method: 'POST',
-    //             credentials: 'include',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(payload),
-    //         })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log(data)
-    //                 props.handleSubmit()
-    //                 // navigate("/home");
-    //             })
-
-    //     } catch (err) {
-    //         console.error("Error in login post request", err);
-    //     }
-    //     console.log(payload, document.cookie);
-    // }
 
     return (
         <>
