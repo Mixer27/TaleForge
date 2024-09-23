@@ -7,7 +7,6 @@ import { NewSpellDialog } from "./NewSpellDialog"
 interface Props {
     spells: SpellObject[],
     magic: number,
-    handleSubmit: () => void,
     handleChange: (key: keyof PlayerCharacterSheet, value: Array<SpellObject>) => void,
 }
 
@@ -30,7 +29,6 @@ const SpellsDisplay: React.FC<Props> = (props) => {
         setNewSpellDialogOpen(false);
     }
     const handleSave = () => {
-        props.handleSubmit()
         console.log("saved to DB")
         handleCloseDialog()
     }
@@ -76,7 +74,6 @@ const SpellsDisplay: React.FC<Props> = (props) => {
                 // handleChange={handleAdd}
                 handleClose={handleCloseDialog}
                 handleSave={handleAddSpell}
-                handleSubmit={props.handleSubmit}
             />}
         </>
     )

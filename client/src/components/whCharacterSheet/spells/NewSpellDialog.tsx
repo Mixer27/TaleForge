@@ -10,7 +10,6 @@ interface Props {
     // handleChange: (skill: Talent) => void,
     handleClose: () => void,
     handleSave: (addedSpell: Spell) => void,
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
 }
 
 // const defaultSkill: SkillwLvl = {
@@ -70,7 +69,7 @@ const NewSpellDialog: React.FC<Props> = (props) => {
     };
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <>
             <Dialog open={props.isOpen} onClose={onClose} scroll='body'>
                 <DialogTitle>{props.headerName}</DialogTitle>
                 <DialogContent>
@@ -88,7 +87,7 @@ const NewSpellDialog: React.FC<Props> = (props) => {
                     <Button onClick={onSave} type='submit'>Dodaj</Button>
                 </DialogActions>
             </Dialog>
-        </form>
+        </>
     )
 }
 

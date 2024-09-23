@@ -13,7 +13,6 @@ interface Props {
     weapons: WeaponItem[],
     armor: Armor,
     money: Money,
-    handleSubmit: () => void,
     handleChange: (key: keyof PlayerCharacterSheet, data: Money | Armor | Item[] | WeaponItem[]) => void,
 }
 

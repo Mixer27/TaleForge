@@ -7,7 +7,6 @@ import { FormDialog } from "./FormDialog"
 
 interface Props {
     stats?: PlayerStats,
-    handleSubmit: () => void,
     handleChange: (key: keyof PlayerCharacterSheet, data: PlayerStats) => void,
 }
 
@@ -15,7 +14,6 @@ const defaultStat: PlayerStat = { name: '', starting: 0, current: 0, advance: 0 
 const defaultSingleStat: SingleStat = { name: "", current: 0 };
 
 const StatsDisplay: React.FC<Props> = (props) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_stats, setStats] = useState<PlayerStats>(props.stats ? { ...props.stats } : {})
     const theme: Theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -46,24 +44,9 @@ const StatsDisplay: React.FC<Props> = (props) => {
         setSelectedSingleStat(null);
     }
     const handleSave = () => {
-        // Save the updated statistics here (e.g., update the state or make an API call)
-        props.handleSubmit()
         console.log("saved to DB")
         handleCloseDialog()
     }
-    // const handleStatChange = (field: string, value: string) => {
-    //     if (selectedStat) {
-    //         const updatedStat = {
-    //             ...selectedStat,
-    //             [field]: Number(value),
-    //         };
-    //         setSelectedStat(updatedStat);
-    //         console.log("StatsDisplay", props.stats, updatedStat)
-    //         const updatedStats = { ...props.stats, [String(selectedStatName)]: updatedStat };
-    //         setStats(updatedStats);
-    //         props.handleChange("stats", updatedStats)
-    //     }
-    // }
     const handleStatChange = (updatedStat: PlayerStat) => {
         if (selectedStat) {
             setSelectedStat(updatedStat);
@@ -128,7 +111,6 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 handleChange={handleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
-                handleSubmit={props.handleSubmit}
             />
             }
             {selectedSingleStat && <FormDialog
@@ -138,7 +120,6 @@ const StatsDisplay: React.FC<Props> = (props) => {
                 handleSingleChange={handleSingleStatChange}
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
-                handleSubmit={props.handleSubmit}
             />
             }
         </>

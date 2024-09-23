@@ -6,7 +6,6 @@ import { NewTalentDialog } from "./NewTalentDialog"
 
 interface Props {
     talents: TalentObject[],
-    handleSubmit: () => void,
     handleChange: (key: keyof PlayerCharacterSheet, value: Array<TalentObject>) => void,
 }
 
@@ -29,7 +28,6 @@ const TalentsDisplay: React.FC<Props> = (props) => {
         setNewTalentDialogOpen(false);
     }
     const handleSave = () => {
-        props.handleSubmit()
         console.log("saved to DB")
         handleCloseDialog()
     }
@@ -74,7 +72,6 @@ const TalentsDisplay: React.FC<Props> = (props) => {
                 // handleChange={handleAdd}
                 handleClose={handleCloseDialog}
                 handleSave={handleAddTalent}
-                handleSubmit={props.handleSubmit}
             />}
         </>
     )

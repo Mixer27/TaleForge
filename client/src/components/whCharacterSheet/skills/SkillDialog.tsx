@@ -13,7 +13,6 @@ interface Props {
     handleClose: () => void,
     handleSave: () => void,
     handleRemoveSkill: (removedSkill: SkillwLvl) => void,
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
 }
 
 const defaultSkill: SkillwLvl = {
@@ -56,7 +55,7 @@ const SkillDialog: React.FC<Props> = (props) => {
     }
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <>
             <Dialog open={props.isOpen} onClose={onClose} >
                 <DialogTitle>{props.skill?.skill.name ? props.skill?.skill.name : "loading"}</DialogTitle>
                 <DialogContent>
@@ -71,38 +70,7 @@ const SkillDialog: React.FC<Props> = (props) => {
                                         return <FormControlLabel key={SkillLvl[key]} checked={SkillLvl[key] === skillLvl} value={key} control={<Radio />} label={SkillLvl[key]} onChange={() => onSkillChange(SkillLvl[key])} />
                                     })}
                                 </RadioGroup>
-                                {/* <Button sx={{ mt: 1, mr: 1, width: 2 / 3 }} variant="outlined" startIcon={<DeleteIcon />} onClick={() => onRemoveButtonClick(props.skill)}>
-                                    Usuń
-                                </Button> */}
                             </FormControl>
-
-                            {/* <TextField
-                                margin="dense"
-                                label="Starting"
-                                type="number"
-                                fullWidth
-                                // value={props.stat?.starting}
-                                value={skill.skill.name}
-                                onChange={(e) => onSkillChange('starting', e.target.value)}
-                            />
-                            <TextField
-                                margin="dense"
-                                label="Advance"
-                                type="number"
-                                fullWidth
-                                // value={props.stat?.advance}
-                                value={"a"}
-                                onChange={(e) => onSkillChange('advance', e.target.value)}
-                            /> */}
-                            {/* <TextField
-                                margin="dense"
-                                label="Current"
-                                type="number"
-                                fullWidth
-                                // value={props.stat?.current}
-                                value={stat?.current}
-                                onChange={(e) => onStatChange('current', e.target.value)}
-                            /> */}
                         </>
                     )}
                 </DialogContent>
@@ -112,7 +80,7 @@ const SkillDialog: React.FC<Props> = (props) => {
                     <Button onClick={onSave} type='submit'>Zapisz</Button>
                 </DialogActions>
             </Dialog>
-        </form>
+        </>
     )
 }
 

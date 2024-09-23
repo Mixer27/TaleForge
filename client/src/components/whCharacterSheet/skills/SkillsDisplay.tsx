@@ -10,7 +10,6 @@ import { NewSkillDialog } from "./NewSkillDialog"
 interface Props {
     stats?: PlayerStats,
     skills?: Array<SkillwLvl>,
-    handleSubmit: () => void,
     handleChange: (key: keyof PlayerCharacterSheet, data: Array<SkillwLvl>) => void,
 }
 
@@ -40,7 +39,6 @@ const SkillsDisplay: React.FC<Props> = (props) => {
         setSelectedSkill(null);
     }
     const handleSave = () => {
-        props.handleSubmit()
         console.log("saved to DB")
         handleCloseDialog()
     }
@@ -112,7 +110,6 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                 handleClose={handleCloseDialog}
                 handleSave={handleSave}
                 handleRemoveSkill={handleRemoveSkill}
-                handleSubmit={props.handleSubmit}
             />}
             {newSkillDialogOpen && <NewSkillDialog
                 headerName="Wybierz umiejętność do dodania"
@@ -121,7 +118,6 @@ const SkillsDisplay: React.FC<Props> = (props) => {
                 handleChange={handleAddSkill}
                 handleClose={handleCloseDialog}
                 handleSave={handleAddSkill}
-                handleSubmit={props.handleSubmit}
             />}
         </>
     )

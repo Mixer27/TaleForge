@@ -92,23 +92,6 @@ const WHPcSheet: React.FC = () => {
         }
     }, [id, navigate]);
 
-
-    // useEffect(() => {
-    //     console.log(isInitialLoad.current)
-    //     if (isInitialLoad.current) {
-    //         return;
-    //     }
-    //     console.log("DEBUG", sheet)
-    //     updateCharacterSheet(sheet);
-    // }, [sheet, updateCharacterSheet])
-
-    const handleSubmit = async () => {
-        // e.preventDefault()
-        // console.log(sheet);
-        console.log("a");
-
-    }
-
     const updateStats = async (key: keyof PlayerCharacterSheet, data: PlayerStats) => {
         console.log("handleUpdateStats", key, data)
         const update = {
@@ -156,20 +139,20 @@ const WHPcSheet: React.FC = () => {
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
                 <Box mt="2em">
                     <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <StatsDisplay stats={sheet.stats} handleSubmit={handleSubmit} handleChange={updateStats} />
+                        <StatsDisplay stats={sheet.stats} handleChange={updateStats} />
                     </TabPanel >
                     <TabPanel value={CharacterSheetTab.Skills} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleSubmit={handleSubmit} handleChange={updateSimple} />
+                        <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Talents} sx={{ padding: "24px 6px 24px 6px" }}>
                         {/* aaa */}
-                        <TalentsDisplay talents={sheet.talents} handleSubmit={handleSubmit} handleChange={updateSimple} />
+                        <TalentsDisplay talents={sheet.talents} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Spells} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleSubmit={handleSubmit} handleChange={updateSimple} />
+                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleSubmit={handleSubmit} handleChange={updateSimple} />
+                        <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Details} sx={{ padding: "24px 6px 24px 6px" }}>
                         <CharacterDetails
