@@ -21,6 +21,12 @@ const darkTheme = createTheme({
     }
 })
 
+const lightTheme = createTheme({
+    palette: {
+        mode: 'light',
+    }
+})
+
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
@@ -80,7 +86,7 @@ function App() {
     }
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
                     {/* <Box sx={{ flexGrow: 1 }}> */}

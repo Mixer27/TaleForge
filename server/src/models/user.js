@@ -62,10 +62,12 @@ UserSchema.statics.findAndValidate = function (username, password) {
                 case 0: return [4 /*yield*/, this.findOne({ username: username })];
                 case 1:
                     foundUser = _a.sent();
+                    if (!foundUser) return [3 /*break*/, 3];
                     return [4 /*yield*/, (0, bcrypt_1.compare)(password, foundUser.password)];
                 case 2:
                     isValid = _a.sent();
-                    return [2 /*return*/, isValid ? foundUser : false];
+                    return [2 /*return*/, isValid ? foundUser : null];
+                case 3: return [2 /*return*/, null];
             }
         });
     });

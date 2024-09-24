@@ -16,12 +16,11 @@ import MongoStore from 'connect-mongo';
 
 const app: Express = express();
 
-const { PORT, SSL_KEY, SSL_CERT } = process.env;
-// console.log(process.env);
+const { PORT, SSL_KEY, SSL_CERT, SESSION_SECRET } = process.env;
 
 const mongoOptions = {
-    connectTimeoutMS: 30000, // 30 sekund
-    socketTimeoutMS: 45000  // 45 sekund
+    connectTimeoutMS: 30000,
+    socketTimeoutMS: 45000
 };
 
 // Database connection
@@ -41,10 +40,10 @@ app.use(cors({
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'mySecret', // Zastąp odpowiednim sekretem
+    secret: SESSION_SECRET || 'default_secret123',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true }, // Zmień na true, jeśli używasz HTTPS
+    cookie: { secure: true },
     store: new MongoStore({
         mongoUrl: 'mongodb://localhost:27017/taleForge',
         ttl: 14 * 24 * 60 * 60,

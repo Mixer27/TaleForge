@@ -1,7 +1,6 @@
 import mongoose, { Model } from "mongoose";
 import { Schema } from "mongoose";
 import { hash, genSalt, compare } from "bcrypt";
-import { NextFunction } from "express";
 
 interface IUser extends Document {
     _id: mongoose.Types.ObjectId,
@@ -29,10 +28,13 @@ const UserSchema = new Schema({
 
 UserSchema.statics.findAndValidate = async function (username: string, password: string) {
     const foundUser = await this.findOne({ username });
-    // console.log(username === 'mix' ? "YES" : "NO");
-    // console.log("findAndValidate", foundUser, username, password);
-    const isValid = await compare(password, foundUser.password);
-    return isValid ? foundUser : false;
+    if (foundUser) {
+        const isValid = await compare(password, foundUser.password);
+        return isValid ? foundUser : null;
+    }
+    else {
+        return null;
+    }
 }
 
 UserSchema.pre('save', async function (next) {

@@ -35,10 +35,6 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
                     model: "Spell",
                 }
             });
-        // if (req.session.user_id !== data?.owner_id.toString()) {
-        //     res.status(401).send({ message: "Unauthorized access to characeter sheet" });
-        //     return;
-        // }
         res.json(data);
 
     } catch (err) {

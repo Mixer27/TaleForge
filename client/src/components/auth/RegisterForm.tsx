@@ -40,7 +40,7 @@ const RegisterForm: React.FC<Props> = (props) => {
             try {
                 if (localStorage.getItem('username')) {
                     navigate('/home')
-                    // throw new Error("Session is currently establisihed. Log out to change account or create a new one.")
+                    setUsername(localStorage.getItem('username'));
                     // return;
                 } else {
                     const response = await fetch("https://devproj3ct.pl:9000/auth/register", {
