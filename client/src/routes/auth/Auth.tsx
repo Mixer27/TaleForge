@@ -39,7 +39,7 @@ const Auth: React.FC = () => {
             <Container sx={{ width: "100%", display: 'flex', justifyContent: "center", alignItems: 'center', marginBottom: 5 }}>
                 <Typography variant='h1' color={mode === 'light' ? 'primary' : ''}>TaleForge</Typography>
             </Container>
-            <Container sx={{ width: "500px" }}>
+            <Container sx={{ width: "500px", marginBottom: "3em" }}>
                 <Paper>
                     <TabContext value={currentTab}>
                         <AppBar position="static">

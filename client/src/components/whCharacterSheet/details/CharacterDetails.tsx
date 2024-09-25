@@ -81,7 +81,6 @@ const CharacterDetails: React.FC<Props> = (props) => {
                                 <ListItemButton onClick={() => handleOpenDialog('mentalDisorders', 'zaburzenia psychiczne')}>Zaburzenia psychiczne: {props.mentalDisorders}</ListItemButton>
                                 <Divider />
                                 <ListItemButton onClick={() => handleOpenDialog('starSign', 'znak gwiezdny')}>Znak gwiezdny: {props.starSign}</ListItemButton>
-                                {/* <ListItemButton onClick={() => handleClick('')}>{props.}</ListItemButton> */}
                             </List>
                         </Paper>
                     </Grid>

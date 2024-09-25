@@ -1,15 +1,14 @@
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-// import { useState } from 'react'
 import { Box, IconButton, Stack, styled } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { DRAWER_WIDTH } from '../../constants';
 import { DrawerContext } from '../../context/drawerContext';
 import { useContext } from 'react';
 import { MainDrawer } from './MainDrawer';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../context/AuthContext';
+import { LogoutButton } from '../auth/LogoutButon';
 
 interface Props {
     headerText?: string,
@@ -36,31 +35,7 @@ const NavigationBarShift = styled(AppBar, { shouldForwardProp: (prop) => prop !=
 
 const MainNavigationBar: React.FC<Props> = (props) => {
     const drawerContext = useContext(DrawerContext);
-    const { username, setUsername } = useAuth();
-
-    const handleLogout = async () => {
-        drawerContext.toggleDrawer(false);
-        try {
-            await fetch('https://devproj3ct.pl:9000/auth/logout', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    
-                    console.log(data)
-                    if (data.isLoggedIn === false) {
-                        localStorage.removeItem('username');
-                        setUsername(null);
-                    }
-                });
-        } catch (err) {
-            console.log("error with checking session", err);
-        }
-    }
+    const { username } = useAuth();
 
     return (
         <>
@@ -70,14 +45,14 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                     <AppBar position="static" elevation={0}>
                         <Toolbar>
                             <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{ marginRight: 1 }}>
-                                <MenuIcon sx={{color: "#FFF"}} />
+                                <MenuIcon sx={{ color: "#FFF" }} />
                             </IconButton>
                             <Typography variant="h6">{props?.headerText}</Typography>
-                            {/* <Typography variant="h6">{username}</Typography> */}
                             <Stack direction="row" spacing={1} sx={{ marginLeft: "auto", alignItems: "center" }}>
-                                { username && <>
+                                {username && <>
                                     <Typography variant="h6" sx={{}}>{username}</Typography>
-                                    <IconButton onClick={handleLogout}><LogoutIcon sx={{color: "#FFF"}} fontSize='medium' /></IconButton></>
+                                    <LogoutButton />
+                                </>
                                 }
                             </Stack>
                         </Toolbar>
@@ -87,7 +62,6 @@ const MainNavigationBar: React.FC<Props> = (props) => {
                     props.options
                 )}
             </NavigationBarShift>
-            {/* <MainDrawer isOpen={props.isDrawerOpen} toggleDrawer={props.toggleDrawer}/> */}
         </>
     )
 }

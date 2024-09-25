@@ -13,11 +13,11 @@ const validationSchema = yup.object({
 	username: yup
 		.string()
 		.required('Nazwa użytkownika nie może być pusta')
-		.min(3, 'Nazwa użytkownika powinna mieć minimum 3 znaków'),
+		.min(3, 'Nazwa użytkownika musi mieć minimum 3 znaki'),
 	password: yup
 		.string()
 		.required('Hasło nie może być puste')
-		.min(3, 'o musi mieć minimum 8 znaków')
+		.min(3, 'Hasło musi mieć minimum 8 znaków')
 });
 
 

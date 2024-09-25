@@ -13,7 +13,7 @@ const validationSchema = yup.object({
     username: yup
         .string()
         .required('Nazwa użytkownika nie może być pusta')
-        .min(3, 'Nazwa użytkownika powinna mieć minimum 3 znaków'),
+        .min(3, 'Nazwa użytkownika powinna mieć minimum 3 znaki'),
     password: yup
         .string()
         .required('Hasło nie może być puste') // Pole "password" jest wymagane
@@ -35,13 +35,12 @@ const RegisterForm: React.FC<Props> = (props) => {
             password: '',
             confirmPassword: '',
         },
-        validationSchema: validationSchema, // Walidacja za pomocą yup
+        validationSchema: validationSchema,
         onSubmit: async (values) => {
             try {
                 if (localStorage.getItem('username')) {
                     navigate('/home')
                     setUsername(localStorage.getItem('username'));
-                    // return;
                 } else {
                     const response = await fetch("https://devproj3ct.pl:9000/auth/register", {
                         method: 'POST',

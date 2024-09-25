@@ -3,23 +3,12 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 interface AuthContextType {
     username: string | null;
     setUsername: (username: string | null) => void;
-    // userId: string | null;
-    // isLoggedIn: boolean;
-    // loading: boolean;
-    // setUserId: (id: string | null) => void;
-    // setIsLoggedIn: (isLoggedIn: boolean) => void;
-    // setLoading: (loading: boolean) => void;
-    // checkSession:  () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-
 const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [username, setUsername] = useState<string | null>(localStorage.getItem('username') ?? null);
-    // const [userId, setUserId] = useState<string | null>(null);
-    // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    // }, [setUsername]);
 
     return (
         <AuthContext.Provider value={{ username, setUsername }}>
