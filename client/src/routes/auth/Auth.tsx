@@ -5,6 +5,7 @@ import { TabContext, TabPanel } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { RegisterForm } from "../../components/auth/RegisterForm";
+import { useDisplayThemeContext } from "../../context/DisplayThemeContext";
 
 const AuthForm = Object.freeze({
     LOGIN: 'Logowanie',
@@ -16,6 +17,7 @@ const Auth: React.FC = () => {
     const { username } = useAuth();
     const [currentTab, setCurrentTab] = useState<string>(AuthForm.LOGIN);
     const navigate = useNavigate();
+    const { mode } = useDisplayThemeContext();
 
     useEffect(() => {
         if (username) {
@@ -35,7 +37,7 @@ const Auth: React.FC = () => {
     return (
         <>
             <Container sx={{ width: "100%", display: 'flex', justifyContent: "center", alignItems: 'center', marginBottom: 5 }}>
-                <Typography variant='h1'>TaleForge</Typography>
+                <Typography variant='h1' color={mode === 'light' ? 'primary' : ''}>TaleForge</Typography>
             </Container>
             <Container sx={{ width: "500px" }}>
                 <Paper>

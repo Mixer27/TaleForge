@@ -108,11 +108,13 @@ const CharacterDetails: React.FC<Props> = (props) => {
                     </Grid>
                     <Grid item sm={12} lg={4}>
                         <Paper>
-                            <ListItem alignItems="center"><Typography variant="h5">Pozostałe</Typography></ListItem>
-                            <Divider />
-                            <ListItemButton onClick={() => handleOpenDialog('backstory', 'historię')}>Historia: {props.backstory}</ListItemButton>
-                            <Divider />
-                            <ListItemButton onClick={() => handleOpenDialog('religion', 'religię')}>Religia: {props.religion}</ListItemButton>
+                            <List>
+                                <ListItem alignItems="center"><Typography variant="h5">Pozostałe</Typography></ListItem>
+                                <Divider />
+                                <ListItemButton onClick={() => handleOpenDialog('backstory', 'historię')}>Historia: {props.backstory}</ListItemButton>
+                                <Divider />
+                                <ListItemButton onClick={() => handleOpenDialog('religion', 'religię')}>Religia: {props.religion}</ListItemButton>
+                            </List>
                         </Paper>
                     </Grid>
                 </Grid>

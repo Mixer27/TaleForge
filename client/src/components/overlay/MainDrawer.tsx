@@ -13,6 +13,8 @@ import { useMediaQuery, useTheme, Theme } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DrawerListItem } from "./DrawerListItem";
+import { useDisplayThemeContext } from "../../context/DisplayThemeContext";
+import ContrastIcon from '@mui/icons-material/Contrast';
 
 interface Props {
     isOpen: boolean,
@@ -27,6 +29,7 @@ const MainDrawer: React.FC<Props> = (props) => {
     const theme: Theme = useTheme()
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
     const navigate = useNavigate();
+    const { toggleMode } = useDisplayThemeContext();
     const routeChange = (path: string) => {
         navigate(path);
     }
@@ -39,9 +42,11 @@ const MainDrawer: React.FC<Props> = (props) => {
 
     const DrawerList = (
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
+            {/* <List sx={{ backgroundColor: mode === 'light' ? "#4d1f1c" : '' }}> */}
             <List>
-                <DrawerListItem value="Główna" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
-                <DrawerListItem value="Postacie" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon}/>
+            <DrawerListItem value="Główna" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
+                <DrawerListItem value="Postacie" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon} />
+                <DrawerListItem value="Zmień tryb" handleClick={() => { toggleMode() }} customIcon={ContrastIcon} />
                 {['Kampanie', 'Bestiariusz', 'Księga zasad', 'O projekcie'].map((text) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton disabled>
@@ -58,7 +63,12 @@ const MainDrawer: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Drawer open={props.isOpen} onClose={props.toggleDrawer(false)} variant="persistent" color="secondary">
+            {/* <Drawer PaperProps={{ sx: { backgroundColor: mode === 'light' ? "#3a1c1a" : '' } }} */}
+            <Drawer
+                open={props.isOpen}
+                onClose={props.toggleDrawer(false)}
+                variant="persistent"
+                color="secondary">
                 {DrawerList}
             </Drawer>
         </>

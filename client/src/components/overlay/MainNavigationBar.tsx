@@ -67,17 +67,17 @@ const MainNavigationBar: React.FC<Props> = (props) => {
             <MainDrawer isOpen={drawerContext.isDrawerOpen} toggleDrawer={drawerContext.toggleDrawer} />
             <NavigationBarShift open={drawerContext.isDrawerOpen} sx={{ marginBottom: props.options ? "2em" : 0 }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={0}>
+                    <AppBar position="static" elevation={0}>
                         <Toolbar>
                             <IconButton onClick={drawerContext.toggleDrawer(!drawerContext.isDrawerOpen)} sx={{ marginRight: 1 }}>
-                                <MenuIcon />
+                                <MenuIcon sx={{color: "#FFF"}} />
                             </IconButton>
                             <Typography variant="h6">{props?.headerText}</Typography>
                             {/* <Typography variant="h6">{username}</Typography> */}
                             <Stack direction="row" spacing={1} sx={{ marginLeft: "auto", alignItems: "center" }}>
                                 { username && <>
                                     <Typography variant="h6" sx={{}}>{username}</Typography>
-                                    <IconButton onClick={handleLogout}><LogoutIcon fontSize='medium' /></IconButton></>
+                                    <IconButton onClick={handleLogout}><LogoutIcon sx={{color: "#FFF"}} fontSize='medium' /></IconButton></>
                                 }
                             </Stack>
                         </Toolbar>

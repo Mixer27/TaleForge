@@ -80,7 +80,7 @@ const LoginForm: React.FC<Props> = (props) => {
 						error={formik.touched.password && Boolean(formik.errors.password)}
 						helperText={formik.touched.password && formik.errors.password}
 					/>
-					<Button type="submit" variant="contained">Zaloguj</Button>
+					<Button sx={{width: "50%", alignSelf: "center" }} type="submit" variant="contained">Zaloguj</Button>
 				</Stack>
 			</form>
 		</>

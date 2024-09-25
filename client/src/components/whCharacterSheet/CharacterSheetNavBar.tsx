@@ -1,6 +1,7 @@
 import { AppBar, Box, Tab, Tabs, Toolbar, styled } from "@mui/material";
 import React from "react";
 import { CharacterSheetTab } from "../../types";
+import { useDisplayThemeContext } from "../../context/DisplayThemeContext";
 
 const NavBarButton = styled(Tab)(() => ({
     color: "white",
@@ -15,11 +16,11 @@ interface Props {
 }
 
 const CharacterSheetNavBar: React.FC<Props> = (props) => {
-
+    const { mode } = useDisplayThemeContext();
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" sx={{ backgroundColor: "#222" }} elevation={2}>
+                <AppBar position="static" sx={{ backgroundColor: mode === "dark" ? "#212121" : "#532f28" }}>
                     <Toolbar variant="dense">
                         <Tabs sx={{ flexGrow: 1 }} variant="scrollable" value={props.currentTab} onChange={props.handleChange}>
                             <NavBarButton value={CharacterSheetTab.Stats} label="Cechy" />

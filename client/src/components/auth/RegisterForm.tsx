@@ -96,7 +96,7 @@ const RegisterForm: React.FC<Props> = (props) => {
                         error={formik.touched.password && Boolean(formik.errors.confirmPassword)}
                         helperText={formik.touched.password && formik.errors.confirmPassword}
                     />
-                    <Button type="submit" variant="contained">Zarejestruj</Button>
+                    <Button sx={{width: "50%", alignSelf: "center" }} type="submit" variant="contained">Zarejestruj</Button>
                 </Stack>
             </form>
         </>

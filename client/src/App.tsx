@@ -5,7 +5,7 @@ import Test from './routes/test/Test.tsx';
 import { Sheet } from './routes/pcsheets/Sheet.tsx';
 import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
 // import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
+import { ThemeProvider, styled } from '@mui/material/styles';
 import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
 import { DRAWER_WIDTH } from './constants.tsx';
 import { DrawerContext } from './context/drawerContext.tsx';
@@ -14,18 +14,7 @@ import { Auth } from './routes/auth/Auth.tsx';
 import { ProtectedRoute } from './routes/auth/ProtectedRoute.tsx';
 import { useState } from 'react';
 import { useAuth } from './context/AuthContext.tsx';
-
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    }
-})
-
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    }
-})
+import { useDisplayThemeContext } from './context/DisplayThemeContext.tsx';
 
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -72,6 +61,7 @@ const router = createBrowserRouter([
 
 function App() {
     const { username } = useAuth();
+    const { displayTheme } = useDisplayThemeContext();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const theme: Theme = useTheme();
     const isBelowMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -86,17 +76,14 @@ function App() {
     }
 
     return (
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={displayTheme}>
             <CssBaseline>
                 <Box sx={{ display: 'flex' }}>
-                    {/* <Box sx={{ flexGrow: 1 }}> */}
                     <Main open={!username ? false : isDrawerOpen} onClick={handleMainToggleDrawer} >
-                        {/* {console.log(isLoggedIn)} */}
                         <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawer }}>
                             <RouterProvider router={router} />
                         </DrawerContext.Provider>
                     </Main>
-                    {/* </Box> */}
                 </Box>
             </CssBaseline>
         </ThemeProvider >

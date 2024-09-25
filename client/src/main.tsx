@@ -6,11 +6,14 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import App from './App.tsx'
 import { AuthContextProvider } from './context/AuthContext.tsx';
+import { DisplayThemeContextProvider } from './context/DisplayThemeContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <AuthContextProvider>
-        <App />
+        <DisplayThemeContextProvider>
+            <App />
+        </DisplayThemeContextProvider>
     </AuthContextProvider>
     // </React.StrictMode>,
 )
