@@ -21,9 +21,9 @@ interface Props {
     toggleDrawer: (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
-declare module '@mui/material/styles' {
-    interface CustomTheme extends Theme { }
-}
+// declare module '@mui/material/styles' {
+//     interface CustomTheme extends Theme { }
+// }
 
 const MainDrawer: React.FC<Props> = (props) => {
     const theme: Theme = useTheme()
@@ -42,9 +42,8 @@ const MainDrawer: React.FC<Props> = (props) => {
 
     const DrawerList = (
         <Box sx={{ width: DRAWER_WIDTH }} role="presentation" onClick={toggleDrawer()}>
-            {/* <List sx={{ backgroundColor: mode === 'light' ? "#4d1f1c" : '' }}> */}
             <List>
-            <DrawerListItem value="Główna" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
+                <DrawerListItem value="Główna" handleClick={() => { routeChange("/home") }} customIcon={HomeIcon} />
                 <DrawerListItem value="Postacie" handleClick={() => { routeChange("/pcsheets") }} customIcon={GroupsIcon} />
                 <DrawerListItem value="Zmień tryb" handleClick={() => { toggleMode() }} customIcon={ContrastIcon} />
                 {['Kampanie', 'Bestiariusz', 'Księga zasad', 'O projekcie'].map((text) => (
@@ -63,7 +62,6 @@ const MainDrawer: React.FC<Props> = (props) => {
 
     return (
         <>
-            {/* <Drawer PaperProps={{ sx: { backgroundColor: mode === 'light' ? "#3a1c1a" : '' } }} */}
             <Drawer
                 open={props.isOpen}
                 onClose={props.toggleDrawer(false)}

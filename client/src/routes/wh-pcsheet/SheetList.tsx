@@ -37,7 +37,6 @@ const SheetsList: React.FC = () => {
             .then((data) => {
                 console.log(data);
                 fetchCharacterList();
-                // setCharacterList(data);
             })
             .catch((error) => {
                 console.error("Error with post request!", error);
@@ -97,7 +96,6 @@ const SheetsList: React.FC = () => {
     useEffect(() => {
         fetchCharacterList();
     }, []);
-
 
     return (
         <>

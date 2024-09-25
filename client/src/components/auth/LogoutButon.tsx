@@ -28,7 +28,7 @@ const LogoutButton: React.FC = () => {
                     }
                 });
         } catch (err) {
-            console.log("error with checking session", err);
+            console.log("error with logout request", err);
         }
     }
     return (

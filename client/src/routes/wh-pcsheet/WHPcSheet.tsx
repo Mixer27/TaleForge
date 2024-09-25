@@ -41,6 +41,10 @@ const WHPcSheet: React.FC = () => {
                     navigate('/auth');
                     return;
                 }
+                if (response.status === 403) {
+                    console.log(response.status);
+                    navigate('/home');
+                }
                 const data = await response.json();
                 console.log(data);
                 if (data) {
@@ -73,6 +77,10 @@ const WHPcSheet: React.FC = () => {
                     localStorage.removeItem('username');
                     setUsername(null);
                     navigate('/auth');
+                }
+                if (response.status === 403) {
+                    console.log(response.status);
+                    navigate('/home');
                 }
                 throw new Error("Failed to update character sheet");
             }
@@ -137,7 +145,7 @@ const WHPcSheet: React.FC = () => {
         <>
             <TabContext value={currentTab}>
                 <MainNavigationBar headerText={sheet?.name} options={(<CharacterSheetNavBar isDrawerOpen={drawerContext.isDrawerOpen} currentTab={currentTab} handleChange={handleChangeTab} />)} />
-                <Box mt="2em">
+                {sheet && <Box mt="2em">
                     <TabPanel value={CharacterSheetTab.Stats} sx={{ padding: "24px 6px 24px 6px" }}>
                         <StatsDisplay stats={sheet.stats} handleChange={updateStats} />
                     </TabPanel >
@@ -149,7 +157,7 @@ const WHPcSheet: React.FC = () => {
                         <TalentsDisplay talents={sheet.talents} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Spells} sx={{ padding: "24px 6px 24px 6px" }}>
-                        <SpellsDisplay spells={sheet.spells} magic={sheet.stats.magic?.current ?? 0} handleChange={updateSimple} />
+                        <SpellsDisplay spells={sheet.spells} magic={ 0} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Inventory} sx={{ padding: "24px 6px 24px 6px" }}>
                         <EquipmentDisplay items={sheet.items} weapons={sheet.weapons} armor={sheet.armor} money={sheet.wealth} handleChange={updateSimple} />
@@ -177,7 +185,7 @@ const WHPcSheet: React.FC = () => {
                             handleChange={updateSimple}
                         />
                     </TabPanel>
-                </Box>
+                </Box>}
             </TabContext>
         </>
     )

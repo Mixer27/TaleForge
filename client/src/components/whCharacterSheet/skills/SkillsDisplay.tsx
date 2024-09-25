@@ -80,8 +80,8 @@ const SkillsDisplay: React.FC<Props> = (props) => {
 
     return (
         <>
-            <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "auto" }}>
-                <Grid item xs={12} md={6} lg={6} style={{ minHeight: '300px' }}>
+            <Grid container spacing={1} direction={isMediumScreen ? "row" : "column"} wrap={'wrap'} style={{ height: !isMediumScreen ? "75vh" : "" }}>
+                <Grid item xs={12} md={6} lg={6} >
                     <SkillTable
                         header="Umiejętności podstawowe"
                         handleClick={handleSkillClick}

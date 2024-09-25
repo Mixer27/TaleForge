@@ -4,7 +4,6 @@ import About from './routes/about/About.tsx';
 import Test from './routes/test/Test.tsx';
 import { Sheet } from './routes/pcsheets/Sheet.tsx';
 import { WHPcSheet } from './routes/wh-pcsheet/WHPcSheet.tsx';
-// import { MainNavigationBar } from './components/overlay/MainNavigationBar.tsx';
 import { ThemeProvider, styled } from '@mui/material/styles';
 import { Box, CssBaseline, useMediaQuery, Theme, useTheme } from '@mui/material';
 import { DRAWER_WIDTH } from './constants.tsx';
@@ -42,11 +41,11 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 const router = createBrowserRouter([
     {
         path: "/auth",
-        element: <Auth /> // Strona logowania
+        element: <Auth />
     },
     {
         path: "/",
-        element: <ProtectedRoute />, // Ochrona tras
+        element: <ProtectedRoute />,
         children: [
             { path: "/", element: <Home /> },
             { path: "/home", element: <Home /> },

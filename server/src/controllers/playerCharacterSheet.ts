@@ -12,7 +12,7 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
     try {
 
         const { id } = req.params;
-        // console.log(mongoose.modelNames());
+        const user_id = req.session.user_id;
         const data = await PlayerCharacterSheet.findById(id)
             .populate({
                 path: "skills",
@@ -35,8 +35,11 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
                     model: "Spell",
                 }
             });
-        res.json(data);
-
+        if (data?.owner_id.toString() !== user_id) {
+            res.status(403).send({ message: "You don't have permission to do that" });
+            return
+        }
+        res.status(200).json(data);
     } catch (err) {
         res.status(500).send({ message: "Error fetching character sheet" + err });
     }

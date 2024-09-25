@@ -28,11 +28,6 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
         const foundUser = await User.findAndValidate(username, password);
         console.log('found user', foundUser);
         if (foundUser) {
-            // if (req.session.user_id || req.session.user_id === foundUser._id.toString()) {
-            //     console.log("user already logged");
-            //     res.status(409).send({ message: "User already logged in", isLoggedIn: true, username: foundUser?.username });
-            //     return
-            // }
             const userId = JSON.stringify({ user_id: foundUser._id });
             res.cookie('session', userId, {
                 httpOnly: true,
