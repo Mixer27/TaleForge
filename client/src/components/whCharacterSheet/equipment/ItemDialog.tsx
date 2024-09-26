@@ -1,6 +1,8 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import { Item } from '../../../types'
 import { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../constants';
+import { defaultItem } from '../../../utils/defaults';
 
 interface Props {
     headerName: string,
@@ -11,21 +13,13 @@ interface Props {
     handleRemove: (removedItemId: string) => void,
 }
 
-const emptyItem: Item = {
-    name: "-",
-    description: "-",
-    value: { gc: 0, sh: 0, pn: 0 },
-    weight: 0,
-    availability: "-",
-}
-
 const ItemDialog: React.FC<Props> = (props) => {
-    const [item, setItem] = useState<Item>(props.item ?? emptyItem);
+    const [item, setItem] = useState<Item>(props.item ?? defaultItem);
     const [items, setItems] = useState<Item[]>([]);
 
     // fetch armor items
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/items`)
+        fetch(`${SERVER_ADDRESS}/items`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -74,7 +68,7 @@ const ItemDialog: React.FC<Props> = (props) => {
     const onItemClear = () => {
         if (props.item) {
             console.log("clear item");
-            setItem({...emptyItem, _id: item._id});
+            setItem({...defaultItem, _id: item._id});
             // props.handleChange(props.armorLocation, emptyItem);
         }
     }

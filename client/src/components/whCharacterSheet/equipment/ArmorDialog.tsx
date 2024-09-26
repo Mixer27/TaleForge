@@ -1,6 +1,7 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import { Armor, ArmorItem, ArmorLocations } from '../../../types'
 import { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../constants';
 
 interface Props {
     headerName: string,
@@ -31,7 +32,7 @@ const ArmorDialog: React.FC<Props> = (props) => {
 
     // fetch armor items
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/items/armors`)
+        fetch(`${SERVER_ADDRESS}/items/armors`)
             .then((res: Response) => {
                 return res.json();
             })

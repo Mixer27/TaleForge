@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Autocomplete, TextField } from '@mui/material'
 import { Spell } from '../../../types'
 import { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../constants';
 
 interface Props {
     headerName: string,
@@ -27,7 +28,7 @@ const NewSpellDialog: React.FC<Props> = (props) => {
     const [addedTalent, setAddedTalent] = useState<Spell | undefined>(undefined);
     const [spells, setSpells] = useState<Spell[]>([]);
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/spells`)
+        fetch(`${SERVER_ADDRESS}/spells`)
             .then((res: Response) => {
                 return res.json();
             })

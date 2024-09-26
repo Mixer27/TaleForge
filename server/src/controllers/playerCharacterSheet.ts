@@ -46,12 +46,13 @@ const getPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
 }
 
 const getPlayerCharacters = async (req: Request, res: Response, next: NextFunction) => {
-    const user_id = req.session.user_id;
-    const data = await PlayerCharacterSheet.find({ owner_id: user_id });
-    // const data = await PlayerCharacterSheet.find();
-    // console.log(user_id, data);
-    // console.log(data)
-    res.json(data)
+    try {
+        const user_id = req.session.user_id;
+        const data = await PlayerCharacterSheet.find({ owner_id: user_id });
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).send({ message: "Error fetching character sheets" + err });
+    }
 }
 
 const addPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -102,16 +103,11 @@ const deletePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     const { id } = req.params;
     try {
         const character = await PlayerCharacterSheet.findById(id);
-        // if (!user_id) {
-        //     res.status(401).send({ message: "User not authenticated" });
-        //     return;
-        // }
         if (character?.owner_id.toString() !== user_id) {
             res.status(403).send({ message: "You dont have permission to update this character sheet" });
             return
         }
         await character?.deleteOne();
-        // await PlayerCharacterSheet.findByIdAndDelete(id);
         res.status(200).send({ message: "Character deleted successfully" });
     } catch (err) {
         res.status(500).send({ message: "Error deleting character sheet" + err });

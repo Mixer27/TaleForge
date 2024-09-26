@@ -1,11 +1,12 @@
 import { PlayerCharacterSheet } from "../../types";
 import { useEffect, useState } from "react";
 import { CharacterElement } from "./CharacterElement";
+import { SERVER_ADDRESS } from "../../constants";
 
 const CharacterList: React.FC = () => {
     const [characterList, setCharacterList] = useState<Array<PlayerCharacterSheet>>([]);
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/pcsheets`)
+        fetch(`${SERVER_ADDRESS}/pcsheets`)
             .then((res: Response) => {
                 return res.json();
             })

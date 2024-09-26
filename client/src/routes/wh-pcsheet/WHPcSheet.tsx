@@ -15,6 +15,7 @@ import { SpellsDisplay } from "../../components/whCharacterSheet/spells/SpellsDi
 import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/EquipmentDisplay";
 import { CharacterDetails } from "../../components/whCharacterSheet/details/CharacterDetails";
 import { useAuth } from "../../context/AuthContext";
+import { SERVER_ADDRESS } from "../../constants";
 // import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
@@ -28,7 +29,7 @@ const WHPcSheet: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
+                const response = await fetch(`${SERVER_ADDRESS}/pcsheets/${id}`, {
                     method: "GET",
                     credentials: 'include',
                     headers: {
@@ -62,7 +63,7 @@ const WHPcSheet: React.FC = () => {
 
     const updateCharacterSheet = useCallback(async (update: PlayerCharacterSheet) => {
         try {
-            const response = await fetch(`https://devproj3ct.pl:9000/pcsheets/${id}`, {
+            const response = await fetch(`${SERVER_ADDRESS}/pcsheets/${id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -153,7 +154,6 @@ const WHPcSheet: React.FC = () => {
                         <SkillsDisplay skills={sheet.skills} stats={sheet.stats} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Talents} sx={{ padding: "24px 6px 24px 6px" }}>
-                        {/* aaa */}
                         <TalentsDisplay talents={sheet.talents} handleChange={updateSimple} />
                     </TabPanel>
                     <TabPanel value={CharacterSheetTab.Spells} sx={{ padding: "24px 6px 24px 6px" }}>

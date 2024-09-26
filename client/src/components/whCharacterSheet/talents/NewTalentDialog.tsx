@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Autocomplete, TextField } from '@mui/material'
 import { Talent } from '../../../types'
 import { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../constants';
 
 interface Props {
     headerName: string,
@@ -27,7 +28,7 @@ const NewTalentDialog: React.FC<Props> = (props) => {
     const [addedTalent, setAddedTalent] = useState<Talent | undefined>(undefined);
     const [talents, setTalents] = useState<Talent[]>([]);
     useEffect(() => {
-        fetch(`https://uwu.sex.pl:9000/talents`)
+        fetch(`${SERVER_ADDRESS}/talents`)
             .then((res: Response) => {
                 return res.json();
             })

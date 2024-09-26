@@ -1,4 +1,4 @@
-import { PlayerStats, Gender, PlayerCharacterSheet, Wealth, Race, WeaponItem } from "../types";
+import { PlayerStats, Gender, PlayerCharacterSheet, Wealth, Race, WeaponItem, Item } from "../types";
 
 
 const defaultPlayerStats: PlayerStats = {
@@ -91,6 +91,14 @@ const defaultArmor = {
     },
 };
 
+const defaultItem: Item = {
+    name: "-",
+    description: "-",
+    value: { gc: 0, sh: 0, pn: 0 },
+    weight: 0,
+    availability: "-",
+}
+
 const defaultPlayerCharacterSheet: PlayerCharacterSheet = {
     _id: "",
     name: "",
@@ -138,4 +146,4 @@ const defaultWeapon: WeaponItem = {
 
 
 
-export { defaultPlayerCharacterSheet, defaultWeapon };
+export { defaultPlayerCharacterSheet, defaultWeapon, defaultItem };

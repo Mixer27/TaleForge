@@ -16,7 +16,7 @@ import MongoStore from 'connect-mongo';
 
 const app: Express = express();
 
-const { PORT, SSL_KEY, SSL_CERT, SESSION_SECRET } = process.env;
+const { PORT, SSL_KEY, SSL_CERT, SESSION_SECRET, HOSTNAME } = process.env;
 
 const mongoOptions = {
     connectTimeoutMS: 30000,
@@ -35,7 +35,7 @@ db.once("open", () => {
 
 app.use(express.json());
 app.use(cors({
-    origin: ['https://194.59.140.170:9001', "https://devproj3ct.pl:9001" ,'https://devproj3ct.pl:80', 'https://devproj3ct.pl'],
+    origin: ['https://194.59.140.170:9001', `${HOSTNAME}:9001` ,`${HOSTNAME}:80`, `${HOSTNAME}`, ''],
     credentials: true,
 }));
 app.use(express.urlencoded({ extended: true }));

@@ -7,6 +7,7 @@ import { ArmorItemTable } from "./ArmorItemTable";
 import { MoneyDisplay } from "./MoneyDisplay";
 // import { getNewId } from "../../../types/fetch";
 import { useCallback } from "react";
+import { SERVER_ADDRESS } from "../../../constants";
 
 interface Props {
     items: Item[],
@@ -27,7 +28,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
 
     const getNewId = useCallback(async (): Promise<string> => {
         try {
-            const res = await fetch(`https://uwu.sex.pl:9000/pcsheets/new_id`);
+            const res = await fetch(`${SERVER_ADDRESS}/pcsheets/new_id`);
             const data = await res.json();
             if (data) {
                 // setNewId(data);
@@ -45,7 +46,7 @@ const EquipmentDisplay: React.FC<Props> = (props) => {
 
 
     const handleItemChange = (updatedItem: Item) => {
-        console.log("EqDisplay", props.items, updatedItem);
+        // console.log("EqDisplay", props.items, updatedItem);
         const updatedItems = props.items.map((i: Item) => {
             if (i._id === updatedItem._id) {
                 return updatedItem;

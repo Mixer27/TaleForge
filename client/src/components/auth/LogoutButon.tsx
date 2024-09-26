@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { DrawerContext } from "../../context/drawerContext";
 import { IconButton } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { SERVER_ADDRESS } from "../../constants";
 
 const LogoutButton: React.FC = () => {
     const drawerContext = useContext(DrawerContext);
@@ -11,7 +12,7 @@ const LogoutButton: React.FC = () => {
     const handleLogout = async () => {
         drawerContext.toggleDrawer(false);
         try {
-            await fetch('https://devproj3ct.pl:9000/auth/logout', {
+            await fetch(`${SERVER_ADDRESS}/auth/logout`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

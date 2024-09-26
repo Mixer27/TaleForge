@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { SERVER_ADDRESS } from "../../constants";
 
 interface Props {
     handleSubmit: () => void,
@@ -42,7 +43,7 @@ const RegisterForm: React.FC<Props> = (props) => {
                     navigate('/home')
                     setUsername(localStorage.getItem('username'));
                 } else {
-                    const response = await fetch("https://devproj3ct.pl:9000/auth/register", {
+                    const response = await fetch(`${SERVER_ADDRESS}/auth/register`, {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

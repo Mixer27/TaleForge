@@ -6,6 +6,7 @@ import { SheetListElement } from "./SheetListElement";
 import { useNavigate } from "react-router-dom";
 import { MainNavigationBar } from "../../components/overlay/MainNavigationBar";
 import { useAuth } from "../../context/AuthContext";
+import { SERVER_ADDRESS } from "../../constants";
 
 
 const SheetsList: React.FC = () => {
@@ -19,7 +20,7 @@ const SheetsList: React.FC = () => {
     }
 
     const handleAddCharacterSheet = async () => {
-        await fetch(`https://devproj3ct.pl:9000/pcsheets`, {
+        await fetch(`${SERVER_ADDRESS}/pcsheets`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -44,7 +45,7 @@ const SheetsList: React.FC = () => {
     }
 
     const HandleRemoveCharacterSheet = async (characterId: string) => {
-        await fetch(`https://devproj3ct.pl:9000/pcsheets/${characterId}`, {
+        await fetch(`${SERVER_ADDRESS}/pcsheets/${characterId}`, {
             method: "DELETE",
             credentials: 'include',
             headers: {
@@ -71,7 +72,7 @@ const SheetsList: React.FC = () => {
 
     const fetchCharacterList = async () => {
         try {
-            await fetch(`https://devproj3ct.pl:9000/pcsheets`, {
+            await fetch(`${SERVER_ADDRESS}/pcsheets`, {
                 method: "GET",
                 credentials: 'include',
                 headers: {

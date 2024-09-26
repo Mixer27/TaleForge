@@ -2,6 +2,7 @@ import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle
 import { WeaponItem } from '../../../types'
 import { useEffect, useState } from 'react';
 import { defaultWeapon } from '../../../utils/defaults';
+import { SERVER_ADDRESS } from '../../../constants';
 
 interface Props {
     headerName: string,
@@ -12,28 +13,13 @@ interface Props {
     handleRemove: (removedWeaponId: string) => void,
 }
 
-// const emptyWeapon: WeaponItem = {
-//     item: {
-//         name: "-",
-//         description: "-",
-//         value: { gc: 0, sh: 0, pn: 0 },
-//         weight: 0,
-//         availability: "-",
-//     },
-//     category: '-',
-//     range: '-',
-//     reload: '-',
-//     strength: '-',
-//     weaponFeatures: '-'
-// }
-
 const WeaponDialog: React.FC<Props> = (props) => {
     const [weapon, setWeapon] = useState<WeaponItem>(props.weapon ?? defaultWeapon);
     const [weapons, setWeapons] = useState<WeaponItem[]>([]);
 
     // fetch armor items
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/items/weapons`)
+        fetch(`${SERVER_ADDRESS}/items/weapons`)
             .then((res: Response) => {
                 return res.json();
             })
@@ -73,14 +59,13 @@ const WeaponDialog: React.FC<Props> = (props) => {
     }
 
     const onSave = () => {
-        // if (props.stat) {
         console.log("update weapon", weapon);
         props.handleChange(weapon);
         onClose()
     }
 
     const onAutocompleteChange = (_event: any, newValue: WeaponItem | null) => {
-        console.log(props.weapon, newValue)
+        // console.log(props.weapon, newValue)
         if (newValue) {
             console.log("import weapon", newValue);
             setWeapon({ ...newValue, _id: weapon._id });
@@ -102,7 +87,6 @@ const WeaponDialog: React.FC<Props> = (props) => {
     }
 
     return (
-        // <form onSubmit={props.handleSubmit}>
         <Dialog open={props.isOpen} onClose={onClose} scroll='body'>
             <DialogTitle>Edytuj {props.headerName}</DialogTitle>
             <DialogContent>
@@ -213,7 +197,6 @@ const WeaponDialog: React.FC<Props> = (props) => {
                 <Button onClick={onSave} type='submit'>Zapisz</Button>
             </DialogActions>
         </Dialog>
-        // </form>
     )
 }
 

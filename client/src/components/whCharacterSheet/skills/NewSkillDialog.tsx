@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Autocomplete, TextField } from '@mui/material'
 import { Skill } from '../../../types'
 import { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../constants';
 
 interface Props {
     headerName: string,
@@ -27,7 +28,7 @@ const NewSkillDialog: React.FC<Props> = (props) => {
     const [addedSkill, setAddedSkill] = useState<Skill | undefined>(undefined);
     const [skills, setSkills] = useState<Skill[]>([]);
     useEffect(() => {
-        fetch(`https://devproj3ct.pl:9000/skills`)
+        fetch(`${SERVER_ADDRESS}/skills`)
             .then((res: Response) => {
                 return res.json();
             })
