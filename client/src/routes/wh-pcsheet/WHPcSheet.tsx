@@ -16,7 +16,6 @@ import { EquipmentDisplay } from "../../components/whCharacterSheet/equipment/Eq
 import { CharacterDetails } from "../../components/whCharacterSheet/details/CharacterDetails";
 import { useAuth } from "../../context/AuthContext";
 import { SERVER_ADDRESS } from "../../constants";
-// import { Padding } from "@mui/icons-material";
 
 const WHPcSheet: React.FC = () => {
     const [sheet, setSheet] = useState<PlayerCharacterSheet>(defaultPlayerCharacterSheet);
@@ -71,7 +70,6 @@ const WHPcSheet: React.FC = () => {
                 },
                 body: JSON.stringify(update),
             });
-
             if (!response.ok) {
                 if (response.status === 401) {
                     console.log(response.status);
@@ -88,16 +86,12 @@ const WHPcSheet: React.FC = () => {
             else {
                 setSheet(update);
             }
-
             const updatedSheet = await response.json();
-            // setSheet(updatedSheet);
             console.log("Character sheet updated succesfully.", updatedSheet);
-            // navigate(`/pcsheets/${id}`);
 
         } catch (error) {
             console.error("Error with patch request", error, sheet);
             console.log(sheet)
-            // setSheet(sheet);
         }
     }, [id, navigate]);
 
@@ -134,7 +128,6 @@ const WHPcSheet: React.FC = () => {
         localStorage.setItem('currentTab', newValue); // Zapisanie wybranej karty
     }
 
-    // ustawianie otwartej karty przy ładowaniu strony
     useEffect(() => {
         const savedTab = localStorage.getItem('currentTab');
         if (savedTab) {

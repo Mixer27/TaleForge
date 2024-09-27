@@ -55,15 +55,10 @@ const getPlayerCharacters = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
-const addPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const addPlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!req.session.user_id) {
-            res.status(403).send("You don't have permission to do that");
-            return
-        }
         const user_id = req.session.user_id;
         const character = new PlayerCharacterSheet({ ...defaultPlayerCharacterSheet, owner_id: user_id, name: "Nowa postać" });
-        // const character = new PlayerCharacterSheet({...defaultPlayerCharacterSheet, name: "aaa"});
         await character.save();
         res.status(200).send(character);
     } catch (err) {
@@ -71,7 +66,7 @@ const addPlayerCharacterSheet = async (req: Request, res: Response, next: NextFu
     }
 }
 
-const updatePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const updatePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
     const user_id = req.session.user_id;
     const { id } = req.params;
     const updates = req.body;
@@ -88,7 +83,6 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
             return
         }
         character = await PlayerCharacterSheet.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-        // console.log(updates, character);
         res.status(200).send(character);
         return
     } catch (err) {
@@ -98,7 +92,7 @@ const updatePlayerCharacterSheet = async (req: Request, res: Response, next: Nex
     }
 }
 
-const deletePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const deletePlayerCharacterSheet = async (req: Request, res: Response, next: NextFunction) => {
     const user_id = req.session.user_id;
     const { id } = req.params;
     try {

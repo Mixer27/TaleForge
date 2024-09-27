@@ -28,7 +28,7 @@ const SheetsList: React.FC = () => {
             },
         })
             .then((res: Response) => {
-                if (res.status === 401 || res.status === 404) {
+                if (res.status === 401 || res.status === 403) {
                     console.log(res.status);
                     setUsername(null);
                     navigate('/auth');
@@ -63,7 +63,6 @@ const SheetsList: React.FC = () => {
             .then((data) => {
                 console.log(data);
                 fetchCharacterList();
-                // setCharacterList(data);
             })
             .catch((error) => {
                 console.error("Error with post request!", error);

@@ -358,7 +358,7 @@ const armorItems = [
 const examples = [{
     'owner_id': new mongoose.Types.ObjectId("66e9ba372fd89788d886d392"),
     'session_id': new mongoose.Types.ObjectId(),
-    'name': 'Jan Kowalski',
+    'name': 'Johan Schmidt',
     'race': Race.ELF,
     'currentCareer': 'Poszukiwacz przygód',
     'PreviousCareers': ['Nowicjusz', 'Uczeń'],
@@ -417,7 +417,7 @@ const examples = [{
     gender: Gender.MALE,
     eyeColor: "Niebieskie",
     hairColor: "Czarne",
-    starSign: "Lew",
+    starSign: "Wół Gnuthus",
     weight: 82,
     height: 183,
     numOfSiblings: 2,
@@ -619,51 +619,166 @@ const talents = [
     {
         name: "Bardzo szybki",
         description: "Bohater porusza się znacznie szybciej niż przeciętny człowiek, co pozwala mu szybciej reagować i unikać ataków.",
+    },
+    {
+        "name": "Człowiek-guma",
+        "description": "Bohater potrafi wyginać swoje ciało w sposób nieosiągalny dla zwykłych osób. Otrzymuje modyfikator +10 do testów kuglarstwa (akrobatyka) oraz modyfikator +20 do Zręczności podczas testów wyzwalania się z więzów, przeciskania przez szczeliny, itp."
+    },
+    {
+        "name": "Czuły słuch",
+        "description": "Bohater obdarzony jest wyjątkowo czułym słuchem. Otrzymuje modyfikator +20 do testów spostrzegawczości podczas nasłuchiwania."
+    },
+    {
+        "name": "Dotyk mocy",
+        "description": "Niektóre czary używane w walce wymagają dotknięcia przeciwnika. Bohater, który posiada zdolność dotyk mocy, otrzymuje modyfikator +20 do Walki Wręcz przy testach związanych z rzucaniem czarów dotykowych."
+    },
+    {
+        "name": "Etykieta",
+        "description": "Bohater potrafi odpowiednio zachowywać się we wszelkich sytuacjach towarzyskich. Otrzymuje modyfikator +10 do testów plotkowania i przekonywania podczas rozmów z przedstawicielami szlachty i arystokracji. Modyfikator stosuje się również w sytuacjach, gdy wymagana jest znajomość etykiety (na przykład podszywanie się pod szlachcica z wykorzystaniem charakteryzacji)."
+    },
+    {
+        "name": "Geniusz arytmetyczny",
+        "description": "Bohater potrafi błyskawicznie rachować w umyśle oraz, mając do dyspozycji dostatecznie dużo czasu, może rozwiązać niemal dowolny problem matematyczny. Otrzymuje modyfikator +10 do testów hazardu i nawigacji oraz modyfikator +20 do testów spostrzegawczości związanych z oceną odległości, ciężaru, itd."
+    },
+    {
+        "name": "Grotołaz",
+        "description": "Bohater wychował się w jaskiniach bądź często po nich wędrował. Bez trudu potrafi poruszać się w podziemiach. Otrzymuje modyfikator +10 do testów skradania się i ukrywania się wykonywanych pod powierzchnią ziemi lub w jaskiniach."
+    },
+    {
+        "name": "Groźny",
+        "description": "Wygląd, wzrost lub zachowanie Bohatera wzbudzają respekt i instynktowny niepokój wśród obserwatorów. Otrzymuje modyfikator +10 do testów zastraszania i torturowania."
+    },
+    {
+        "name": "Gusła",
+        "description": "Bohater odkrył w sobie dziki talent magiczny, który udoskonala metodą prób i błędów, nie mając dostępu do magicznych studiów."
+    },
+    {
+        "name": "Krasnoludzki fach",
+        "description": "Krasnoludy są urodzonymi rzemieślnikami. Bohater otrzymuje modyfikator +10 do testów rzemiosła: górnictwo, kamieniarstwo, kowalstwo, jubilerstwo, piwowarstwo, platnerstwo i rusznikarstwo."
+    },
+    {
+        "name": "Krasomówstwo",
+        "description": "Bohater potrafi przemawiać tak pięknie i przekonywująco, że może poderwać do działania całe tłumy. Wykorzystując przekonywanie BG może oddziaływać na grupę osób 100 razy liczniejszą niż normalnie. Zdolność krasomówstwo wymaga uprzedniego opanowania zdolności przemawianie."
+    },
+    {
+        "name": "Krzepki",
+        "description": "Bohater, który posiada tę zdolność, w czasie wielu przygód nabrał niesamowitej krzepy. Może nosić ciężki pancerz lub zbroję płytową bez zmniejszenia Szybkości. Szczegółowy opis pancerzy znajdziesz w Rozdziale V: Ekwipunek."
+    },
+    {
+        "name": "Latanie",
+        "description": "Postać potrafi latać. Zasady dotyczące latania znajdziesz w Rozdziale VI: Walka, obrażenia i ruch."
+    },
+    {
+        "name": "Lewitacja",
+        "description": "Postać potrafi unosić się nisko nad ziemią. Zasady dotyczące lewitacji znajdziesz w Rozdziale VI: Walka, obrażenia i ruch."
+    },
+    {
+        "name": "Łotrzyk",
+        "description": "Bohater jest blisko związany ze światem przestępczym. Otrzymuje modyfikator +10 do testów plotkowania i przekonywania w kontaktach z przedstawicielami przestępczego półświatka."
+    },
+    {
+        "name": "Magia czarnoksięska",
+        "description": "Twój Bohater poznał tajniki jednej z zakazanych tradycji magicznych. Podobnie jak w przypadku magii tajemnej, zgłębianie sekretów magii czarnoksięskiej wymagania poświęcenia i wyboru jednej z dostępnych mrocznych tradycji. Każda magia czarnoksięska jest oddzielną zdolnością. Na przykład magia czarnoksięska (Chaos) różni się od magii czarnoksięskiej (nekromancja)."
+    },
+    {
+        "name": "Magia kapłańska",
+        "description": "Bohater jest tak żarliwym wyznawcą jakiegoś bóstwa, że dzięki jego modlitwom zdarzają się rzeczy nadprzyrodzone. Bohater musi wybrać jednego boga, a w konsekwencji także jedną z magii kapłańskich. Każda magia kapłańska jest oddzielną zdolnością magiczną, pozwalającą na rzucanie czarów z dziedziny określonego bóstwa."
+    },
+    {
+        "name": "Intrygant",
+        "description": "Bohater jest mistrzem rozgrywek politycznych i intryg. Otrzymuje modyfikator +10 do testów przekonywania związanych z intrygami oraz do Siły Woli podczas testów przeciwko przekonywaniu ze strony innych osób."
     }
 ];
 
 
 const spells = [
     {
-        name: "Gra pozorów",
-        domain: "Ścieżka Główna",
-        castingNumber: 5,
-        castingTime: "Natychmiast",
-        ingredient: "Lustro",
-        description: "Pozwala na stworzenie iluzji, która oszukuje przeciwników.",
+        "name": "Wróżba",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 4,
+        "castingTime": "1 minuta",
+        "ingredient": "wątroba małego zwierzęcia (+1)",
+        "duration": "2k10 godzin",
+        "description": "Czarodziej wróży z gwiazd, przepowiadając najbliższą przyszłość. Po rzuceniu czaru może spróbować określić, czy dana chwila sprzyja wykonaniu określonego działania. Powinieneś w tajemnicy wykonać test Inteligencji Bohatera Gracza. Udany test oznacza, że przepowiednia okazuje się trafna. Nieudany test oznacza, że wróżba okazuje się błędna, choć BG nie zdaje sobie z tego sprawy. Dopóki czar trwa, przepowiednia jest w pełni prawdziwa, potem niekoniecznie musi się sprawdzić. Przed udzieleniem odpowiedzi na pytanie postawione przez czarodzieja rzucającego ten czar, powinieneś uważnie ocenić szanse spełnienia się przepowiedni."
     },
     {
-        name: "Sobowtór",
-        domain: "Ścieżka Główna",
-        castingNumber: 8,
-        castingTime: "2 rundy",
-        ingredient: "Fragment włosów",
-        description: "Tworzy identyczną kopię czarodzieja, która może wprowadzać w błąd.",
+        "name": "Pierwsze proroctwo Amul",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 6,
+        "castingTime": "akcja",
+        "ingredient": "odłamek szkła (+1)",
+        "duration": "1 runda",
+        "description": "Czarodziej przepowiada najbliższą przyszłość, wróżąc z sobie tylko widocznych znaków na niebie. W swojej następnej turze odgrywający go gracz może przerzucić wynik jednej kostki, użytej podczas dowolnego rzutu (testu umiejętności lub cechy, rzutu na obrażenia, ustalenia poziomu mocy, itp.)."
     },
     {
-        name: "Luka w pamięci",
-        domain: "Ścieżka Główna",
-        castingNumber: 10,
-        castingTime: "3 rundy",
-        ingredient: "Fragment pergaminu",
-        description: "Wymazuje wybrane wspomnienie z pamięci ofiary.",
+        "name": "Błyskawica",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 10,
+        "castingTime": "akcja",
+        "ingredient": "kamerton (+1)",
+        "description": "Czarodziej ciska błyskawicą w dowolnego przeciwnika znajdującego się w odległości do 36 metrów. Jest to magiczny pocisk o Sile 5."
     },
     {
-        name: "Rumak z cieni",
-        domain: "Ścieżka Główna",
-        castingNumber: 12,
-        castingTime: "1 minuta",
-        ingredient: "Czarny jedwab",
-        description: "Tworzy rumaka z cienia, który jest szybszy od przeciętnego konia.",
+        "name": "Drugie proroctwo Amul",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 12,
+        "castingTime": "akcja podwójna",
+        "ingredient": "odłamek barwionego szkła (+2)",
+        "duration": "1 godzina lub do momentu wykorzystania obu przerzutów",
+        "description": "Zaklęcie działa podobnie jak Pierwsze proroctwo Amul, z tą różnicą, że gracz może powtórzyć rzuty dowolnych dwóch kostek."
     },
     {
-        name: "Maska iluzji",
-        domain: "Ścieżka Główna",
-        castingNumber: 6,
-        castingTime: "1 runda",
-        ingredient: "Maska teatralna",
-        description: "Czarodziej przyjmuje inny wygląd, by oszukać obserwatorów.",
-    }
+        "name": "Podmuch wiatru",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 14,
+        "castingTime": "akcja",
+        "ingredient": "zwierzęcy pęcherz (+2)",
+        "duration": "liczba rund równa wartości Magii czarodzieja",
+        "description": "Czarodziej przyzywa gwałtowny wicher na wskazanym obszarze w odległości do 48 metrów. Wszystkie postacie znajdujące się w promieniu 5 metrów wokół wskazanego miejsca przewracają się i muszą wykonać test Odporności. Nieudany test oznacza, że zostają ogłuszone na 1 rundę. W trakcie trwania czaru postacie objęte jego działaniem nie mogą używać broni strzeleckich ani być celem ataków strzeleckich. Poruszanie się w obszarze działania czaru wymaga udanego testu Krzepy, a wszystkie ataki wręcz wykonuje się z modyfikatorem -20."
+    },
+    {
+        "name": "Klątwa",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 16,
+        "castingTime": "akcja",
+        "ingredient": "pęknięte zwierciadło (+2)",
+        "duration": "24 godziny",
+        "description": "Czarodziej rzuca klątwę na dowolną postać znajdującą się w odległości do 24 metrów. Podczas trwania czaru ofiara otrzymuje modyfikator -10 do wszystkich testów. Wszystkie wymierzone w nią ataki zadają dodatkowy 1 punkt obrażeń. Postać może być pod wpływem tylko jednej klątwy w danej chwili."
+    },
+    {
+        "name": "Niebiańskie skrzydła",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 18,
+        "castingTime": "akcja podwójna",
+        "ingredient": "gołębie pióro (+2)",
+        "duration": "liczba minut równa wartości Magii czarodzieja",
+        "description": "Czarodziej przywołuje moc niebios, która unosi go w powietrze. W trakcie trwania czaru może latać z Szybkością 6. Szczegółowe zasady dotyczące latania znajdziesz w Rozdziale VI: Walka, obrażenia i ruch. Czarodziej może rzucić to zaklęcie tylko na siebie."
+    },
+    {
+        "name": "Gwiezdny blask",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 22,
+        "castingTime": "3 akcje",
+        "ingredient": "mapa gwiezdna (+3)",
+        "duration": "liczba minut równa wartości Magii czarodzieja",
+        "description": "Czarodziej czerpie moc z energii niebios, przywołując światło gwiazd. Wskazany obszar w promieniu 48 metrów zostaje oświetlony łagodnym blaskiem, który rozprasza ciemność (zarówno zwykłą, jak i magiczną), ujawnia niewidzialne lub ukryte postacie oraz odkrywa tajemne przejścia i skrytki."
+    },
+    {
+        "name": "Nawałnica",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 25,
+        "castingTime": "akcja podwójna",
+        "ingredient": "chorągiewka służąca do ustalania kierunku i siły wiatru (+3)",
+        "description": "Czarodziej sięga swoją wolą ku niebiosom, przywołując magiczną burzę z piorunami na dowolnym obszarze w odległości do 48 metrów. Nawałnica, zrodzona z magicznych mocy Eteru, może pojawić się w dowolnym miejscu, także w zamkniętym pomieszczeniu lub pod ziemią. Wszystkie postacie w promieniu 5 metrów wokół wskazanego miejsca otrzymują trafienie z Siłą 5."
+    },
+    {
+        "name": "Mroczne przeznaczenie",
+        "domain": "Tradycja Niebios",
+        "castingNumber": 31,
+        "castingTime": "1 godzina",
+        "ingredient": "pętla wisielca (+3)",
+        "description": "Czarodziej czerpie surową moc Chaosu i splata ją wokół pukla włosów lub kilku kropel krwi dowolnej istoty, która znajduje się w odległości nie przekraczającej..."
+    },
 ];
 
 const users = [
